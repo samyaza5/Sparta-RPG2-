@@ -6,54 +6,36 @@ internal partial class Program
         public void DungeonReword(List<Monster> deadMonsters, Character player)
         {
             int beforeExp = player.Exp;
-            int beforeLevel = player.Level; 
+            int beforeLevel = player.Level;
             int AddExp = 0;
+            List<int> levelUpExp = new List<int>()
+            {
+                10,
+                45,
+                100,
+                200
+            };
+
+
             for (int i = 0; i < deadMonsters.Count; i++)
             {
                 Monster monster = deadMonsters[i];
                 AddExp += monster.Level * 1;
-
-
             }
+
+
+            int needExp = levelUpExp[player.Level - 1];
             player.Exp += AddExp;
 
-            switch (player.Level)
+            if (player.Exp > needExp)
             {
-                case 4:
-                    if (player.Exp >= 200)
-                    {
-                        player.Level = 5;
-                        player.Attack += (int)0.5f;
-                        player.Defense++;
-                    }
-                    break;
-                case 3:
-                    if (player.Exp >= 100)
-                    {
-                        player.Level = 4;
-                        player.Attack += (int)0.5f;
-                        player.Defense++;
-                    }
-                    break;
-                case 2:
-                    if (player.Exp >= 45)
-                    {
-                        player.Level = 3;
-                        player.Attack += (int)0.5f;
-                        player.Defense++;
-                    }
-                    break;
-                case 1:
-                    if (player.Exp >= 10)
-                    {
-                        player.Level = 2;
-                        player.Attack += (int)0.5f;
-                        player.Defense++;
-                    }
-                    break;
+                player.Level++;
+                player.Attack++;
+                player.Defense++;
             }
-            Console.WriteLine($"{beforeLevel} -> {player.Level}");
-            Console.WriteLine($"{beforeExp} -> {player.Exp}");
+            
+            Console.WriteLine($"Lv.{beforeLevel} -> Lv.{player.Level} {player.Name}");
+            Console.WriteLine($"exp {beforeExp} -> {player.Exp}");
         }
     }
 }
