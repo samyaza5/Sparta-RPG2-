@@ -33,11 +33,11 @@ namespace Sparta_RPG2_
 
             if (IsSold)
             {
-                return $"-{ItemName} | 방어력 : {ItemStat} | {ItemInfo} | {ItemValue * 17 / 20}G";
+                return $"-{ItemName} | 회복력 : {ItemStat} | {ItemInfo} | {ItemValue * 17 / 20}G";
             }
             else
             {
-                return $"-{ItemName} | 공격력 : {ItemStat} | {ItemInfo} | {ItemValue * 17 / 20}G";
+                return $"-{ItemName} | 회복력 : {ItemStat} | {ItemInfo} | {ItemValue * 17 / 20}G";
             }
         }
 
