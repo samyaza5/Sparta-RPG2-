@@ -1,5 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 using RPG_SJ;
+using Sparta_RPG2_;
 
 namespace RPG_SJ
 {
@@ -8,10 +9,12 @@ namespace RPG_SJ
         public class Inventory//인벤토리
         {
             public List<Item> AllItems;
+            public List<Expendables> expendables;
 
             public Inventory()
             {
                 this.AllItems = new List<Item>();
+                expendables = new List<Expendables>();
             }
 
             public void InventoryScene()
@@ -31,6 +34,10 @@ namespace RPG_SJ
                     for (int i = 0; i < AllItems.Count; i++)
                     {
                         Console.WriteLine(AllItems[i].itemPro.ToInventoryString());
+                    }
+                    for (int i = 0; i < expendables.Count; i++)
+                    {
+                        Console.WriteLine(expendables[i].expendablesPro.ToInventorytring());
                     }
                 }
                 Console.WriteLine();

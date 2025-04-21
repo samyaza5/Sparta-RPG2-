@@ -15,6 +15,7 @@ namespace RPG_SJ
         {
             this.character = character;
             AllItems = new List<Item>();
+            expendables = new List<Expendables>();
             
 
             AllItems.Add(new Item(Item.BeginnerArmor()));
