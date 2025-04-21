@@ -1,0 +1,15 @@
+C:\Users\psj45\Desktop\GitHub\Sparta-RPG2-\Sparta-RPG2-_SJ\RPG_SJ\RPG_SJ\bin\Debug\net8.0\RPG_SJ.exe
+C:\Users\psj45\Desktop\GitHub\Sparta-RPG2-\Sparta-RPG2-_SJ\RPG_SJ\RPG_SJ\bin\Debug\net8.0\RPG_SJ.deps.json
+C:\Users\psj45\Desktop\GitHub\Sparta-RPG2-\Sparta-RPG2-_SJ\RPG_SJ\RPG_SJ\bin\Debug\net8.0\RPG_SJ.runtimeconfig.json
+C:\Users\psj45\Desktop\GitHub\Sparta-RPG2-\Sparta-RPG2-_SJ\RPG_SJ\RPG_SJ\bin\Debug\net8.0\RPG_SJ.dll
+C:\Users\psj45\Desktop\GitHub\Sparta-RPG2-\Sparta-RPG2-_SJ\RPG_SJ\RPG_SJ\bin\Debug\net8.0\RPG_SJ.pdb
+C:\Users\psj45\Desktop\GitHub\Sparta-RPG2-\Sparta-RPG2-_SJ\RPG_SJ\RPG_SJ\obj\Debug\net8.0\RPG_SJ.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\psj45\Desktop\GitHub\Sparta-RPG2-\Sparta-RPG2-_SJ\RPG_SJ\RPG_SJ\obj\Debug\net8.0\RPG_SJ.AssemblyInfoInputs.cache
+C:\Users\psj45\Desktop\GitHub\Sparta-RPG2-\Sparta-RPG2-_SJ\RPG_SJ\RPG_SJ\obj\Debug\net8.0\RPG_SJ.AssemblyInfo.cs
+C:\Users\psj45\Desktop\GitHub\Sparta-RPG2-\Sparta-RPG2-_SJ\RPG_SJ\RPG_SJ\obj\Debug\net8.0\RPG_SJ.csproj.CoreCompileInputs.cache
+C:\Users\psj45\Desktop\GitHub\Sparta-RPG2-\Sparta-RPG2-_SJ\RPG_SJ\RPG_SJ\obj\Debug\net8.0\RPG_SJ.sourcelink.json
+C:\Users\psj45\Desktop\GitHub\Sparta-RPG2-\Sparta-RPG2-_SJ\RPG_SJ\RPG_SJ\obj\Debug\net8.0\RPG_SJ.dll
+C:\Users\psj45\Desktop\GitHub\Sparta-RPG2-\Sparta-RPG2-_SJ\RPG_SJ\RPG_SJ\obj\Debug\net8.0\refint\RPG_SJ.dll
+C:\Users\psj45\Desktop\GitHub\Sparta-RPG2-\Sparta-RPG2-_SJ\RPG_SJ\RPG_SJ\obj\Debug\net8.0\RPG_SJ.pdb
+C:\Users\psj45\Desktop\GitHub\Sparta-RPG2-\Sparta-RPG2-_SJ\RPG_SJ\RPG_SJ\obj\Debug\net8.0\RPG_SJ.genruntimeconfig.cache
+C:\Users\psj45\Desktop\GitHub\Sparta-RPG2-\Sparta-RPG2-_SJ\RPG_SJ\RPG_SJ\obj\Debug\net8.0\ref\RPG_SJ.dll
