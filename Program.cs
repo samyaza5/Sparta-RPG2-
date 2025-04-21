@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 
 namespace RPG_SJ
@@ -19,7 +20,7 @@ namespace RPG_SJ
             public int Level { get; set; } = 1;
             public string Name { get; set; } = "함장";
             public string Job { get; set; } = "전사";
-            public int Attack { get; set; } = 10;
+            public int Attack { get; set; } = 50;
             public int Defense { get; set; } = 5;
             public int HP { get; set; } = 100;
             public int MaxHP { get; set; }
@@ -119,8 +120,6 @@ namespace RPG_SJ
                     Console.WriteLine($"\nLv.{target.Level} {target.Name}");
                     Console.WriteLine($"HP {Math.Max(0, target.HP)} -> Dead");
                     Console.ResetColor();
-
-                    monsters.Remove(target);
                 }
                 else
                 {
@@ -196,6 +195,7 @@ namespace RPG_SJ
                     Console.WriteLine("Victory\n");
                     Console.ResetColor();
 
+                    int defeatedCount = monsters.Count(m => m.IsDead);
                     Console.WriteLine($"던전에서 몬스터 {monsters.Count}마리를 잡았습니다.\n");
 
                     Console.WriteLine($"Lv.{player.Level} {player.Name}");
@@ -260,7 +260,7 @@ namespace RPG_SJ
                     ShowStartMenu(player); // 잘못 입력 시 재귀 호출
                     break;
             }
-        }        
+        }
     }
 }
 
