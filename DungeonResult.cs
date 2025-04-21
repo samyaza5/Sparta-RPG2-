@@ -3,7 +3,7 @@ internal partial class Program
 {
     public class DungeonResult
     {
-        public void DungeonReword(List<Monster> deadMonsters, Character player)
+        public void LevelUp(List<Monster> deadMonsters, Character player)
         {
             int beforeExp = player.Exp;
             int beforeLevel = player.Level;
@@ -33,9 +33,15 @@ internal partial class Program
                 player.Attack++;
                 player.Defense++;
             }
-            
+
             Console.WriteLine($"Lv.{beforeLevel} -> Lv.{player.Level} {player.Name}");
             Console.WriteLine($"exp {beforeExp} -> {player.Exp}");
+        }
+
+
+        public void DungeonReward(List<Monster> monsters)
+        {
+
         }
     }
 }
