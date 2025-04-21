@@ -225,6 +225,38 @@ namespace RPG_SJ
             }
         }
 
+        public class Quest
+        {
+            public string? Title { get; set; }
+            public string? Description { get; set; }
+            public bool IsAccepted { get; set; }
+            public bool IsCompleted { get; set; }
+            public int CurrentProgress { get; set; }
+            public int Goal { get; set; }
+
+            public class QuestManager
+            {
+                public List<Quest> AllQuests = new List<Quest>();
+
+                public List<Quest> GetAvailableQuests()
+                {
+                    return AllQuests.Where(q => !q.IsAccepted).ToList();
+                }
+
+                public void ShowQuestList()
+                {
+                    var available = GetAvailableQuests();
+                    Console.WriteLine("📜 [퀘스트 목록]");
+                    for (int i = 0; i < available.Count; i++)
+                    {
+                        Console.WriteLine($"{i + 1}. {available[i].Title}");
+                    }
+                    Console.WriteLine("0. 나가기");
+                    Console.Write("원하시는 퀘스트를 선택해주세요.\n>> ");
+                }
+            }
+        }
+
         // 🎮 게임 시작 메뉴
         static void ShowStartMenu(Character player)
         {
