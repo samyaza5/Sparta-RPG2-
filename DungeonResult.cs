@@ -3,11 +3,11 @@ internal partial class Program
 {
     public class DungeonResult
     {
-        public void LevelUp(List<Monster> deadMonsters, Character player)
+        public void LevelUp(List<Monster> deadMonsterList, Character player)
         {
             int beforeExp = player.Exp;
             int beforeLevel = player.Level;
-            int AddExp = 0;
+            int addExp = 0;
             List<int> levelUpExp = new List<int>()
             {
                 10,
@@ -16,16 +16,13 @@ internal partial class Program
                 200
             };
 
-
-            for (int i = 0; i < deadMonsters.Count; i++)
+            for (int i = 0; i < deadMonsterList.Count; i++)
             {
-                Monster monster = deadMonsters[i];
-                AddExp += monster.Level * 1;
+                addExp += deadMonsterList[i].Level * 1;
             }
 
-
             int needExp = levelUpExp[player.Level - 1];
-            player.Exp += AddExp;
+            player.Exp += addExp;
 
             if (player.Exp > needExp)
             {
@@ -38,10 +35,20 @@ internal partial class Program
             Console.WriteLine($"exp {beforeExp} -> {player.Exp}");
         }
 
-
-        public void DungeonReward(List<Monster> monsters)
+        public void DungeonReward(List<Monster> deadMonsterList, Character player)
         {
+            int addGold = 0;
 
+            for (int i = 0; i < deadMonsterList.Count; i++)
+            {
+                int levelGold = (deadMonsterList[i].Level * 50) + 100;
+                int atkGold = deadMonsterList[i].Attack * 10;
+                addGold = (levelGold + atkGold);
+            }
+            player.Gold += addGold;
+
+            Console.WriteLine("[획득아이템]");
+            Console.WriteLine($"{addGold} Gold");
         }
     }
 }
