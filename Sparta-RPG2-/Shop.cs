@@ -2,7 +2,7 @@
 using Sparta_RPG2_;
 using static RPG_SJ.Program;
 
-namespace TextRPG
+namespace RPG_SJ
 {
     class Shop//상점
     {
