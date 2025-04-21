@@ -1,0 +1,14 @@
+C:\WorkPlace\RPGTeam\RPGTeam\bin\Debug\net8.0\RPGTeam.exe
+C:\WorkPlace\RPGTeam\RPGTeam\bin\Debug\net8.0\RPGTeam.deps.json
+C:\WorkPlace\RPGTeam\RPGTeam\bin\Debug\net8.0\RPGTeam.runtimeconfig.json
+C:\WorkPlace\RPGTeam\RPGTeam\bin\Debug\net8.0\RPGTeam.dll
+C:\WorkPlace\RPGTeam\RPGTeam\bin\Debug\net8.0\RPGTeam.pdb
+C:\WorkPlace\RPGTeam\RPGTeam\obj\Debug\net8.0\RPGTeam.GeneratedMSBuildEditorConfig.editorconfig
+C:\WorkPlace\RPGTeam\RPGTeam\obj\Debug\net8.0\RPGTeam.AssemblyInfoInputs.cache
+C:\WorkPlace\RPGTeam\RPGTeam\obj\Debug\net8.0\RPGTeam.AssemblyInfo.cs
+C:\WorkPlace\RPGTeam\RPGTeam\obj\Debug\net8.0\RPGTeam.csproj.CoreCompileInputs.cache
+C:\WorkPlace\RPGTeam\RPGTeam\obj\Debug\net8.0\RPGTeam.dll
+C:\WorkPlace\RPGTeam\RPGTeam\obj\Debug\net8.0\refint\RPGTeam.dll
+C:\WorkPlace\RPGTeam\RPGTeam\obj\Debug\net8.0\RPGTeam.pdb
+C:\WorkPlace\RPGTeam\RPGTeam\obj\Debug\net8.0\RPGTeam.genruntimeconfig.cache
+C:\WorkPlace\RPGTeam\RPGTeam\obj\Debug\net8.0\ref\RPGTeam.dll
