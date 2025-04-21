@@ -254,6 +254,20 @@ namespace RPG_SJ
                     Console.WriteLine("0. 나가기");
                     Console.Write("원하시는 퀘스트를 선택해주세요.\n>> ");
                 }
+
+                public void AcceptQuest(int index)
+                {
+                    var available = GetAvailableQuests();
+                    if (index >= 0 && index < available.Count)  // ⬅ 괄호 X
+                    {
+                        available[index].IsAccepted = true;
+                        Console.WriteLine($"\n'{available[index].Title}' 퀘스트를 수락했습니다!");
+                    }
+                    else
+                    {
+                        Console.WriteLine("❌ 유효하지 않은 번호입니다.");
+                    }
+                }
             }
         }
 
@@ -268,6 +282,7 @@ namespace RPG_SJ
 
             Console.WriteLine("1. 상태 보기");
             Console.WriteLine("2. 전투 시작\n");
+            Console.WriteLine("3. 일일퀘스트");
 
             Console.Write("원하시는 행동을 입력해주세요.\n>> ");
             string? input = Console.ReadLine();
@@ -285,6 +300,10 @@ namespace RPG_SJ
                     Console.WriteLine("\n[전투를 시작합니다...]\n");
                     battle.StartBattle(player); // ✅ 전투 시스템 실행
                     ShowStartMenu(player);      // ✅ 전투 끝나면 다시 메뉴
+                    break;
+
+                case "3":
+                    Console.WriteLine("3. 일일퀘스트");
                     break;
 
                 default:
