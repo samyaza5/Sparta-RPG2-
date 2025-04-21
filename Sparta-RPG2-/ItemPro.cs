@@ -38,7 +38,7 @@
 
         if (IsSold && IsArmor)
         {
-            return $"-{ItemName} | 방어력 : {ItemStat} | {ItemInfo} | {ItemValue*17/20}G";
+            return $"-{ItemName} | 방어력 : {ItemStat} | {ItemInfo} | {ItemValue* 17 / 20}G";
         }
         else
         {
