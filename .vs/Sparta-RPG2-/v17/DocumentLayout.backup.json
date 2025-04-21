@@ -1,9 +1,9 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\JoYoonHo\\OneDrive\\Desktop\\Project\\Sparta-RPG2-\\",
+  "WorkspaceRootPath": "C:\\WorkPlace\\Sparta-RPG2-\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{68E71864-37C0-434F-B2DC-774AE797B7DB}|Sparta-RPG2-\\Sparta-RPG2-.csproj|c:\\users\\joyoonho\\onedrive\\desktop\\project\\sparta-rpg2-\\sparta-rpg2-\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{68E71864-37C0-434F-B2DC-774AE797B7DB}|Sparta-RPG2-\\Sparta-RPG2-.csproj|c:\\workplace\\sparta-rpg2-\\sparta-rpg2-\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{68E71864-37C0-434F-B2DC-774AE797B7DB}|Sparta-RPG2-\\Sparta-RPG2-.csproj|solutionrelative:sparta-rpg2-\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -20,11 +20,11 @@
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\JoYoonHo\\OneDrive\\Desktop\\Project\\Sparta-RPG2-\\Sparta-RPG2-\\Program.cs",
+              "DocumentMoniker": "C:\\WorkPlace\\Sparta-RPG2-\\Sparta-RPG2-\\Program.cs",
               "RelativeDocumentMoniker": "Sparta-RPG2-\\Program.cs",
-              "ToolTip": "C:\\Users\\JoYoonHo\\OneDrive\\Desktop\\Project\\Sparta-RPG2-\\Sparta-RPG2-\\Program.cs",
+              "ToolTip": "C:\\WorkPlace\\Sparta-RPG2-\\Sparta-RPG2-\\Program.cs",
               "RelativeToolTip": "Sparta-RPG2-\\Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAnAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-04-21T08:51:39.662Z",
               "EditorCaption": ""
