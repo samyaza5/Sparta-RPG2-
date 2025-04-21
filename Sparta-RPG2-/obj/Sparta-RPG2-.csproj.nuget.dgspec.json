@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\JoYoonHo\\OneDrive\\Desktop\\Project\\Sparta-RPG2-\\Sparta-RPG2-\\Sparta-RPG2-.csproj": {}
+    "C:\\Users\\JoYoonHo\\OneDrive\\Desktop\\Git Hub\\Sparta-RPG2-\\Sparta-RPG2-\\Sparta-RPG2-.csproj": {}
   },
   "projects": {
-    "C:\\Users\\JoYoonHo\\OneDrive\\Desktop\\Project\\Sparta-RPG2-\\Sparta-RPG2-\\Sparta-RPG2-.csproj": {
+    "C:\\Users\\JoYoonHo\\OneDrive\\Desktop\\Git Hub\\Sparta-RPG2-\\Sparta-RPG2-\\Sparta-RPG2-.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\JoYoonHo\\OneDrive\\Desktop\\Project\\Sparta-RPG2-\\Sparta-RPG2-\\Sparta-RPG2-.csproj",
+        "projectUniqueName": "C:\\Users\\JoYoonHo\\OneDrive\\Desktop\\Git Hub\\Sparta-RPG2-\\Sparta-RPG2-\\Sparta-RPG2-.csproj",
         "projectName": "Sparta-RPG2-",
-        "projectPath": "C:\\Users\\JoYoonHo\\OneDrive\\Desktop\\Project\\Sparta-RPG2-\\Sparta-RPG2-\\Sparta-RPG2-.csproj",
+        "projectPath": "C:\\Users\\JoYoonHo\\OneDrive\\Desktop\\Git Hub\\Sparta-RPG2-\\Sparta-RPG2-\\Sparta-RPG2-.csproj",
         "packagesPath": "C:\\Users\\JoYoonHo\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\JoYoonHo\\OneDrive\\Desktop\\Project\\Sparta-RPG2-\\Sparta-RPG2-\\obj\\",
+        "outputPath": "C:\\Users\\JoYoonHo\\OneDrive\\Desktop\\Git Hub\\Sparta-RPG2-\\Sparta-RPG2-\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

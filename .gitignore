@@ -398,4 +398,47 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
-*.vs/
+
+# Visual Studio 관련
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# 빌드 결과물
+*.obj
+*.dll
+*.exe
+*.pdb
+*.cache
+*.db
+*.v2
+
+# 디버그 관련
+*.db
+*.log
+
+# 백업 파일
+*.backup.json
+
+# 프로젝트 임시 파일
+*.tmp
+*.bak
+
+# Visual Studio 폴더
+.vs/
+
+# 빌드 결과물 폴더
+bin/
+obj/
+
+# 사용자 설정 및 캐시
+*.suo
+*.user
+*.v2
+*.db
+*.cache
+*.log
+*.backup.json
+DocumentLayout*.json
