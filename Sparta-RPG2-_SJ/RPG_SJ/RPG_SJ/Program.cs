@@ -1,6 +1,7 @@
 ﻿
 using System;
 using System.Collections.Generic;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace RPG_SJ
 {
@@ -11,6 +12,7 @@ namespace RPG_SJ
         {
             Character player = new Character();
             player.MaxHP = player.HP;  // 시작 시 MaxHP 설정
+            player.MaxMP = player.MP;  // 시작 시 MaxMP 설정
             ShowStartMenu(player);     // 게임 시작
         }
 
@@ -23,7 +25,9 @@ namespace RPG_SJ
             public int Attack { get; set; } = 50;
             public int Defense { get; set; } = 5;
             public int HP { get; set; } = 100;
+            public int MP { get; set; } = 50;
             public int MaxHP { get; set; }
+            public int MaxMP { get; set; }
             public int Gold { get; set; } = 1500;
         }
 
@@ -33,13 +37,16 @@ namespace RPG_SJ
             public string Name { get; set; }
             public int Level { get; set; }
             public int HP { get; set; }
+            public int MaxHP { get; set; }
+
             public int Attack { get; set; }
 
-            public Monster(string name, int level, int hp, int attack)
+            public Monster(string name, int level, int hp, int maxHP, int attack)
             {
                 Name = name;
                 Level = level;
                 HP = hp;
+                MaxHP = maxHP;
                 Attack = attack;
             }
 
@@ -82,6 +89,13 @@ namespace RPG_SJ
                         "공허충" => 10,
                         _ => 10
                     };
+                    int maxHP = name switch
+                    {
+                        "미니언" => 15,
+                        "대포미니언" => 25,
+                        "공허충" => 10,
+                        _ => 10
+                    };
                     int attack = name switch
                     {
                         "미니언" => 5,
@@ -89,7 +103,7 @@ namespace RPG_SJ
                         "공허충" => 9,
                         _ => 5
                     };
-                    list.Add(new Monster(name, level, hp, attack));
+                    list.Add(new Monster(name, level, hp, maxHP, attack));
                 }
 
                 return list;
@@ -97,40 +111,196 @@ namespace RPG_SJ
 
             static void PlayerAttack(Character player, List<Monster> monsters)
             {
+
                 Console.Clear();
                 Console.WriteLine("Battle!!\n");
 
                 // 플레이어가 랜덤 몬스터를 공격
                 Random rand = new Random();
-                Monster target = monsters[rand.Next(monsters.Count)];
-
-                Console.ForegroundColor = ConsoleColor.Cyan;
-                Console.WriteLine($"{player.Name} 의 공격!");
-                Console.ResetColor();
-
+                int evasionRate = rand.Next(1, 101);
+                int criRate = rand.Next(1, 101);
+                float criDamageRate = 1.6f;
                 int damage = player.Attack;
 
-                Console.WriteLine($"Lv.{target.Level} {target.Name} 을(를) 맞췄습니다. [데미지 : {damage}]");
+                Monster target = monsters[rand.Next(monsters.Count)];
 
-                target.HP -= damage;
+                foreach (Monster monster in monsters)
+                {
+                    Console.WriteLine($"Lv.{monster.Level} {monster.Name}  HP {(monster.IsDead ? "Dead" : $"{monster.HP}/{monster.MaxHP}")}");
+                }
+                Console.WriteLine($"\n\n[내정보]\nLv.{player.Level} Chad ({player.Job})\nHP {player.HP}/{player.MaxHP}\nMP {player.MP}/{player.MaxMP}\n");
+                Console.Write("1. 공격\n2. 스킬\n\n원하시는 행동을 입력해주세요.\n>> ");
 
-                if (target.HP <= 0)
+                string? input = Console.ReadLine();
+                
+                switch (input)
                 {
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine($"\nLv.{target.Level} {target.Name}");
-                    Console.WriteLine($"HP {Math.Max(0, target.HP)} -> Dead");
-                    Console.ResetColor();
-                }
-                else
-                {
-                    Console.WriteLine($"Lv.{target.Level} {target.Name}");
-                    Console.WriteLine($"HP {target.HP + damage} -> {target.HP}");
-                }
+                    case "1": // 일반공격
+                        if (evasionRate > 90) // 상대가 회피함
+                        {
+                            Console.ForegroundColor = ConsoleColor.Cyan;
+                            Console.WriteLine($"{player.Name} 의 공격!"); Console.ResetColor();
+                            Console.WriteLine($"Lv.{target.Level} {target.Name}을(를) 공격했지만 아무일도 일어나지 않았습니다.");
+
+                        }
+                        else // 상대가 회피 못함
+                        {
+                            if (criRate > 85) // 크리터짐
+                            {
+                                int criDamege = (int)Math.Round(damage * criDamageRate);
+                                Console.WriteLine($"Lv.{target.Level} {target.Name} 을(를) 맞췄습니다. [데미지 : {criDamege}] - 치명타 공격!!\n");
+
+                                target.HP -= criDamege;
+
+                                if (target.HP <= 0)
+                                {
+                                    target.HP = 0;
+                                    Console.ForegroundColor = ConsoleColor.Red;
+                                    Console.WriteLine($"\nLv.{target.Level} {target.Name}");
+                                    Console.WriteLine($"HP {Math.Max(0, target.HP)} -> Dead");
+                                    Console.ResetColor();
+                                }
+                                else
+                                {
+                                    Console.WriteLine($"Lv.{target.Level} {target.Name}");
+                                    Console.WriteLine($"HP {target.HP} - {criDamege} -> {(target.HP - damage <= 0 ? 0 : target.HP - damage)}");
+                                }
+                            }
+                            else // 크리안터짐
+                            {
+                                Console.WriteLine($"Lv.{target.Level} {target.Name} 을(를) 맞췄습니다. [데미지 : {damage}]\n");
+
+                                target.HP -= damage;
+
+                                if (target.HP <= 0)
+                                {
+                                    target.HP = 0;
+                                    Console.ForegroundColor = ConsoleColor.Red;
+                                    Console.WriteLine($"\nLv.{target.Level} {target.Name}");
+                                    Console.WriteLine($"HP {Math.Max(0, target.HP)} -> Dead");
+                                    Console.ResetColor();
+                                }
+                                else
+                                {
+                                    Console.WriteLine($"Lv.{target.Level} {target.Name}");
+                                    Console.WriteLine($"HP {target.HP} - {damage} -> {(target.HP - damage <= 0 ? 0 : target.HP - damage)}");
+                                }
+                            }
+
+                        }
+                        break;
+                    case "2": // 스킬사용
+                        int mp_1 = 10;
+                        int mp_2 = 15;
+                        Console.Write($"1. 알파 스트라이크 - MP {mp_1}\n   공격력*2로 하나의 적을 공격합니다.\n");
+                        Console.Write($"2. 더블 스트라이크 - MP {mp_2}\n   공격력*1.5로 2명의 적을 랜덤으로 공격합니다.\n\n원하시는 행동을 입력해주세요.\n>> ");
+                        string? select = Console.ReadLine();
+                        if (select == "1" && player.MP >= 10) // 스킬1
+                        {
+                            int skillDamage_1 = (int)Math.Round(damage * 2.0f);
+                            Console.WriteLine($"Lv.{target.Level} {target.Name}에게 알파 스트라이크 을(를) 맞췄습니다. [데미지 : {skillDamage_1}]\n");
+                            Console.WriteLine($"MP {player.MP} - {mp_1} -> {player.MP - mp_1}\n");
+                            target.HP -= skillDamage_1;
+
+                            if (target.HP <= 0)
+                            {
+                                target.HP = 0;
+                                Console.ForegroundColor = ConsoleColor.Red;
+                                Console.WriteLine($"\nLv.{target.Level} {target.Name}");
+                                Console.WriteLine($"HP {Math.Max(0, target.HP)} -> Dead");
+                                Console.ResetColor();
+                            }
+                            else
+                            {
+                                Console.WriteLine($"Lv.{target.Level} {target.Name}");
+                                Console.WriteLine($"HP {target.HP} - {skillDamage_1} -> {(target.HP - skillDamage_1 <= 0 ? 0 : target.HP - skillDamage_1)}");
+                            }
+                            player.MP -= mp_1; return;
+
+                        }
+                        else if (select == "2" && player.MP >= 15) // 스킬2
+                        {
+                            var aliveMonsters = monsters.Where(m => !m.IsDead).OrderBy(m => rand.Next()).Take(2).ToList();
+                            if (aliveMonsters.Count == 2)
+                            {
+                                Monster target1 = aliveMonsters[0];
+                                Monster target2 = aliveMonsters[1];
+                                int skillDamage_2 = (int)Math.Round(damage * 1.5f);
+                                Console.WriteLine($"Lv.{target1.Level} {target1.Name} / Lv.{target2.Level} {target2.Name}에게 더블 스트라이크 을(를) 맞췄습니다. [데미지 : {skillDamage_2}]\n");
+                                Console.WriteLine($"MP {player.MP} - {mp_2} -> {player.MP - mp_2}\n");
+
+                                target1.HP -= skillDamage_2;
+                                target2.HP -= skillDamage_2;
+
+                                if (target1.HP <= 0)
+                                {
+                                    target.HP = 0;
+                                    Console.ForegroundColor = ConsoleColor.Red;
+                                    Console.WriteLine($"\nLv.{target1.Level} {target1.Name}");
+                                    Console.WriteLine($"HP {Math.Max(0, target1.HP)} -> Dead");
+                                    Console.ResetColor();
+                                }
+                                else
+                                {
+                                    Console.WriteLine($"Lv.{target1.Level} {target1.Name}");
+                                    Console.WriteLine($"HP {target1.HP} - {skillDamage_2} -> {(target.HP - skillDamage_2 <= 0 ? 0 : target.HP - skillDamage_2)}");
+                                }
+                                if (target2.HP <= 0)
+                                {
+                                    target.HP = 0;
+                                    Console.ForegroundColor = ConsoleColor.Red;
+                                    Console.WriteLine($"\nLv.{target2.Level} {target2.Name}");
+                                    Console.WriteLine($"HP {Math.Max(0, target2.HP)} -> Dead");
+                                    Console.ResetColor();
+                                }
+                                else
+                                {
+                                    Console.WriteLine($"Lv.{target2.Level} {target2.Name}");
+                                    Console.WriteLine($"HP {target2.HP} - {skillDamage_2} -> {(target.HP - skillDamage_2 <= 0 ? 0 : target.HP - skillDamage_2)}");
+                                }
+
+                            }
+                            else if (aliveMonsters.Count == 1)
+                            {
+                                int skillDamage_2 = (int)Math.Round(damage * 2.0f);
+                                Console.WriteLine($"Lv.{target.Level} {target.Name}에게 알파 스트라이크 을(를) 맞췄습니다. [데미지 : {skillDamage_2}]");
+                                Console.WriteLine($"MP {player.MP} - {mp_2} -> {player.MP - mp_2}\n");
+
+                                target.HP -= skillDamage_2;
+
+
+                                if (target.HP <= 0)
+                                {
+                                    target.HP = 0;
+                                    Console.ForegroundColor = ConsoleColor.Red;
+                                    Console.WriteLine($"\nLv.{target.Level} {target.Name}");
+                                    Console.WriteLine($"HP {Math.Max(0, target.HP)} -> Dead");
+                                    Console.ResetColor();
+                                }
+                                else
+                                {
+                                    Console.WriteLine($"Lv.{target.Level} {target.Name}");
+                                    Console.WriteLine($"HP {target.HP} - {skillDamage_2} -> {(target.HP - skillDamage_2 <= 0 ? 0 : target.HP - skillDamage_2)}");
+                                }
+
+                            }
+                            player.MP -= mp_2;
+
+                        }
+                        else
+                        {
+                            Console.WriteLine("MP가 부족합니다!");
+                        }
+                        break;
+
+                }//switch
+
 
                 Console.WriteLine("\n0. 다음");
                 Console.Write("\n>> ");
                 while (Console.ReadLine() != "0") ;
             }
+
 
             static void EnemyPhase(Character player, List<Monster> monsters)
             {
@@ -142,6 +312,7 @@ namespace RPG_SJ
                 {
                     if (monster.HP <= 0)
                     {
+                        monster.HP = 0;
                         continue;  // Dead 상태인 몬스터는 스킵
                     }
 
