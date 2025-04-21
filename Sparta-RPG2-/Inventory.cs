@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using System.Numerics;
+using System.Text.Json.Serialization;
 using RPG_SJ;
 using Sparta_RPG2_;
 
@@ -8,11 +9,21 @@ namespace RPG_SJ
     {
         public class Inventory//인벤토리
         {
+
             public List<Item> AllItems;
             public List<Expendables> expendables;
+            Program Program;
 
-            public Inventory()
+            private ItemEquipped itemEquipped;
+
+            Character player;
+            
+
+            public Inventory(ItemEquipped itemEquipped, Character player, Program program)
             {
+                this.itemEquipped = itemEquipped;
+                this.player = player;
+                this.Program = program;
                 this.AllItems = new List<Item>();
                 expendables = new List<Expendables>();
             }
@@ -45,9 +56,41 @@ namespace RPG_SJ
                 Console.WriteLine("0. 나가기");
                 Console.WriteLine();
                 Console.WriteLine("원하시는 행동을 입력해주세요.");
-              
+                int choice;
+                while (true)
+                {
+                    string input = Console.ReadLine();
+                    if (int.TryParse(input, out choice))
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        Console.WriteLine("잘못된 입력입니다!");
+                        Thread.Sleep(1000);
+                        InventoryScene();
+                    }
+                }
+
+                switch (choice)
+                {
+                    case 1:
+                        itemEquipped.EqualsScene();
+                        break;
+                    case 0:
+                        Program.ShowStartMenu(player);
+                        break;  
+                    default:
+                        Console.WriteLine("잘못된 입력입니다!");
+                        Thread.Sleep(1000);
+                        InventoryScene();
+                         break ;
+
+
                 }
             }
         }
-    }
+            }
+        }
+    
 
