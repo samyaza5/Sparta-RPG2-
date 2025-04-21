@@ -5,6 +5,7 @@ using System.Collections.Generic;
 namespace RPG_SJ
 {
     internal class Program
+    {
         // 🎯 프로그램의 진입점 (필수!)
         static void Main(string[] args)
         {
