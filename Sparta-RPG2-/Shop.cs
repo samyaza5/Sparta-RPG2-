@@ -15,7 +15,7 @@ namespace RPG_SJ
         {
             this.character = character;
             AllItems = new List<Item>();
-            
+            expendables = new List<Expendables>(); // ✅ 반드시 초기화해야 함
 
             AllItems.Add(new Item(Item.BeginnerArmor()));
             AllItems.Add(new Item(Item.IronArmor()));
