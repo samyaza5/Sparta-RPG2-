@@ -1,14 +1,15 @@
 {
   "version": 2,
-<<<<<<< HEAD
-  "dgSpecHash": "0T15U8wR/uk=",
-  "success": true,
-  "projectFilePath": "C:\\WorkPlace\\Sparta-RPG2-\\Sparta-RPG2-\\Sparta-RPG2-.csproj",
-=======
   "dgSpecHash": "OlZTb/xUW9g=",
   "success": true,
   "projectFilePath": "C:\\Users\\JoYoonHo\\OneDrive\\Desktop\\Git Hub\\Sparta-RPG2-\\Sparta-RPG2-\\Sparta-RPG2-.csproj",
->>>>>>> 486bdab67dfcd08bf14e76b86e77ff38bab320e4
   "expectedPackageFiles": [],
-  "logs": []
+  "logs": [
+    {
+      "code": "Undefined",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "캐시 파일 C:\\Users\\JoYoonHo\\OneDrive\\Desktop\\Git Hub\\Sparta-RPG2-\\Sparta-RPG2-\\obj\\project.nuget.cache을(를) 읽는 동안 문제가 발생했습니다. Invalid property identifier character: <. Path 'version', line 3, position 0."
+    }
+  ]
 }

@@ -14,15 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Sparta-RPG2-")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-<<<<<<< HEAD
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1d335e7cfc7c6b7c6c01f3e80e59faae1fe6e2d7")]
-=======
-<<<<<<< HEAD
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e45ab9ac17bc10dd422b1338c06ade5f99cab4e4")]
-=======
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e8fd9afa54524edd3cf60b49b7daf1785ffca160")]
->>>>>>> main
->>>>>>> 486bdab67dfcd08bf14e76b86e77ff38bab320e4
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1e4ea85e3320b15fceaf03e6ba0bb03ed6934fab")]
 [assembly: System.Reflection.AssemblyProductAttribute("Sparta-RPG2-")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Sparta-RPG2-")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
