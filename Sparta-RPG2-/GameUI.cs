@@ -9,8 +9,8 @@
             {
                 Console.WriteLine($"\nLv. {player.Level}");
                 Console.WriteLine($"{player.Name} ({player.Job})");
-                Console.WriteLine($"공격력 : {player.Attack}");
-                Console.WriteLine($"방어력 : {player.Defense}");
+                Console.WriteLine($"공격력 : {player.Attack} {(player.WeaponPower == 0 ? "" : " + " + player.WeaponPower)}");
+                Console.WriteLine($"방어력 : {player.Defense} {(player.ArmorPower == 0 ? "" : " + " + player.ArmorPower)}");
                 Console.WriteLine($"체 력 : {player.HP} / {player.MaxHP}");
                 Console.WriteLine($"Gold : {player.Gold:N0} G");
 
