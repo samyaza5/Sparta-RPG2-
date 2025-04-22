@@ -20,8 +20,14 @@
                     EnemyPhase(player, monsters);
                 }
 
-
-                BattleResult(player, monsters, questManager); // ✅ 여기에 넣어야 함!
+                if (questManager != null)
+                {
+                    BattleResult(player, monsters, questManager);
+                }
+                else
+                {
+                    Console.WriteLine("⚠ 퀘스트 매니저가 초기화되지 않았습니다!");
+                }
 
             }
 
