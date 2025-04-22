@@ -67,7 +67,7 @@ namespace RPG_SJ
                         return;
 
                     int index = input - 1;
-                    if (index >= 0 && index < inventory.AllItems.Count)
+                    if (inventory != null && index >= 0 && index < inventory.AllItems.Count)
                     {
                         var selectedItem = inventory.AllItems[index];
                         if (selectedItem.itemPro.IsEquipped)

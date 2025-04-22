@@ -59,7 +59,7 @@ namespace RPG_SJ
                     int choice;
                     while (true)
                     {
-                        string input = Console.ReadLine();
+                        string? input = Console.ReadLine();
                         if (int.TryParse(input, out choice))
                         {
                             break;

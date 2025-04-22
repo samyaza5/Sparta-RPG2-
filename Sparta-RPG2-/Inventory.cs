@@ -54,7 +54,7 @@ namespace RPG_SJ
                 Console.WriteLine("0. 나가기");
                 Console.Write("\n원하시는 행동을 입력해주세요: ");
 
-                string input = Console.ReadLine();
+                string? input = Console.ReadLine();
                 if (int.TryParse(input, out int choice))
                 {
                     switch (choice)

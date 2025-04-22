@@ -14,9 +14,7 @@ namespace RPG_SJ
         static Inventory inventory;
         static ItemEquipped itemEquipped;
         static Buy buy;
-        static Shop shop;
-        static Program program;
-        static QuestManager? questManager;
+        static Shop shop;     
 
         static List<Item> allItems = new List<Item>();
         static List<Expendables> expendables = new List<Expendables>();
@@ -65,7 +63,6 @@ namespace RPG_SJ
         {
             GameUI ui = new GameUI();
             BattleSystem battle = new BattleSystem();
-            bool playGame = true;
             
             Console.OutputEncoding = System.Text.Encoding.UTF8;
             InitGame();
@@ -117,7 +114,7 @@ namespace RPG_SJ
                 Console.WriteLine("0. 게임 종료\n");
 
                 Console.Write("원하시는 행동을 입력해주세요.\n>> ");
-                string? input = Console.ReadLine();
+                input = Console.ReadLine(); // ✅ 재사용만
 
                 switch (input)
                 {

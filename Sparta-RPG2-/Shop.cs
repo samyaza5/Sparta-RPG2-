@@ -7,11 +7,10 @@ namespace RPG_SJ
 {
     internal partial class Program
     {
-        class Shop//상점
+        class Shop // 상점
         {
             public List<Item> allItems;
             public List<Expendables> expendables;
-            Program program;
             Buy buy;
 
             Character character; // 필드 선언만 남김
@@ -52,7 +51,7 @@ namespace RPG_SJ
                 int choice;
                 while (true)
                 {
-                    string input = Console.ReadLine();
+                    string? input = Console.ReadLine();
                     if (int.TryParse(input, out choice))
                     {
                         break;
