@@ -1,14 +1,17 @@
-﻿using static RPG_SJ.Program;
+﻿using Sparta_RPG2_;
+using static RPG_SJ.Program;
 
 namespace RPG_SJ
 {
-  
-        class ItemEquipped
-        {
-        private Character player;
-        private Inventory inventory;
+    internal partial class Program
+    {
 
-        public ItemEquipped(Character player, Inventory inventory)
+        public class ItemEquipped
+        {
+            private Character player;
+            private Inventory inventory;
+
+            public ItemEquipped(Character player, Inventory inventory)
             {
                 this.player = player;
                 this.inventory = inventory;
@@ -39,15 +42,15 @@ namespace RPG_SJ
                     Console.WriteLine("[아이템 목록]");
                     Console.WriteLine();
 
-                    if (inventory.AllItems.Count == 0)
+                    if (Program.inventory?.AllItems == null || Program.inventory.AllItems.Count == 0)
                     {
                         Console.WriteLine("보유한 아이템이 없습니다.");
                     }
                     else
                     {
-                        for (int i = 0; i < inventory.AllItems.Count; i++)
+                        for (int i = 0; i < Program.inventory.AllItems.Count; i++)
                         {
-                            Console.WriteLine($"{i + 1}{inventory.AllItems[i].itemPro.ToInventoryString()}");
+                            Console.WriteLine($"{i + 1}{Program.inventory.AllItems[i].itemPro.ToInventoryString()}");
                         }
                     }
 
@@ -59,12 +62,12 @@ namespace RPG_SJ
                     if (int.TryParse(Console.ReadLine(), out int input))
                     {
                         if (input == 0)
-                            inventory.InventoryScene();
+                            Program.inventory.InventoryScene();
 
                         int index = input - 1;
-                        if (index >= 0 && index < inventory.AllItems.Count)
+                        if (index >= 0 && index < Program.inventory.AllItems.Count)
                         {
-                            var selectedItem = inventory.AllItems[index];
+                            var selectedItem = Program.inventory.AllItems[index];
                             if (selectedItem.itemPro.IsEquipped)
                             {
                                 Console.WriteLine("이미 장착한 아이템입니다.");
@@ -72,7 +75,7 @@ namespace RPG_SJ
                             }
                             else
                             {
-                                foreach (var item in inventory.AllItems)
+                                foreach (var item in Program.inventory.AllItems)
                                 {
                                     if (item.itemPro.IsArmor && selectedItem.itemPro.IsArmor)
                                         item.itemPro.IsEquipped = false;
@@ -82,7 +85,7 @@ namespace RPG_SJ
 
 
                                 selectedItem.itemPro.IsEquipped = true;
-                                UpdateStatsFromInventory(inventory.AllItems);
+                                UpdateStatsFromInventory(Program.inventory.AllItems);
                                 Console.WriteLine($"'{selectedItem.itemPro.ItemName}'를 장착했습니다!");
                                 Thread.Sleep(1000);
                             }
@@ -105,6 +108,7 @@ namespace RPG_SJ
             }
         }
     }
+}
 
     
 

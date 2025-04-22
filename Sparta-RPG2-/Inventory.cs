@@ -10,18 +10,18 @@ namespace RPG_SJ
         public class Inventory//인벤토리
         {
 
-            public List<Item> AllItems;
-            public List<Expendables> expendables;
+            public List<Item> AllItems { get; private set; }
+            public List<Expendables> expendables { get; private set; }
             private ItemEquipped itemEquipped;
-            Character player;
+            private Character player;
             
 
             public Inventory(ItemEquipped itemEquipped, Character player, Program program)
             {
                 this.itemEquipped = itemEquipped;
                 this.player = player;
-                AllItems = new List<Item>();
-                expendables = new List<Expendables>();
+                this.AllItems = new List<Item>();
+                this.expendables = new List<Expendables>();
             }
 
             public void InventoryScene()
