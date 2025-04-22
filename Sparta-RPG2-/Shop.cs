@@ -9,15 +9,12 @@ namespace RPG_SJ
     {
         class Shop//상점
         {
-            this.character = character;
-            AllItems = new List<Item>();
-            expendables = new List<Expendables>(); // ✅ 반드시 초기화해야 함
             public List<Item> allItems;
             public List<Expendables> expendables;
-            Program Program;
+            Program program;
             Buy buy;
 
-            Character character;
+            Character character; // 필드 선언만 남김
 
             public Shop(Character character, List<Item> allItems, List<Expendables> expendables, Buy buy)
             {
@@ -73,7 +70,7 @@ namespace RPG_SJ
                 }
                 else if (choice == 0)
                 {
-                    Program.ShowStartMenu(character); // 판매 구현 아직
+                    Program.ShowStartMenu(); // ✅ 올바른 호출
                 }
                 else if (choice == 2)
                 {
