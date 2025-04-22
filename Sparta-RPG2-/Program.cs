@@ -14,6 +14,7 @@ namespace RPG_SJ
         {
             Character player = new Character();
             player.MaxHP = player.HP;  // 시작 시 MaxHP 설정
+            questManager.InitQuests(); // ⬅ 반드시 호출해야 퀘스트가 생성됨
 
             ShowStartMenu(player);     // 게임 시작
 
@@ -36,7 +37,7 @@ namespace RPG_SJ
             Console.WriteLine("이제 전투를 시작할 수 있습니다.\n");
 
             Console.WriteLine("1. 상태 보기");
-            Console.WriteLine("2. 전투 시작\n");
+            Console.WriteLine("2. 전투 시작");
             Console.WriteLine("3. 📜 퀘스트 목록\n");
 
             Console.Write("원하시는 행동을 입력해주세요.\n>> ");
