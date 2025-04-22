@@ -1,3 +1,4 @@
+
 ﻿using Sparta_RPG2_;
 using static RPG_SJ.Program.Quest;
 using System;
@@ -14,6 +15,8 @@ namespace RPG_SJ
         static ItemEquipped itemEquipped;
         static Buy buy;
         static Shop shop;
+        static Program program;
+        static QuestManager? questManager;
 
         static List<Item> allItems = new List<Item>();
         static List<Expendables> expendables = new List<Expendables>();
@@ -63,7 +66,45 @@ namespace RPG_SJ
             GameUI ui = new GameUI();
             BattleSystem battle = new BattleSystem();
             bool playGame = true;
+            
+            Console.OutputEncoding = System.Text.Encoding.UTF8;
+            InitGame();
+            Character player = new Character();
+            player.MaxHP = player.HP;  // 시작 시 MaxHP 설정
 
+            questManager = new QuestManager(player);
+            questManager.InitQuests(); // ⬅ 반드시 호출해야 퀘스트가 생성됨
+
+            ShowStartMenu(player);     // 게임 시작
+
+
+            // 퀘스트 매니저 초기화
+            questManager = new Quest.QuestManager(player);  // static 필드 선언 필요
+            questManager.InitQuests();
+
+            ShowStartMenu(player);  // 게임 시작
+
+        }        
+
+        // 🎮 게임 시작 메뉴
+        static void ShowStartMenu(Character player)
+        {
+            GameUI ui = new GameUI();                // ✅ UI 객체 생성
+            BattleSystem battle = new BattleSystem(); // ✅ 전투 시스템 객체 생성
+            bool playGame = true;
+
+            Console.Clear();
+            Console.WriteLine("🌟 스파르타 던전에 오신 여러분 환영합니다.");
+            Console.WriteLine("이제 전투를 시작할 수 있습니다.\n");
+
+            Console.WriteLine("1. 상태 보기");
+            Console.WriteLine("2. 전투 시작");
+            Console.WriteLine("3. 인벤토리");
+            Console.WriteLine("4. 상점");
+            Console.WriteLine("5. 📜 퀘스트 목록\n");
+
+            Console.Write("원하시는 행동을 입력해주세요.\n>> ");
+            string? input = Console.ReadLine();
             while (playGame)
             {
                 Console.Clear();

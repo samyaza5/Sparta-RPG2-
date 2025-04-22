@@ -8,9 +8,9 @@ namespace RPG_SJ
 {
     public class ItemEquipped
     {
-        private Character player;
-        private Inventory inventory;
-
+        public Inventory inventory;
+        public Character player;
+        
         public ItemEquipped(Character player, Inventory inventory)
         {
             this.player = player;
