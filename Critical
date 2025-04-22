@@ -1,0 +1,9 @@
+ Random randForCri = new Random();
+ bool isCritical = randForCri.Next(100) < 20;
+ if (isCritical)
+ {
+     Console.ForegroundColor = ConsoleColor.Yellow;
+     Console.WriteLine("Critical Hit!");
+     Console.ResetColor();
+     player.Attack *= 2; // 크리티컬 히트 시 공격력 2배
+ }
