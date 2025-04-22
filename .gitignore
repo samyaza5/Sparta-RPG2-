@@ -442,3 +442,6 @@ obj/
 *.log
 *.backup.json
 DocumentLayout*.json
+
+**/obj/**/*.cs
+**/obj/**/*.cache
