@@ -55,65 +55,75 @@
 
                 public void ShowQuestList()
                 {
-                    while (true)
-                    {
-                        var available = GetAvailableQuests();
-                        Console.WriteLine("📜 [퀘스트 목록]");
+                    Console.Clear();
 
-                        for (int i = 0; i < available.Count; i++)
+                    // ✅ 먼저 진행 중인 퀘스트 간단히 요약
+                    var activeQuests = AllQuests.Where(q => q.IsAccepted && !q.IsCompleted).ToList();
+                    if (activeQuests.Count > 0)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Yellow;
+                        Console.WriteLine("[🕐 진행 중인 퀘스트 요약]");
+                        foreach (var q in activeQuests)
                         {
-                            Console.WriteLine($"{i + 1}. {available[i].Title}");
+                            Console.Write($"- {q.Title} ");
+                            Console.ForegroundColor = ConsoleColor.Cyan;
+                            Console.WriteLine($"({q.CurrentProgress}/{q.Goal})");
+                            Console.ResetColor();
+                        }
+                        Console.ResetColor();
+                        Console.WriteLine();
+                    }
+
+                    // 📜 수락 가능한 퀘스트 목록 출력
+                    var available = GetAvailableQuests();
+                    Console.WriteLine("📜 [수락 가능한 퀘스트 목록]");
+                    for (int i = 0; i < available.Count; i++)
+                    {
+                        Console.WriteLine($"{i + 1}. {available[i].Title}");
+                    }
+
+                    Console.WriteLine("0. 나가기");
+                    Console.Write("원하시는 퀘스트를 선택해주세요.\n>> ");
+
+                    if (int.TryParse(Console.ReadLine(), out int choice))
+                    {
+                        if (choice == 0)
+                        {
+                            Console.WriteLine("메뉴로 돌아갑니다...\n");
+                            return;
                         }
 
-                        Console.WriteLine($"{available.Count + 1}. 진행 중인 퀘스트 보기");
-                        Console.WriteLine("0. 나가기");
-                        Console.Write("원하시는 퀘스트를 선택해주세요.\n>> ");
-
-                        if (int.TryParse(Console.ReadLine(), out int choice))
+                        if (choice > 0 && choice <= available.Count)
                         {
-                            if (choice == available.Count + 1)
+                            Quest selectedQuest = available[choice - 1];
+                            Console.Clear();
+                            Console.WriteLine($"\n📘 [{selectedQuest.Title}]");
+                            Console.WriteLine($"{selectedQuest.Description}");
+                            Console.WriteLine($"목표: {selectedQuest.Goal}개 / 진행: {selectedQuest.CurrentProgress}개\n");
+
+                            Console.WriteLine("1. 수락하기");
+                            Console.WriteLine("0. 나가기");
+                            Console.Write(">> ");
+
+                            string? confirm = Console.ReadLine();
+                            if (confirm == "1")
                             {
-                                ShowActiveQuests(); // ✅ 진행 중 퀘스트 보기
-                                continue;
-                            }
-
-                            if (choice == 0)
-                            {
-                                Console.WriteLine("메뉴로 돌아갑니다...\n");
-                                return;
-                            }
-
-                            if (choice > 0 && choice <= available.Count)
-                            {
-                                Quest selectedQuest = available[choice - 1];
-                                Console.WriteLine($"\n📘 [{selectedQuest.Title}]");
-                                Console.WriteLine($"{selectedQuest.Description}");
-                                Console.WriteLine($"목표: {selectedQuest.Goal}개 / 진행: {selectedQuest.CurrentProgress}개");
-
-                                Console.WriteLine("\n1. 수락하기");
-                                Console.WriteLine("0. 나가기");
-                                Console.Write(">> ");
-
-                                string? confirm = Console.ReadLine();
-                                if (confirm == "1")
-                                {
-                                    selectedQuest.IsAccepted = true;
-                                    Console.WriteLine($"\n✅ '{selectedQuest.Title}' 퀘스트를 수락했습니다!\n");
-                                }
-                                else
-                                {
-                                    Console.WriteLine("❎ 퀘스트 수락을 취소했습니다.\n");
-                                }
+                                selectedQuest.IsAccepted = true;
+                                Console.WriteLine($"\n✅ '{selectedQuest.Title}' 퀘스트를 수락했습니다!\n");
                             }
                             else
                             {
-                                Console.WriteLine("❌ 유효하지 않은 선택입니다.\n");
+                                Console.WriteLine("❎ 퀘스트 수락을 취소했습니다.\n");
                             }
                         }
                         else
                         {
-                            Console.WriteLine("❌ 숫자로 입력해주세요.\n");
+                            Console.WriteLine("❌ 유효하지 않은 선택입니다.\n");
                         }
+                    }
+                    else
+                    {
+                        Console.WriteLine("❌ 숫자로 입력해주세요.\n");
                     }
                 }
 
