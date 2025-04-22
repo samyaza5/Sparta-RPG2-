@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Sparta_RPG2_
 {
-    internal class ExpendablesPro
+    public class ExpendablesPro
     {
         public string ItemName { get; set; }
         public int ItemStat { get; set; }
@@ -30,14 +30,18 @@ namespace Sparta_RPG2_
      
         public string ToSellString()
         {
+                return $"-{ItemName} | 회복력 : {ItemStat} | {ItemInfo} | {ItemValue * 17 / 20}G";        
+        }
+        public string ToInventoryString()
+        {
 
-            if (IsSold)
+            if (IsEquipped)
             {
-                return $"-{ItemName} | 회복력 : {ItemStat} | {ItemInfo} | {ItemValue * 17 / 20}G";
+                return $"-{ItemName} | 회복력 : {ItemStat} | {ItemInfo} | [장착]";
             }
             else
             {
-                return $"-{ItemName} | 회복력 : {ItemStat} | {ItemInfo} | {ItemValue * 17 / 20}G";
+                return $"-{ItemName} | 회복력 : {ItemStat} | {ItemInfo} | [미장착]";
             }
         }
 

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Sparta_RPG2_
 {
-    internal class Expendables
+    public class Expendables
     {
         public ExpendablesPro expendablesPro;
 
