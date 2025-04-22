@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System;
-using System.Collections.Generic;
 using static RPG_SJ.Program.Quest;
 
 namespace RPG_SJ
 {
     internal partial class Program
     {
-        static Quest.QuestManager questManager = new Quest.QuestManager();
+        static QuestManager? questManager;
 
         static void Main(string[] args)
         {
@@ -16,13 +14,15 @@ namespace RPG_SJ
 
             Character player = new Character();
             player.MaxHP = player.HP;  // 시작 시 MaxHP 설정
+
+            questManager = new QuestManager(player);
             questManager.InitQuests(); // ⬅ 반드시 호출해야 퀘스트가 생성됨
 
             ShowStartMenu(player);     // 게임 시작
 
 
             // 퀘스트 매니저 초기화
-            questManager = new Quest.QuestManager();  // static 필드 선언 필요
+            questManager = new Quest.QuestManager(player);  // static 필드 선언 필요
             questManager.InitQuests();
 
             ShowStartMenu(player);  // 게임 시작

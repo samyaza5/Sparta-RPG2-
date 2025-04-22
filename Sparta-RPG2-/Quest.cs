@@ -18,10 +18,22 @@
             public int CurrentProgress { get; set; }
             public int Goal { get; set; }
             public QuestType Type { get; set; }
+            // 🆕 보상 관련 필드
+            public int RewardEXP { get; set; }
+            public int RewardGold { get; set; }
+            public Character? player { get; private set; }
 
             public class QuestManager
-            {
+            {                
                 public List<Quest> AllQuests = new List<Quest>();
+                public Character player { get; private set; }
+
+                // ✅ 생성자 추가
+                public QuestManager(Character player)
+                {
+                    this.player = player;
+                }
+
 
                 public void InitQuests()
                 {
@@ -33,7 +45,9 @@
                         CurrentProgress = 0,
                         IsAccepted = false,
                         IsCompleted = false,
-                        Type = QuestType.MonsterKill
+                        Type = QuestType.MonsterKill,
+                        RewardEXP = 100,
+                        RewardGold = 500
                     });
 
                     AllQuests.Add(new Quest
@@ -90,6 +104,7 @@
                 private void ShowCompletableQuests()
                 {
                     var completable = AllQuests.Where(q => q.IsAccepted && q.CurrentProgress >= q.Goal).ToList();
+
                     if (completable.Count == 0)
                     {
                         Console.ForegroundColor = ConsoleColor.DarkGray;
@@ -101,13 +116,38 @@
                     Console.ForegroundColor = ConsoleColor.Green;
                     Console.WriteLine("✔ 완료 가능한 퀘스트 목록");
                     Console.ResetColor();
-                    foreach (var q in completable)
+
+                    for (int i = 0; i < completable.Count; i++)
                     {
+                        var q = completable[i];
                         string extra = q.CurrentProgress > q.Goal ? "+" : "";
                         int displayedProgress = Math.Min(q.CurrentProgress, q.Goal);
                         Console.WriteLine($"- {q.Title} ({displayedProgress}/{q.Goal}){extra}");
                     }
-                    Console.WriteLine();
+
+                    Console.WriteLine("0. 나가기");
+                    Console.Write("원하시는 퀘스트의 번호를 선택해주세요.\n>> ");
+
+                    if (int.TryParse(Console.ReadLine(), out int choice))
+                    {
+                        if (choice == 0) return;
+
+                        if (choice > 0 && choice <= completable.Count)
+                        {
+                            var selected = completable[choice - 1];
+                            selected.IsCompleted = true;
+                            GiveQuestReward(selected); // 보상 지급
+                            Console.WriteLine($"\n🎉 '{selected.Title}' 퀘스트를 완료했습니다.!\n");
+                        }
+                        else
+                        {
+                            Console.WriteLine("❌ 잘못된 선택입니다.");
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("❌ 숫자로 입력해주세요.");
+                    }
                 }
 
                 // 퀘스트 리스트 함수
@@ -197,6 +237,21 @@
                     {
                         Console.WriteLine($"- {q.Title} ({q.CurrentProgress}/{q.Goal})");
                     }
+                }
+
+                public void GiveQuestReward(Quest quest)
+                {
+                    if (player == null)
+                    {
+                        Console.WriteLine("⚠️ 플레이어 정보가 없습니다. 보상을 지급할 수 없습니다.");
+                        return;
+                    }
+
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine($"\n🎁 퀘스트 보상 수령: {quest.RewardEXP}EXP, {quest.RewardGold}G");
+
+                    player.Exp += quest.RewardEXP;
+                    player.Gold += quest.RewardGold;
                 }
             }
         }
