@@ -10,11 +10,11 @@ namespace RPG_SJ
     {
         static QuestManager? questManager;
 
-        static Character player;
-        static Inventory inventory;
-        static ItemEquipped itemEquipped;
-        static Buy buy;
-        static Shop shop;     
+        static Character? player;
+        static Inventory? inventory;
+        static ItemEquipped? itemEquipped;
+        static Buy? buy;
+        static Shop? shop;
 
         static List<Item> allItems = new List<Item>();
         static List<Expendables> expendables = new List<Expendables>();
@@ -25,7 +25,7 @@ namespace RPG_SJ
 
             InitGame();
 
-            questManager = new QuestManager(player);
+            questManager = new QuestManager(player!);
             questManager.InitQuests(); // 퀘스트 생성
 
             ShowStartMenu(); // 게임 시작
@@ -126,10 +126,10 @@ namespace RPG_SJ
                         battle.StartBattle(player);
                         break;
                     case "3":
-                        inventory.InventoryScene();
+                        inventory!.InventoryScene();
                         break;
                     case "4":
-                        shop.ShopScene();
+                        shop!.ShopScene();
                         break;
                     case "5":
                         questManager?.ShowQuestMenu();
