@@ -90,18 +90,7 @@ namespace RPG_SJ
             BattleSystem battle = new BattleSystem(); // ✅ 전투 시스템 객체 생성
             bool playGame = true;
 
-            Console.Clear();
-            Console.WriteLine("🌟 스파르타 던전에 오신 여러분 환영합니다.");
-            Console.WriteLine("이제 전투를 시작할 수 있습니다.\n");
-
-            Console.WriteLine("1. 상태 보기");
-            Console.WriteLine("2. 전투 시작");
-            Console.WriteLine("3. 인벤토리");
-            Console.WriteLine("4. 상점");
-            Console.WriteLine("5. 📜 퀘스트 목록\n");
-
-            Console.Write("원하시는 행동을 입력해주세요.\n>> ");
-            string? input = Console.ReadLine();
+            
             while (playGame)
             {
                 Console.Clear();
@@ -114,7 +103,8 @@ namespace RPG_SJ
                 Console.WriteLine("0. 게임 종료\n");
 
                 Console.Write("원하시는 행동을 입력해주세요.\n>> ");
-                input = Console.ReadLine(); // ✅ 재사용만
+                string? input = Console.ReadLine();
+                
 
                 switch (input)
                 {
