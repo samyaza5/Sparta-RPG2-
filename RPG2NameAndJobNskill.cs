@@ -110,7 +110,7 @@ namespace RPG_SJ
 
                 if (skillSelect == 1)
                 {
-                    return;
+                     Console.WriteLine("일반 공격을 선택했습니다.");
                 }
                 else if (skillSelect == 2)
                 {   
