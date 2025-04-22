@@ -1,0 +1,8 @@
+ bool isDodge = dodge.Next(100) < 50; // 50% 확률로 회피
+ if (isDodge)
+ {
+     Console.ForegroundColor = ConsoleColor.Green;
+     Console.WriteLine($"{player.Name} 은(는) 회피했습니다!");
+     Console.ResetColor();
+     continue; // 회피 시 공격 스킵
+ }
