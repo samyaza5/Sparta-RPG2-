@@ -13,6 +13,10 @@ namespace RPG_SJ
             Character player = new Character();
             player.MaxHP = player.HP;  // 시작 시 MaxHP 설정
             player.MaxMP = player.MP;  // 시작 시 MaxMP 설정
+            Console.WriteLine("🌟 스파르타 던전에 오신 여러분 환영합니다.");
+            Console.WriteLine("원하시는 이름을 설정해주세요.");
+            player.Name = Console.ReadLine();
+            Console.WriteLine($"안녕하세요. {player.Name}님.\n");
             ShowStartMenu(player);     // 게임 시작
         }
 
@@ -20,7 +24,7 @@ namespace RPG_SJ
         public class Character
         {
             public int Level { get; set; } = 1;
-            public string Name { get; set; } = "함장";
+            public string Name { get; set; } = "";
             public string Job { get; set; } = "전사";
             public int Attack { get; set; } = 50;
             public int Defense { get; set; } = 5;
@@ -122,13 +126,16 @@ namespace RPG_SJ
                 float criDamageRate = 1.6f;
                 int damage = player.Attack;
 
-                Monster target = monsters[rand.Next(monsters.Count)];
+                var alive = monsters.Where(m => !m.IsDead).ToList();
+                if (alive.Count == 0) return;  // 전부 죽은 경우 예외처리
+                
+                Monster target = alive[rand.Next(alive.Count)];
 
                 foreach (Monster monster in monsters)
                 {
                     Console.WriteLine($"Lv.{monster.Level} {monster.Name}  HP {(monster.IsDead ? "Dead" : $"{monster.HP}/{monster.MaxHP}")}");
                 }
-                Console.WriteLine($"\n\n[내정보]\nLv.{player.Level} Chad ({player.Job})\nHP {player.HP}/{player.MaxHP}\nMP {player.MP}/{player.MaxMP}\n");
+                Console.WriteLine($"\n\n[내정보]\nLv.{player.Level} {player.Name} ({player.Job})\nHP {player.HP}/{player.MaxHP}\nMP {player.MP}/{player.MaxMP}\n");
                 
 
                 while (true)
@@ -199,6 +206,7 @@ namespace RPG_SJ
                             string? select = Console.ReadLine();
                             if (select == "1" && player.MP >= 10) // 스킬1
                             {
+
                                 int skillDamage_1 = (int)Math.Round(damage * 2.0f);
                                 Console.WriteLine($"Lv.{target.Level} {target.Name}에게 알파 스트라이크 을(를) 맞췄습니다. [데미지 : {skillDamage_1}]\n");
                                 Console.WriteLine($"MP {player.MP} - {mp_1} -> {player.MP - mp_1}\n");
@@ -237,7 +245,7 @@ namespace RPG_SJ
 
                                     if (target1.HP <= 0)
                                     {
-                                        target.HP = 0;
+                                        target1.HP = 0;
                                         Console.ForegroundColor = ConsoleColor.Red;
                                         Console.WriteLine($"\nLv.{target1.Level} {target1.Name}");
                                         Console.WriteLine($"HP {Math.Max(0, target1.HP)} -> Dead");
@@ -250,7 +258,7 @@ namespace RPG_SJ
                                     }
                                     if (target2.HP <= 0)
                                     {
-                                        target.HP = 0;
+                                        target2.HP = 0;
                                         Console.ForegroundColor = ConsoleColor.Red;
                                         Console.WriteLine($"\nLv.{target2.Level} {target2.Name}");
                                         Console.WriteLine($"HP {Math.Max(0, target2.HP)} -> Dead");
@@ -296,11 +304,16 @@ namespace RPG_SJ
                                 Console.WriteLine("MP가 부족합니다!");
                             }
                             continue; // 스킬
+                        default:
+                            continue;
 
                     }//switch
                     Console.WriteLine("\n0. 다음");
                     Console.Write("\n>> ");
-                    while (Console.ReadLine() != "0") ;
+                    while (Console.ReadLine() != "0")
+                    {
+                        Console.Write("\n>> ");
+                    }
                     break;
                 }//while
                 
@@ -366,7 +379,7 @@ namespace RPG_SJ
                     Console.ResetColor();
 
                     Console.WriteLine($"Lv.{player.Level} {player.Name}");
-                    Console.WriteLine($"HP {player.MaxHP} -> 0");
+                    Console.WriteLine($"HP {player.HP} -> 0");
                 }
                 else
                 {
@@ -381,7 +394,7 @@ namespace RPG_SJ
                     int damageTaken = player.MaxHP - player.HP;
                     Console.WriteLine($"HP {player.HP} -> {player.HP-damageTaken} (-{damageTaken})");
                     Console.WriteLine($"MP {player.MP} -> {player.MP+10} (+10)");
-                    player.HP -= damageTaken;
+                    //player.HP -= damageTaken;
                     player.MP += 10;
                     if(player.MP >= 50) player.MP = 50;
                 }
@@ -414,7 +427,7 @@ namespace RPG_SJ
             GameUI ui = new GameUI();                // ✅ UI 객체 생성
             BattleSystem battle = new BattleSystem(); // ✅ 전투 시스템 객체 생성
 
-            Console.WriteLine("🌟 스파르타 던전에 오신 여러분 환영합니다.");
+            
             Console.WriteLine("이제 전투를 시작할 수 있습니다.\n");
 
             Console.WriteLine("1. 상태 보기");
@@ -428,7 +441,10 @@ namespace RPG_SJ
                 case "1":
                     Console.WriteLine("\n[상태 보기 화면으로 이동합니다...]\n");
                     ui.ShowStatus(player); // ✅ 객체를 통해 호출
-                    Console.ReadLine();    // 0 입력 대기
+                    while (Console.ReadLine() != "0")
+                    {
+                        Console.Write(">> ");
+                    }
                     ShowStartMenu(player); // ✅ 다시 메뉴로 돌아가기
                     break;
 
