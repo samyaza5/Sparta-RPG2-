@@ -437,3 +437,7 @@ DocumentLayout*.json
 
 **/obj/**/*.cs
 **/obj/**/*.cache
+
+# Visual Studio 관련
+*.db
+*.vsidx
