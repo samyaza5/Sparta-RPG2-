@@ -5,6 +5,22 @@
     {
       "AbsoluteMoniker": "D:0:0:{AF8C04D9-7B36-42C3-BC80-C508E5698C18}|RPG_SJ\\RPG_SJ.csproj|c:\\users\\psj45\\desktop\\github\\sparta-rpg2-\\sparta-rpg2-_sj\\rpg_sj\\rpg_sj\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{AF8C04D9-7B36-42C3-BC80-C508E5698C18}|RPG_SJ\\RPG_SJ.csproj|solutionrelative:rpg_sj\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AF8C04D9-7B36-42C3-BC80-C508E5698C18}|RPG_SJ\\RPG_SJ.csproj|c:\\users\\psj45\\desktop\\github\\sparta-rpg2-\\sparta-rpg2-_sj\\rpg_sj\\rpg_sj\\battlesystem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AF8C04D9-7B36-42C3-BC80-C508E5698C18}|RPG_SJ\\RPG_SJ.csproj|solutionrelative:rpg_sj\\battlesystem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AF8C04D9-7B36-42C3-BC80-C508E5698C18}|RPG_SJ\\RPG_SJ.csproj|c:\\users\\psj45\\desktop\\github\\sparta-rpg2-\\sparta-rpg2-_sj\\rpg_sj\\rpg_sj\\character.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AF8C04D9-7B36-42C3-BC80-C508E5698C18}|RPG_SJ\\RPG_SJ.csproj|solutionrelative:rpg_sj\\character.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AF8C04D9-7B36-42C3-BC80-C508E5698C18}|RPG_SJ\\RPG_SJ.csproj|c:\\users\\psj45\\desktop\\github\\sparta-rpg2-\\sparta-rpg2-_sj\\rpg_sj\\rpg_sj\\gameui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AF8C04D9-7B36-42C3-BC80-C508E5698C18}|RPG_SJ\\RPG_SJ.csproj|solutionrelative:rpg_sj\\gameui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AF8C04D9-7B36-42C3-BC80-C508E5698C18}|RPG_SJ\\RPG_SJ.csproj|c:\\users\\psj45\\desktop\\github\\sparta-rpg2-\\sparta-rpg2-_sj\\rpg_sj\\rpg_sj\\monster.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AF8C04D9-7B36-42C3-BC80-C508E5698C18}|RPG_SJ\\RPG_SJ.csproj|solutionrelative:rpg_sj\\monster.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -14,8 +30,60 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 4,
           "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "BattleSystem.cs",
+              "DocumentMoniker": "C:\\Users\\psj45\\Desktop\\GitHub\\Sparta-RPG2-\\Sparta-RPG2-_SJ\\RPG_SJ\\RPG_SJ\\BattleSystem.cs",
+              "RelativeDocumentMoniker": "RPG_SJ\\BattleSystem.cs",
+              "ToolTip": "C:\\Users\\psj45\\Desktop\\GitHub\\Sparta-RPG2-\\Sparta-RPG2-_SJ\\RPG_SJ\\RPG_SJ\\BattleSystem.cs",
+              "RelativeToolTip": "RPG_SJ\\BattleSystem.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB0AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-22T10:08:25.883Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "GameUI.cs",
+              "DocumentMoniker": "C:\\Users\\psj45\\Desktop\\GitHub\\Sparta-RPG2-\\Sparta-RPG2-_SJ\\RPG_SJ\\RPG_SJ\\GameUI.cs",
+              "RelativeDocumentMoniker": "RPG_SJ\\GameUI.cs",
+              "ToolTip": "C:\\Users\\psj45\\Desktop\\GitHub\\Sparta-RPG2-\\Sparta-RPG2-_SJ\\RPG_SJ\\RPG_SJ\\GameUI.cs",
+              "RelativeToolTip": "RPG_SJ\\GameUI.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-22T10:08:24.799Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Monster.cs",
+              "DocumentMoniker": "C:\\Users\\psj45\\Desktop\\GitHub\\Sparta-RPG2-\\Sparta-RPG2-_SJ\\RPG_SJ\\RPG_SJ\\Monster.cs",
+              "RelativeDocumentMoniker": "RPG_SJ\\Monster.cs",
+              "ToolTip": "C:\\Users\\psj45\\Desktop\\GitHub\\Sparta-RPG2-\\Sparta-RPG2-_SJ\\RPG_SJ\\RPG_SJ\\Monster.cs",
+              "RelativeToolTip": "RPG_SJ\\Monster.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-22T10:08:24Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Character.cs",
+              "DocumentMoniker": "C:\\Users\\psj45\\Desktop\\GitHub\\Sparta-RPG2-\\Sparta-RPG2-_SJ\\RPG_SJ\\RPG_SJ\\Character.cs",
+              "RelativeDocumentMoniker": "RPG_SJ\\Character.cs",
+              "ToolTip": "C:\\Users\\psj45\\Desktop\\GitHub\\Sparta-RPG2-\\Sparta-RPG2-_SJ\\RPG_SJ\\RPG_SJ\\Character.cs",
+              "RelativeToolTip": "RPG_SJ\\Character.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-22T10:07:29.662Z",
+              "EditorCaption": ""
+            },
             {
               "$type": "Document",
               "DocumentIndex": 0,
@@ -24,7 +92,7 @@
               "RelativeDocumentMoniker": "RPG_SJ\\Program.cs",
               "ToolTip": "C:\\Users\\psj45\\Desktop\\GitHub\\Sparta-RPG2-\\Sparta-RPG2-_SJ\\RPG_SJ\\RPG_SJ\\Program.cs",
               "RelativeToolTip": "RPG_SJ\\Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAJAAAAAAAAAA==",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAABsAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-04-21T02:19:10.67Z",
               "EditorCaption": ""
