@@ -64,12 +64,11 @@
 
                     Console.ForegroundColor = ConsoleColor.Yellow;
                     Console.WriteLine("[🕐 진행 중인 퀘스트 요약]");
+                    Console.ResetColor();
                     foreach (var q in active)
                     {
                         Console.Write("- " + q.Title + " ");
-                        Console.ForegroundColor = ConsoleColor.Cyan;
                         Console.WriteLine($"({q.CurrentProgress}/{q.Goal})");
-                        Console.ResetColor();
                     }
                     Console.WriteLine();
                 }
