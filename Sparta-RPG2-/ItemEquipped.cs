@@ -5,7 +5,7 @@ namespace RPG_SJ
 {
     internal partial class Program
     {
-        public Inventory inventory;
+        public static Inventory inventory;
         public Character player;
         
         public ItemEquipped(Character player, Inventory inventory)
