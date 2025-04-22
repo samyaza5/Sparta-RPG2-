@@ -1,5 +1,4 @@
-
-﻿using Sparta_RPG2_;
+using Sparta_RPG2_;
 using static RPG_SJ.Program.Quest;
 using System;
 using System.Collections.Generic;
@@ -9,7 +8,6 @@ namespace RPG_SJ
     internal partial class Program
     {
         static QuestManager? questManager;
-
         static Character? player;
         static Inventory? inventory;
         static ItemEquipped? itemEquipped;
@@ -36,23 +34,29 @@ namespace RPG_SJ
             player = new Character();
             player.MaxHP = player.HP;
 
-            inventory = new Inventory(); // ✅ 작동 가능
-            itemEquipped = new ItemEquipped(player, inventory); // ✅ 이제 가능
+            inventory = new Inventory();
+            itemEquipped = new ItemEquipped(player, inventory);
 
-            // 아이템과 소모품 리스트 생성
-            allItems.Add(new Item(Item.BeginnerArmor()));
-            allItems.Add(new Item(Item.IronArmor()));
-            allItems.Add(new Item(Item.SpartaArmor()));
-            allItems.Add(new Item(Item.Sparta300Armor()));
-            allItems.Add(new Item(Item.ArmorOfSpartacus()));
-            allItems.Add(new Item(Item.OldSword()));
-            allItems.Add(new Item(Item.BronzeAx()));
-            allItems.Add(new Item(Item.SpartaSphere()));
-            allItems.Add(new Item(Item.Sparta300Sphere()));
-            allItems.Add(new Item(Item.SphereOfSpartacus()));
+            // 아이템 초기화
+            allItems.AddRange(new[]
+            {
+                new Item(Item.BeginnerArmor()),
+                new Item(Item.IronArmor()),
+                new Item(Item.SpartaArmor()),
+                new Item(Item.Sparta300Armor()),
+                new Item(Item.ArmorOfSpartacus()),
+                new Item(Item.OldSword()),
+                new Item(Item.BronzeAx()),
+                new Item(Item.SpartaSphere()),
+                new Item(Item.Sparta300Sphere()),
+                new Item(Item.SphereOfSpartacus())
+            });
 
-            expendables.Add(new Expendables(Expendables.potion()));
-            expendables.Add(new Expendables(Expendables.manaPotion()));
+            expendables.AddRange(new[]
+            {
+                new Expendables(Expendables.potion()),
+                new Expendables(Expendables.manaPotion())
+            });
 
             buy = new Buy(allItems, expendables, player, inventory, itemEquipped);
             shop = new Shop(player, allItems, expendables, buy);
@@ -63,26 +67,8 @@ namespace RPG_SJ
         {
             GameUI ui = new GameUI();
             BattleSystem battle = new BattleSystem();
-            
-            Console.OutputEncoding = System.Text.Encoding.UTF8;
-            InitGame();
-            Character player = new Character();
-            player.MaxHP = player.HP;  // 시작 시 MaxHP 설정
-
-            questManager = new QuestManager(player);
-            questManager.InitQuests(); // ⬅ 반드시 호출해야 퀘스트가 생성됨
-
-            ShowStartMenu(player);     // 게임 시작
-        }        
-
-        // 🎮 게임 시작 메뉴
-        static void ShowStartMenu(Character player)
-        {
-            GameUI ui = new GameUI();                // ✅ UI 객체 생성
-            BattleSystem battle = new BattleSystem(); // ✅ 전투 시스템 객체 생성
             bool playGame = true;
 
-            
             while (playGame)
             {
                 Console.Clear();
@@ -96,16 +82,15 @@ namespace RPG_SJ
 
                 Console.Write("원하시는 행동을 입력해주세요.\n>> ");
                 string? input = Console.ReadLine();
-                
 
                 switch (input)
                 {
                     case "1":
-                        ui.ShowStatus(player);
+                        ui.ShowStatus(player!);
                         Console.ReadLine();
                         break;
                     case "2":
-                        battle.StartBattle(player);
+                        battle.StartBattle(player!);
                         break;
                     case "3":
                         inventory!.InventoryScene();

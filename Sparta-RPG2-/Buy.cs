@@ -11,7 +11,7 @@ namespace RPG_SJ
             private ItemEquipped itemEquipped;
             private Inventory inventory;
             private Character character;
-            private Shop shop;
+            private Shop? shop;
 
             private List<Item> allItems;
             private List<Expendables> expendables;
@@ -32,105 +32,112 @@ namespace RPG_SJ
 
             public void BuyScene()
             {
+                if (shop == null)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("⚠ 상점 정보가 없습니다. shop이 초기화되지 않았습니다.");
+                    Console.ResetColor();
+                    return;
+                }
+
                 while (true)
                 {
                     Console.Clear();
-                    Console.WriteLine("상점 - 아이템 구매");
-                    Console.WriteLine("필요한 아이템을 얻을 수 있는 상점입니다.");
-                    Console.WriteLine();
-                    Console.WriteLine("[보유 골드]");
-                    Console.WriteLine($"{character.Gold}G");
-                    Console.WriteLine();
+                    Console.WriteLine("=== 🛒 상점 - 아이템 구매 ===");
+                    Console.WriteLine($"💰 보유 골드: {character.Gold:N0} G\n");
+
                     Console.WriteLine("[아이템 목록]");
                     int index = 1;
-                    foreach (var Item in shop.allItems)
+                    foreach (var item in shop.allItems)
                     {
-                        Console.WriteLine($"{index++}.{Item}");
+                        Console.WriteLine($"{index++}. {item}");
                     }
+
                     foreach (var ex in shop.expendables)
                     {
-                        Console.WriteLine($"{index++}.{ex}");
+                        Console.WriteLine($"{index++}. {ex}");
                     }
-                    Console.WriteLine();
-                    Console.WriteLine("0. 나가기");
-                    Console.WriteLine();
-                    Console.WriteLine("원하시는 행동을 입력해주세요.");
+
+                    Console.WriteLine("\n0. 나가기");
+                    Console.Write("\n원하시는 항목 번호를 입력해주세요: ");
 
                     int choice;
-                    while (true)
+                    string? input = Console.ReadLine();
+                    if (!int.TryParse(input, out choice))
                     {
-                        string? input = Console.ReadLine();
-                        if (int.TryParse(input, out choice))
-                        {
-                            break;
-                        }
-                        else
-                        {
-                            Console.WriteLine("잘못된 입력입니다!");
-                            Thread.Sleep(1000);
-                            BuyScene();
-                        }
+                        Console.WriteLine("❌ 잘못된 입력입니다. 숫자를 입력해주세요.");
+                        Thread.Sleep(1000);
+                        continue;
                     }
-                    if (choice == 0) shop.ShopScene();
+
+                    if (choice == 0)
+                    {
+                        shop.ShopScene(); // 혹은 break;
+                        return;
+                    }
 
                     int totalItems = shop.allItems.Count;
+                    int totalOptions = totalItems + shop.expendables.Count;
+
+                    if (choice < 1 || choice > totalOptions)
+                    {
+                        Console.WriteLine("❌ 잘못된 번호입니다.");
+                        Thread.Sleep(1000);
+                        continue;
+                    }
 
                     if (choice <= totalItems)
                     {
-                        var selectedItem = shop.allItems[choice - 1];
-                        if (!selectedItem.itemPro.IsSold && character.Gold >= selectedItem.itemPro.ItemValue)
-                        {
-                            character.Gold -= selectedItem.itemPro.ItemValue;
-                            selectedItem.itemPro.IsSold = true;
-                            inventory.AllItems.Add(selectedItem);
-                            Console.WriteLine("구매 완료!");
-
-                            Thread.Sleep(1000);
-                        }
-                        else if (!selectedItem.itemPro.IsSold && character.Gold < selectedItem.itemPro.ItemValue)
-                        {
-                            Console.WriteLine("Gold가 부족합니다.");
-                            Thread.Sleep(1000);
-                        }
-                        else if (selectedItem.itemPro.IsSold)
-                        {
-                            Console.WriteLine("이미 구매한 아이템입니다.");
-                            Thread.Sleep(1000);
-                        }
-                        else {
-                            int exIndex = choice - totalItems - 1;
-                            var selectedExpendable = shop.expendables[exIndex];
-                            if(!selectedExpendable.expendablesPro.IsSold && character.Gold >= selectedExpendable.expendablesPro.ItemValue)
-                            {
-                                character.Gold -= selectedExpendable.expendablesPro.ItemValue;
-                                selectedExpendable.expendablesPro.IsSold = true;
-                                inventory.expendables.Add(selectedExpendable);
-
-                                Console.WriteLine("구매 완료!");
-                                Thread.Sleep(1000);
-                            }
-                            else if (!selectedExpendable.expendablesPro.IsSold && character.Gold < selectedExpendable.expendablesPro.ItemValue)
-                            {
-                                Console.WriteLine("Gold가 부족합니다.");
-                                Thread.Sleep(1000);
-                            }
-                            else if (selectedExpendable.expendablesPro.IsSold)
-                            {
-                                Console.WriteLine("이미 구매한 아이템입니다.");
-                                Thread.Sleep(1000);
-                            }
-                        }
-                       
+                        HandleItemPurchase(shop.allItems[choice - 1]);
                     }
                     else
                     {
-                        Console.WriteLine("잘못된 입력입니다!");
-                        Thread.Sleep(1000);
-                        BuyScene();
+                        int exIndex = choice - totalItems - 1;
+                        HandleExpendablePurchase(shop.expendables[exIndex]);
                     }
-                }
 
+                    Thread.Sleep(1000);
+                }
             }
+
+            private void HandleItemPurchase(Item item)
+            {
+                if (item.itemPro.IsSold)
+                {
+                    Console.WriteLine("⚠ 이미 구매한 아이템입니다.");
+                }
+                else if (character.Gold < item.itemPro.ItemValue)
+                {
+                    Console.WriteLine("⚠ 골드가 부족합니다.");
+                }
+                else
+                {
+                    character.Gold -= item.itemPro.ItemValue;
+                    item.itemPro.IsSold = true;
+                    inventory.AllItems.Add(item);
+                    Console.WriteLine("✅ 아이템 구매 완료!");
+                }
+            }
+
+            private void HandleExpendablePurchase(Expendables ex)
+            {
+                if (ex.expendablesPro.IsSold)
+                {
+                    Console.WriteLine("⚠ 이미 구매한 소모품입니다.");
+                }
+                else if (character.Gold < ex.expendablesPro.ItemValue)
+                {
+                    Console.WriteLine("⚠ 골드가 부족합니다.");
+                }
+                else
+                {
+                    character.Gold -= ex.expendablesPro.ItemValue;
+                    ex.expendablesPro.IsSold = true;
+                    inventory.expendables.Add(ex);
+                    Console.WriteLine("✅ 소모품 구매 완료!");
+                }
+            }
+
         }
     }
 }
