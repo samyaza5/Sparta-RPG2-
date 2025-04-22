@@ -2,7 +2,14 @@
 {
     internal partial class Program
     {
-        public partial class Quest
+        public enum QuestType
+        {
+            MonsterKill,
+            EquipItem,
+            LevelUp
+        }
+
+        public class Quest
         {
             public string? Title { get; set; }
             public string? Description { get; set; }
@@ -10,6 +17,7 @@
             public bool IsCompleted { get; set; }
             public int CurrentProgress { get; set; }
             public int Goal { get; set; }
+            public QuestType Type { get; set; }
 
             public class QuestManager
             {
@@ -24,7 +32,8 @@
                         Goal = 5,
                         CurrentProgress = 0,
                         IsAccepted = false,
-                        IsCompleted = false
+                        IsCompleted = false,
+                        Type = QuestType.MonsterKill
                     });
 
                     AllQuests.Add(new Quest
@@ -34,7 +43,8 @@
                         Goal = 1,
                         CurrentProgress = 0,
                         IsAccepted = false,
-                        IsCompleted = false
+                        IsCompleted = false,
+                        Type = QuestType.EquipItem
                     });
 
                     AllQuests.Add(new Quest
@@ -44,7 +54,9 @@
                         Goal = 3,
                         CurrentProgress = 1,
                         IsAccepted = false,
-                        IsCompleted = false
+                        IsCompleted = false,
+                        Type = QuestType.LevelUp
+
                     });
                 }
 
@@ -67,8 +79,9 @@
                     Console.ResetColor();
                     foreach (var q in active)
                     {
+                        int displayedProgress = Math.Min(q.CurrentProgress, q.Goal);
                         Console.Write("- " + q.Title + " ");
-                        Console.WriteLine($"({q.CurrentProgress}/{q.Goal})");
+                        Console.WriteLine($"({displayedProgress}/{q.Goal})");
                     }
                     Console.WriteLine();
                 }
@@ -90,7 +103,9 @@
                     Console.ResetColor();
                     foreach (var q in completable)
                     {
-                        Console.WriteLine("- " + q.Title + $" ({q.CurrentProgress}/{q.Goal})");
+                        string extra = q.CurrentProgress > q.Goal ? "+" : "";
+                        int displayedProgress = Math.Min(q.CurrentProgress, q.Goal);
+                        Console.WriteLine($"- {q.Title} ({displayedProgress}/{q.Goal}){extra}");
                     }
                     Console.WriteLine();
                 }
@@ -123,6 +138,8 @@
                     if (choice > 0 && choice <= available.Count)
                     {
                         var selectedQuest = available[choice - 1];
+                        int displayedProgress = Math.Min(selectedQuest.CurrentProgress, selectedQuest.Goal);
+
                         Console.Clear();
                         Console.WriteLine($"\n📘 [{selectedQuest.Title}]");
                         Console.WriteLine(selectedQuest.Description);
@@ -149,30 +166,19 @@
                     }
                 }
 
-                public void OngoingQuests(string type, int amount = 1)
+                public void OngoingQuests(QuestType type, int amount = 1)
                 {
                     foreach (var quest in AllQuests.Where(q => q.IsAccepted && !q.IsCompleted))
                     {
-                        switch (type)
+                        if (quest.Type == type)
                         {
-                            case "monster":
-                                if (quest.Title?.Contains("미니언") == true)
-                                    quest.CurrentProgress += amount;
-                                break;
-                            case "equip":
-                                if (quest.Title?.Contains("장비") == true)
-                                    quest.CurrentProgress = 1;
-                                break;
-                            case "level":
-                                if (quest.Title?.Contains("레벨") == true)
-                                    quest.CurrentProgress = amount;
-                                break;
-                        }
+                            quest.CurrentProgress += amount;
 
-                        if (quest.CurrentProgress >= quest.Goal)
-                        {
-                            quest.IsCompleted = true;
-                            Console.WriteLine($"\n🎉 '{quest.Title}' 퀘스트를 완료했습니다!");
+                            if (quest.CurrentProgress >= quest.Goal)
+                            {
+                                quest.IsCompleted = true;
+                                Console.WriteLine($"\n🎉 '{quest.Title}' 퀘스트를 완료했습니다!");
+                            }
                         }
                     }
                 }

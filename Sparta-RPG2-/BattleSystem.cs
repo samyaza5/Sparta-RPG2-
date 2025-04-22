@@ -156,7 +156,7 @@
                     Console.WriteLine($"던전에서 몬스터 {monsters.Count}마리를 잡았습니다.\n");
 
                     // ✅ 퀘스트 진행도 반영
-                    questManager.OngoingQuests("monster", defeatedCount);
+                    questManager.OngoingQuests(QuestType.MonsterKill, defeatedCount);
 
                     Console.WriteLine($"Lv.{player.Level} {player.Name}");
                     int damageTaken = player.MaxHP - player.HP;
