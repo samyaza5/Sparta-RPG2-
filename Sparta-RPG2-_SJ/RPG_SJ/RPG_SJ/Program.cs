@@ -29,6 +29,7 @@ namespace RPG_SJ
             public int Attack { get; set; } = 50;
             public int Defense { get; set; } = 5;
             public int HP { get; set; } = 100;
+            public int beforeHP { get; set; } = 100;
             public int MP { get; set; } = 50;
             public int MaxHP { get; set; }
             public int MaxMP { get; set; }
@@ -63,9 +64,10 @@ namespace RPG_SJ
             public void StartBattle(Character player)
             {
                 List<Monster> monsters = GenerateMonsters();
-
+                int beforeHP = player.HP;
                 while (player.HP > 0 && monsters.Exists(m => !m.IsDead))
                 {
+
                     PlayerAttack(player, monsters);
                     if (!monsters.Exists(m => !m.IsDead)) break;
 
@@ -88,23 +90,25 @@ namespace RPG_SJ
                     int level = rand.Next(1, 6);
                     int hp = name switch
                     {
-                        "미니언" => 15,
-                        "대포미니언" => 25,
-                        "공허충" => 10,
+
+                                         "미니언" => 15,
+                                         "대포미니언" => 25,
+                                         "공허충" => 10,
                         _ => 10
                     };
                     int maxHP = name switch
                     {
-                        "미니언" => 15,
-                        "대포미니언" => 25,
-                        "공허충" => 10,
+
+                                          "미니언" => 15,
+                                          "대포미니언" => 25,
+                                          "공허충" => 10,
                         _ => 10
                     };
                     int attack = name switch
                     {
-                        "미니언" => 5,
-                        "대포미니언" => 8,
-                        "공허충" => 9,
+                                          "미니언" => 5,
+                                          "대포미니언" => 8,
+                                          "공허충" => 9,
                         _ => 5
                     };
                     list.Add(new Monster(name, level, hp, maxHP, attack));
@@ -128,7 +132,7 @@ namespace RPG_SJ
 
                 var alive = monsters.Where(m => !m.IsDead).ToList();
                 if (alive.Count == 0) return;  // 전부 죽은 경우 예외처리
-                
+
                 Monster target = alive[rand.Next(alive.Count)];
 
                 foreach (Monster monster in monsters)
@@ -136,7 +140,7 @@ namespace RPG_SJ
                     Console.WriteLine($"Lv.{monster.Level} {monster.Name}  HP {(monster.IsDead ? "Dead" : $"{monster.HP}/{monster.MaxHP}")}");
                 }
                 Console.WriteLine($"\n\n[내정보]\nLv.{player.Level} {player.Name} ({player.Job})\nHP {player.HP}/{player.MaxHP}\nMP {player.MP}/{player.MaxMP}\n");
-                
+
 
                 while (true)
                 {
@@ -316,10 +320,10 @@ namespace RPG_SJ
                     }
                     break;
                 }//while
-                
 
 
-                
+
+
             }
 
 
@@ -391,12 +395,13 @@ namespace RPG_SJ
                     Console.WriteLine($"던전에서 몬스터 {monsters.Count}마리를 잡았습니다.\n");
 
                     Console.WriteLine($"Lv.{player.Level} {player.Name}");
-                    int damageTaken = player.MaxHP - player.HP;
-                    Console.WriteLine($"HP {player.HP} -> {player.HP-damageTaken} (-{damageTaken})");
-                    Console.WriteLine($"MP {player.MP} -> {player.MP+10} (+10)");
+                    int damageTaken = player.beforeHP - player.HP;
+                    Console.WriteLine($"HP {player.beforeHP} -> {player.HP} (-{damageTaken})");
+                    Console.WriteLine($"MP {player.MP} -> {player.MP + 10} (+10)");
                     //player.HP -= damageTaken;
+                    player.beforeHP = player.HP;
                     player.MP += 10;
-                    if(player.MP >= 50) player.MP = 50;
+                    if (player.MP >= 50) player.MP = 50;
                 }
 
                 Console.WriteLine("\n0. 다음");
@@ -427,7 +432,7 @@ namespace RPG_SJ
             GameUI ui = new GameUI();                // ✅ UI 객체 생성
             BattleSystem battle = new BattleSystem(); // ✅ 전투 시스템 객체 생성
 
-            
+
             Console.WriteLine("이제 전투를 시작할 수 있습니다.\n");
 
             Console.WriteLine("1. 상태 보기");
