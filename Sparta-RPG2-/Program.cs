@@ -1,39 +1,32 @@
-<<<<<<< HEAD
-﻿
-using System;
-using System.Collections.Generic;
-
-=======
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using static RPG_SJ.Program.Quest;
-                                                                           
->>>>>>> 486bdab67dfcd08bf14e76b86e77ff38bab320e4
+
 namespace RPG_SJ
 {
     internal partial class Program
     {
-<<<<<<< HEAD
-=======
-        static Quest.QuestManager questManager = new Quest.QuestManager();
+        static QuestManager? questManager;
 
->>>>>>> 486bdab67dfcd08bf14e76b86e77ff38bab320e4
-        // 🎯 프로그램의 진입점 (필수!)
         static void Main(string[] args)
         {
+            Console.OutputEncoding = System.Text.Encoding.UTF8;
+
             Character player = new Character();
             player.MaxHP = player.HP;  // 시작 시 MaxHP 설정
-<<<<<<< HEAD
+
+            questManager = new QuestManager(player);
+            questManager.InitQuests(); // ⬅ 반드시 호출해야 퀘스트가 생성됨
+
             ShowStartMenu(player);     // 게임 시작
-=======
+
 
             // 퀘스트 매니저 초기화
-            questManager = new Quest.QuestManager();  // static 필드 선언 필요
+            questManager = new Quest.QuestManager(player);  // static 필드 선언 필요
             questManager.InitQuests();
 
             ShowStartMenu(player);  // 게임 시작
->>>>>>> 486bdab67dfcd08bf14e76b86e77ff38bab320e4
+
         }        
 
         // 🎮 게임 시작 메뉴
@@ -46,13 +39,9 @@ namespace RPG_SJ
             Console.WriteLine("이제 전투를 시작할 수 있습니다.\n");
 
             Console.WriteLine("1. 상태 보기");
-<<<<<<< HEAD
-            Console.WriteLine("2. 전투 시작\n");
-
-=======
             Console.WriteLine("2. 전투 시작");
             Console.WriteLine("3. 📜 퀘스트 목록\n");
->>>>>>> 486bdab67dfcd08bf14e76b86e77ff38bab320e4
+
             Console.Write("원하시는 행동을 입력해주세요.\n>> ");
             string? input = Console.ReadLine();
 
@@ -70,23 +59,18 @@ namespace RPG_SJ
                     battle.StartBattle(player); // ✅ 전투 시스템 실행
                     ShowStartMenu(player);      // ✅ 전투 끝나면 다시 메뉴
                     break;
-<<<<<<< HEAD
-=======
+
                 case "3":
                     Console.WriteLine("📜 퀘스트 목록으로 이동합니다...\n");
-                    questManager.ShowQuestList();  // ✅ 인스턴스를 통해 호출
+                    questManager.ShowQuestMenu();  // ✅ 인스턴스를 통해 호출
                     ShowStartMenu(player);         // 메뉴로 다시 돌아가기
                     break;
->>>>>>> 486bdab67dfcd08bf14e76b86e77ff38bab320e4
+
 
                 default:
                     Console.WriteLine("\n❌ 잘못된 입력입니다.\n");
                     ShowStartMenu(player); // 잘못 입력 시 재귀 호출
-<<<<<<< HEAD
                     break;
-=======
-                    break;                
->>>>>>> 486bdab67dfcd08bf14e76b86e77ff38bab320e4
             }
         }
     }

@@ -17,7 +17,8 @@
                     EnemyPhase(player, monsters);
                 }
 
-                BattleResult(player, monsters);
+                // 전투 종료 후 결과 출력
+                BattleResult(player, monsters, questManager); // ✅ 여기에 넣어야 함!
             }
 
             private List<Monster> GenerateMonsters()
@@ -131,7 +132,7 @@
                 Console.WriteLine("\n📣 당신의 차례입니다!");
             }
 
-            static void BattleResult(Character player, List<Monster> monsters)
+            static void BattleResult(Character player, List<Monster> monsters, Quest.QuestManager questManager)
             {
                 Console.Clear();
                 Console.WriteLine("Battle!! - Result\n");
@@ -153,6 +154,9 @@
 
                     int defeatedCount = monsters.Count(m => m.IsDead);
                     Console.WriteLine($"던전에서 몬스터 {monsters.Count}마리를 잡았습니다.\n");
+
+                    // ✅ 퀘스트 진행도 반영
+                    questManager.OngoingQuests(QuestType.MonsterKill, defeatedCount);
 
                     Console.WriteLine($"Lv.{player.Level} {player.Name}");
                     int damageTaken = player.MaxHP - player.HP;

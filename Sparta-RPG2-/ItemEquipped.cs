@@ -14,8 +14,11 @@ namespace RPG_SJ
         }
         public void UpdateStatsFromInventory(List<Item> items)
         {
-            Character.WeapPower = 0;
-            Character.ArmorPower = 0;
+            int WeaponPower = 0;
+            int ArmorPower = 0;
+
+            player.WeaponPower = 0;
+            player.ArmorPower = 0;
 
             foreach (var item in items)
             {
