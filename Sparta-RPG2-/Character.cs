@@ -13,10 +13,8 @@
             public int HP { get; set; } = 100;
             public int MaxHP { get; set; }
             public int Gold { get; set; } = 1500;
-<<<<<<< HEAD
-=======
+
             public int Exp { get; set; }
->>>>>>> 486bdab67dfcd08bf14e76b86e77ff38bab320e4
         }
     }
 }
