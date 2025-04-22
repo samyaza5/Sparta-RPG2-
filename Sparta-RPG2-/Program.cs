@@ -9,8 +9,8 @@ namespace RPG_SJ
     {
         private static ItemEquipped itemEquipped;
         private static Program program;
+        private static Buy buy;
 
-        private static Buy buy { get; set; }
 
         // 🎯 프로그램의 진입점 (필수!)
         static void Main(string[] args)
@@ -23,13 +23,22 @@ namespace RPG_SJ
         // 🎮 게임 시작 메뉴
         static void ShowStartMenu(Character player)
         {
-           
             Character character = new Character();
             GameUI ui = new GameUI();                // ✅ UI 객체 생성
             BattleSystem battle = new BattleSystem(); // ✅ 전투 시스템 객체 생성
-            Inventory inventory = new Inventory(itemEquipped, player, program);
-            Shop shop = new Shop(character, buy);
             bool playGame = true;
+            // ✅ 빈 아이템 리스트 생성 (필요시 데이터 로딩하도록)
+            List<Item> items = new List<Item>();
+            List<Expendables> expendables = new List<Expendables>();
+
+            // ✅ Buy 생성 (Shop 없이 먼저 생성)
+            Inventory inventory = new Inventory(itemEquipped, player, program);
+            Buy buy = new Buy(player, inventory, itemEquipped);
+            Shop shop = new Shop(player, buy);
+            buy.SetShop(shop);
+
+            // ✅ Shop 생성 후 Buy에 역으로 연결
+
 
             Console.Clear();
             Console.WriteLine("🌟 스파르타 던전에 오신 여러분 환영합니다.");
@@ -67,9 +76,7 @@ namespace RPG_SJ
                         Console.WriteLine("상점으로 이동합니다...");
                         shop.ShopScene();
                         break;
-                        case "0":
-                            return;
-
+                     
                     default:
                         Console.WriteLine("\n❌ 잘못된 입력입니다.\n");
                         ShowStartMenu(player); // 잘못 입력 시 재귀 호출

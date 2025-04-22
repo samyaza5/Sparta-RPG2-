@@ -30,17 +30,9 @@ namespace Sparta_RPG2_
      
         public string ToSellString()
         {
-
-            if (IsSold)
-            {
-                return $"-{ItemName} | 회복력 : {ItemStat} | {ItemInfo} | {ItemValue * 17 / 20}G";
-            }
-            else
-            {
-                return $"-{ItemName} | 회복력 : {ItemStat} | {ItemInfo} | {ItemValue * 17 / 20}G";
-            }
+                return $"-{ItemName} | 회복력 : {ItemStat} | {ItemInfo} | {ItemValue * 17 / 20}G";        
         }
-        public string ToInventorytring()
+        public string ToInventoryString()
         {
 
             if (IsEquipped)

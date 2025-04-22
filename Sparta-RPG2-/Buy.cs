@@ -8,25 +8,23 @@ namespace RPG_SJ
     {
         class Buy//구매 상점
         {
-            public List<Item> AllItems = new List<Item>();
             private ItemEquipped itemEquipped;
-            public List<Expendables> expendables = new List<Expendables>();
             private Inventory inventory;
-            public Character character = new Character();
-            private static Buy buy;
-            Shop shop;
+            public Character character;
+            private Shop shop;
 
-            public Buy(List<Expendables> expendables, List<Item> AllItems, Character character, Inventory inventory, ItemEquipped itemEquipped)
+            public void SetShop(Shop shop)
             {
-                this.expendables = expendables;
+                this.shop = shop;
+            }
+            public Buy(Character character, Inventory inventory, ItemEquipped itemEquipped)
+            {
                 this.inventory = inventory;
                 this.character = character;
-                this.AllItems = AllItems;
                 this.itemEquipped = itemEquipped;
-
-                shop = new Shop(character, this); // ✅ 여기서 꼭 new 해주기
             }
 
+            
 
             public void BuyScene()
             {
@@ -40,13 +38,14 @@ namespace RPG_SJ
                     Console.WriteLine($"{character.Gold}G");
                     Console.WriteLine();
                     Console.WriteLine("[아이템 목록]");
-                    for (int i = 0; i < AllItems.Count; i++)//아이템의 배열을 위부터 반복해 출력
+                    int index = 1;
+                    foreach (var Item in shop.AllItems)
                     {
-                        Console.WriteLine($"{i + 1} {AllItems[i]}");
+                        Console.WriteLine($"{index++}.{Item}");
                     }
-                    for (int i = 0; i < expendables.Count; i++)//아이템의 배열을 위부터 반복해 출력
+                    foreach (var ex in shop.expendables)
                     {
-                        Console.WriteLine($"{i + 1} {expendables[i]}");
+                        Console.WriteLine($"{index++}.{ex}");
                     }
                     Console.WriteLine();
                     Console.WriteLine("0. 나가기");
@@ -66,23 +65,20 @@ namespace RPG_SJ
                             Console.WriteLine("잘못된 입력입니다!");
                             Thread.Sleep(1000);
                             BuyScene();
-
                         }
                     }
                     if (choice == 0) shop.ShopScene();
 
-                    int index = choice - 1;
+                    int totalItems = shop.AllItems.Count;
 
-                    if (index >= 0 && index < AllItems.Count + expendables.Count)
+                    if (choice <= totalItems)
                     {
-                        var selectedItem = AllItems[index];
-                        var selectedExpendable = expendables[index];
+                        var selectedItem = shop.AllItems[choice - 1];
                         if (!selectedItem.itemPro.IsSold && character.Gold >= selectedItem.itemPro.ItemValue)
                         {
                             character.Gold -= selectedItem.itemPro.ItemValue;
                             selectedItem.itemPro.IsSold = true;
                             inventory.AllItems.Add(selectedItem);
-
                             Console.WriteLine("구매 완료!");
                             Thread.Sleep(1000);
                         }
@@ -96,26 +92,30 @@ namespace RPG_SJ
                             Console.WriteLine("이미 구매한 아이템입니다.");
                             Thread.Sleep(1000);
                         }
+                        else {
+                            int exIndex = choice - totalItems - 1;
+                            var selectedExpendable = shop.expendables[exIndex];
+                            if(!selectedExpendable.expendablesPro.IsSold && character.Gold >= selectedExpendable.expendablesPro.ItemValue)
+                            {
+                                character.Gold -= selectedExpendable.expendablesPro.ItemValue;
+                                selectedExpendable.expendablesPro.IsSold = true;
+                                inventory.expendables.Add(selectedExpendable);
 
-                        if (!selectedExpendable.expendablesPro.IsSold && character.Gold >= selectedExpendable.expendablesPro.ItemValue)
-                        {
-                            character.Gold -= selectedExpendable.expendablesPro.ItemValue;
-                            selectedExpendable.expendablesPro.IsSold = true;
-                            inventory.expendables.Add(selectedExpendable);
-
-                            Console.WriteLine("구매 완료!");
-                            Thread.Sleep(1000);
+                                Console.WriteLine("구매 완료!");
+                                Thread.Sleep(1000);
+                            }
+                            else if (!selectedExpendable.expendablesPro.IsSold && character.Gold < selectedExpendable.expendablesPro.ItemValue)
+                            {
+                                Console.WriteLine("Gold가 부족합니다.");
+                                Thread.Sleep(1000);
+                            }
+                            else if (selectedExpendable.expendablesPro.IsSold)
+                            {
+                                Console.WriteLine("이미 구매한 아이템입니다.");
+                                Thread.Sleep(1000);
+                            }
                         }
-                        else if (!selectedExpendable.expendablesPro.IsSold && character.Gold < selectedExpendable.expendablesPro.ItemValue)
-                        {
-                            Console.WriteLine("Gold가 부족합니다.");
-                            Thread.Sleep(1000);
-                        }
-                        else if (selectedExpendable.expendablesPro.IsSold)
-                        {
-                            Console.WriteLine("이미 구매한 아이템입니다.");
-                            Thread.Sleep(1000);
-                        }
+                       
                     }
                     else
                     {

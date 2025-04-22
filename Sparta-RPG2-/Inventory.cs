@@ -12,10 +12,7 @@ namespace RPG_SJ
 
             public List<Item> AllItems;
             public List<Expendables> expendables;
-            Program Program;
-
             private ItemEquipped itemEquipped;
-
             Character player;
             
 
@@ -23,8 +20,7 @@ namespace RPG_SJ
             {
                 this.itemEquipped = itemEquipped;
                 this.player = player;
-                this.Program = program;
-                this.AllItems = new List<Item>();
+                AllItems = new List<Item>();
                 expendables = new List<Expendables>();
             }
 
@@ -36,19 +32,20 @@ namespace RPG_SJ
                 Console.WriteLine();
                 Console.WriteLine("[아이템 목록]");
                 Console.WriteLine();
-                if (AllItems.Count == 0)
+
+                if (AllItems.Count == 0 && expendables.Count == 0)
                 {
                     Console.WriteLine(" 보유한 아이템이 없습니다.");
                 }
-                else
+                else 
                 {
                     for (int i = 0; i < AllItems.Count; i++)
                     {
                         Console.WriteLine(AllItems[i].itemPro.ToInventoryString());
                     }
-                    for (int i = 0; i < expendables.Count; i++)
+                    for (int j = 0; j < expendables.Count; j++)
                     {
-                        Console.WriteLine(expendables[i].expendablesPro.ToInventorytring());
+                        Console.WriteLine(expendables[j].expendablesPro.ToInventoryString());
                     }
                 }
                 Console.WriteLine();

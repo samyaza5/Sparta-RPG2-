@@ -11,15 +11,17 @@ namespace RPG_SJ
         {
             public List<Item> AllItems;
             public List<Expendables> expendables;
-            Shop shop;
             Program Program;
-            Buy Buy;
+            Buy buy;
 
             Character character;
-
+            public void SetBuy(Buy buy)
+            {
+                this.buy = buy;
+            }
             public Shop(Character character, Buy buy)
             {
-                this.Buy = buy;
+                this.buy = buy;
                 this.character = character;
                 AllItems = new List<Item>();
                 expendables = new List<Expendables>();
@@ -55,7 +57,7 @@ namespace RPG_SJ
                 }
                 foreach (var Item in expendables)
                 {
-                    Console.WriteLine(expendables);
+                    Console.WriteLine(Item);
                 }
                 Console.WriteLine();
                 Console.WriteLine("1. 아이템 구매");
@@ -81,7 +83,7 @@ namespace RPG_SJ
                 }
                 if (choice == 1)
                 {
-                   Buy.BuyScene();
+                   buy.BuyScene();
                 }
                 else if (choice == 0)
                 {
@@ -89,13 +91,13 @@ namespace RPG_SJ
                 }
                 else if (choice == 2)
                 {
-                    shop.ShopScene();
+                    ShopScene();
                 }
                 else
                 {
                     Console.WriteLine("잘못된 입력입니다!");
                     Thread.Sleep(1000);
-                    shop.ShopScene();
+                    ShopScene();
                 }
             }
         }
