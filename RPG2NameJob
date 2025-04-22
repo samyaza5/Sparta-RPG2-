@@ -1,0 +1,46 @@
+static void ShowCreatMe(Character player)
+        {
+            Console.WriteLine("캐릭터를 생성합니다.\n"); //캐릭터 생성 안내
+            Console.Write("이름을 입력하세요 : ");
+            player.Name = Console.ReadLine() ?? "함장";
+            Console.Write("전사, 마법사, 궁수 중 하나를 골라 입력하세요 ");
+            player.Job = Console.ReadLine() ?? "전사";
+            if (player.Job == "전사")
+            {
+                player.Attack = 10;
+                player.Defense = 10;
+                player.HP = 80;
+            }
+            else if (player.Job == "마법사")
+            {
+                player.Attack = 5;
+                player.Defense = 3;
+                player.HP = 50;
+                player.MP = 12; // 마법사 MP 설정
+            }
+            else if (player.Job == "궁수")
+            {
+                player.Attack = 15;
+                player.Defense = 6;
+                player.HP = 65;
+            }
+            else if (player.Job == "스파르타21")
+            {
+                player.Attack = 21;
+                player.Defense = 21;
+                player.HP = 121;
+            }
+            else
+            {
+                Console.WriteLine("잘못된 직업입니다. 기본값으로 전사로 설정합니다.");
+                player.Job = "전사";
+                player.Attack = 10;
+                player.Defense = 10;
+                player.HP = 80;
+            }
+
+            Console.WriteLine($"\n캐릭터 생성 완료! 이름 : {player.Name}, 직업 : {player.Job}");
+            Console.WriteLine("\n0. 나가기");
+            Console.Write(">> ");
+            while (Console.ReadLine() != "0") ;
+        }
