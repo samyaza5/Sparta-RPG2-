@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using Sparta_RPG2_;
 
@@ -7,14 +6,48 @@ namespace RPG_SJ
 {
     internal partial class Program
     {
-        private static ItemEquipped itemEquipped;
-        private static Program program;
-        private static Buy buy;
+        static Character player;
+        static Inventory inventory;
+        static ItemEquipped itemEquipped;
+        static Buy buy;
+        static Shop shop;
+        static Program program;
 
+        static List<Item> allItems = new List<Item>();
+        static List<Expendables> expendables = new List<Expendables>();
 
+        static void InitGame()
+        {
+            player = new Character();
+            player.MaxHP = player.HP;
+
+            itemEquipped = new ItemEquipped(player, inventory);
+            inventory = new Inventory(itemEquipped, player, program);
+
+            // 아이템과 소모품 리스트 직접 생성
+            allItems.Add(new Item(Item.BeginnerArmor()));
+            allItems.Add(new Item(Item.IronArmor()));
+            allItems.Add(new Item(Item.SpartaArmor()));
+            allItems.Add(new Item(Item.Sparta300Armor()));
+            allItems.Add(new Item(Item.ArmorOfSpartacus()));
+            allItems.Add(new Item(Item.OldSword()));
+            allItems.Add(new Item(Item.BronzeAx()));
+            allItems.Add(new Item(Item.SpartaSphere()));
+            allItems.Add(new Item(Item.Sparta300Sphere()));
+            allItems.Add(new Item(Item.SphereOfSpartacus()));
+
+            expendables.Add(new Expendables(Expendables.potion()));
+            expendables.Add(new Expendables(Expendables.manaPotion()));
+
+            buy = new Buy(allItems, expendables, player, inventory, itemEquipped);
+            shop = new Shop(player, allItems, expendables, buy);
+
+            buy.SetShop(shop);
+        }
         // 🎯 프로그램의 진입점 (필수!)
         static void Main(string[] args)
         {
+            InitGame();
             Character player = new Character();
             player.MaxHP = player.HP;  // 시작 시 MaxHP 설정
             ShowStartMenu(player);     // 게임 시작
@@ -23,22 +56,9 @@ namespace RPG_SJ
         // 🎮 게임 시작 메뉴
         static void ShowStartMenu(Character player)
         {
-            Character character = new Character();
             GameUI ui = new GameUI();                // ✅ UI 객체 생성
             BattleSystem battle = new BattleSystem(); // ✅ 전투 시스템 객체 생성
             bool playGame = true;
-            // ✅ 빈 아이템 리스트 생성 (필요시 데이터 로딩하도록)
-            List<Item> items = new List<Item>();
-            List<Expendables> expendables = new List<Expendables>();
-
-            // ✅ Buy 생성 (Shop 없이 먼저 생성)
-            Inventory inventory = new Inventory(itemEquipped, player, program);
-            Buy buy = new Buy(player, inventory, itemEquipped);
-            Shop shop = new Shop(player, buy);
-            buy.SetShop(shop);
-
-            // ✅ Shop 생성 후 Buy에 역으로 연결
-
 
             Console.Clear();
             Console.WriteLine("🌟 스파르타 던전에 오신 여러분 환영합니다.");

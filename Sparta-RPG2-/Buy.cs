@@ -10,21 +10,25 @@ namespace RPG_SJ
         {
             private ItemEquipped itemEquipped;
             private Inventory inventory;
-            public Character character;
+            private Character character;
             private Shop shop;
 
+            private List<Item> allItems;
+            private List<Expendables> expendables;
+
+            public Buy(List<Item> allItems, List<Expendables> expendables, Character character, Inventory inventory, ItemEquipped itemEquipped)
+            {
+                this.allItems = allItems;
+                this.expendables = expendables;
+                this.character = character;
+                this.inventory = inventory;
+                this.itemEquipped = itemEquipped;
+            }
             public void SetShop(Shop shop)
             {
                 this.shop = shop;
             }
-            public Buy(Character character, Inventory inventory, ItemEquipped itemEquipped)
-            {
-                this.inventory = inventory;
-                this.character = character;
-                this.itemEquipped = itemEquipped;
-            }
 
-            
 
             public void BuyScene()
             {
@@ -39,7 +43,7 @@ namespace RPG_SJ
                     Console.WriteLine();
                     Console.WriteLine("[아이템 목록]");
                     int index = 1;
-                    foreach (var Item in shop.AllItems)
+                    foreach (var Item in shop.allItems)
                     {
                         Console.WriteLine($"{index++}.{Item}");
                     }
@@ -69,17 +73,18 @@ namespace RPG_SJ
                     }
                     if (choice == 0) shop.ShopScene();
 
-                    int totalItems = shop.AllItems.Count;
+                    int totalItems = shop.allItems.Count;
 
                     if (choice <= totalItems)
                     {
-                        var selectedItem = shop.AllItems[choice - 1];
+                        var selectedItem = shop.allItems[choice - 1];
                         if (!selectedItem.itemPro.IsSold && character.Gold >= selectedItem.itemPro.ItemValue)
                         {
                             character.Gold -= selectedItem.itemPro.ItemValue;
                             selectedItem.itemPro.IsSold = true;
                             inventory.AllItems.Add(selectedItem);
                             Console.WriteLine("구매 완료!");
+
                             Thread.Sleep(1000);
                         }
                         else if (!selectedItem.itemPro.IsSold && character.Gold < selectedItem.itemPro.ItemValue)

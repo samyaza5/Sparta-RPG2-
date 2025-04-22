@@ -9,36 +9,19 @@ namespace RPG_SJ
     {
         class Shop//상점
         {
-            public List<Item> AllItems;
+            public List<Item> allItems;
             public List<Expendables> expendables;
             Program Program;
             Buy buy;
 
             Character character;
-            public void SetBuy(Buy buy)
+
+            public Shop(Character character, List<Item> allItems, List<Expendables> expendables, Buy buy)
             {
-                this.buy = buy;
-            }
-            public Shop(Character character, Buy buy)
-            {
-                this.buy = buy;
                 this.character = character;
-                AllItems = new List<Item>();
-                expendables = new List<Expendables>();
-
-
-                AllItems.Add(new Item(Item.BeginnerArmor()));
-                AllItems.Add(new Item(Item.IronArmor()));
-                AllItems.Add(new Item(Item.SpartaArmor()));
-                AllItems.Add(new Item(Item.Sparta300Armor()));
-                AllItems.Add(new Item(Item.ArmorOfSpartacus()));
-                AllItems.Add(new Item(Item.OldSword()));
-                AllItems.Add(new Item(Item.BronzeAx()));
-                AllItems.Add(new Item(Item.SpartaSphere()));
-                AllItems.Add(new Item(Item.Sparta300Sphere()));
-                AllItems.Add(new Item(Item.SphereOfSpartacus()));
-                expendables.Add(new Expendables(Expendables.potion()));
-                expendables.Add(new Expendables(Expendables.manaPotion()));
+                this.allItems = allItems;
+                this.expendables = expendables;
+                this.buy = buy;
             }
 
             public void ShopScene()
@@ -51,7 +34,7 @@ namespace RPG_SJ
                 Console.WriteLine($"{character.Gold}G");
                 Console.WriteLine();
                 Console.WriteLine("[아이템 목록]");
-                foreach (var Item in AllItems)
+                foreach (var Item in allItems)
                 {
                     Console.WriteLine(Item);
                 }
