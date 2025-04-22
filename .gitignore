@@ -416,7 +416,6 @@ FodyWeavers.xsd
 *.v2
 
 # 디버그 관련
-*.db
 *.log
 
 # 백업 파일
@@ -436,12 +435,12 @@ obj/
 # 사용자 설정 및 캐시
 *.suo
 *.user
-*.v2
-*.db
-*.cache
-*.log
-*.backup.json
+
 DocumentLayout*.json
 
 **/obj/**/*.cs
 **/obj/**/*.cache
+
+# Visual Studio 관련
+*.db
+*.vsidx
