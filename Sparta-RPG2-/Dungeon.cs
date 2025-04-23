@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 using Sparta_RPG2_;
 
 namespace Sparta_RPG2_
@@ -49,12 +50,44 @@ namespace Sparta_RPG2_
             if (player.Level >= RequiredLevel)
             {
                 Console.WriteLine($"⚔ {Name}에 진입합니다...");
+                ShowDungeonEntranceEffect(Name);
                 StartDungeon(player, inventory);
             }
             else
             {
                 Console.WriteLine("레벨이 부족합니다.");
+            }           
+        }       
+
+        private void ShowDungeonEntranceEffect(string dungeonName)
+        {
+            Console.Clear();
+            string[] entranceArt = {
+    "    █████╗   ██████╗  ███████  ██████╗",
+    "   ██╔══██╗ ██╔══██╗ ██╔════╝ ██╔════╝",
+    "  ███████║ ██████╔╝ ██████╗  ╚█████",
+    " ██╔══██║ ██╔██╔╝  ██╔═══╝       ██╝  ",
+    "██║  ██║ ██║║██╗  ███████╗║██████║",
+    "╚═╝  ╚═╝ ╚═╝╚══╝ ╚══════╝╚══════╝"
+};
+
+
+            foreach (string line in entranceArt)
+            {
+                Console.ForegroundColor = ConsoleColor.DarkRed;
+                Console.WriteLine(line);
+                Thread.Sleep(100);
             }
+            Console.ResetColor();
+
+            Console.WriteLine($"\n🌀 당신은 '{dungeonName}'의 문 앞에 도착했습니다.");
+            Thread.Sleep(1000);
+            Console.WriteLine("🩸 내부에서는 짙은 피 냄새와 울부짖음이 퍼져나옵니다...");
+            Thread.Sleep(1500);
+            Console.WriteLine("💬 '돌아가기엔 늦었군...' 당신은 주먹을 꽉 쥡니다.");
+            Thread.Sleep(1500);
+            Console.WriteLine($"\n[Enter] 키를 눌러 '{dungeonName}'에 진입하세요.");
+            while (Console.ReadKey(true).Key != ConsoleKey.Enter) ;
         }
 
         private void StartDungeon(Character player, Inventory inventory)

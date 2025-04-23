@@ -103,15 +103,15 @@ namespace Sparta_RPG2_
             {
                 Console.Clear();
                 Console.WriteLine("🌟 스파르타 던전에 오신 여러분 환영합니다.");
-                Console.WriteLine("1. 상태 보기");
-                Console.WriteLine("2. 전투 시작");
-                Console.WriteLine("3. 인벤토리");
-                Console.WriteLine("4. 상점");
+                Console.WriteLine("1. 💪 상태 보기");
+                Console.WriteLine("2. ⚔️ 전투 시작");
+                Console.WriteLine("3. 🏺 인벤토리");
+                Console.WriteLine("4. 💰 상점");
                 Console.WriteLine("5. 📜 의뢰 목록");
-                Console.WriteLine("6. 🔱 [던전] ⚔️ 타락한 아레스의 탑 ⚔️");
-                Console.WriteLine("7. 선술집");
-                Console.WriteLine("8. 병영");
-                Console.WriteLine("0. 게임 종료\n");
+                Console.WriteLine("6. 🏰 [던전] ⚔️ 타락한 아레스의 탑 ⚔️");
+                Console.WriteLine("7. 🍺 선술집");
+                Console.WriteLine("8. 🛡 병영");
+                Console.WriteLine("0. ❌ 게임 종료\n");
 
                 Console.Write("원하시는 행동을 입력해주세요.\n>> ");
                 string? input = Console.ReadLine();
