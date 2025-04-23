@@ -43,11 +43,11 @@
                     AllQuests.Add(new Quest
                     {
                         Title = "마을을 위협하는 미니언 처치",
-                        Description = "근처에 출몰하는 미니언을 5마리 처치하세요.",
-                        Goal = 5,
+                        Description = "근처에 출몰하는 미니언을 1마리 처치하세요.",
+                        Goal = 1,
                         Type = QuestType.MonsterKill,
-                        RewardEXP = 100,
-                        RewardGold = 500
+                        RewardEXP = 5000,
+                        RewardGold = 5000
                     });
 
                     AllQuests.Add(new Quest
@@ -55,7 +55,9 @@
                         Title = "장비를 장착해보자",
                         Description = "인벤토리에서 장비를 장착해보세요.",
                         Goal = 1,
-                        Type = QuestType.EquipItem
+                        Type = QuestType.EquipItem,
+                        RewardEXP = 5000,
+                        RewardGold = 5000
                     });
 
                     AllQuests.Add(new Quest
@@ -64,7 +66,9 @@
                         Description = "레벨을 3까지 올려보세요.",
                         Goal = 3,
                         CurrentProgress = 1,
-                        Type = QuestType.LevelUp
+                        Type = QuestType.LevelUp,
+                        RewardEXP = 5000,
+                        RewardGold = 5000
                     });
                 }
 
@@ -194,6 +198,8 @@
                             Console.WriteLine($"보상: {selected.RewardEXP} EXP, {selected.RewardGold} G");
                             Console.WriteLine("\n엔터를 누르면 보상이 수령됩니다.");
                             Console.ReadLine();
+
+                            GiveQuestReward(selected);
                         }
                         else if (detailChoice != 0)
                         {
@@ -230,7 +236,7 @@
                     Console.WriteLine($"\n🎁 퀘스트 보상 수령: {quest.RewardEXP}EXP, {quest.RewardGold}G");
                     Console.ResetColor();
 
-                    player.Exp += quest.RewardEXP;
+                    player.AddExp(quest.RewardEXP);
                     player.Gold += quest.RewardGold;
                 }
             }
