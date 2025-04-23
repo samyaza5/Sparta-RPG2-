@@ -34,7 +34,7 @@ namespace RPG_SJ
             player = new Character();
             player.MaxHP = player.HP;
 
-            inventory = new Inventory();
+            inventory = new Inventory(player);
             itemEquipped = new ItemEquipped(player, inventory);
 
             // 아이템 초기화
