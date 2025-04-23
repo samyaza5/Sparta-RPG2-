@@ -13,9 +13,10 @@ namespace RPG_SJ
         static ItemEquipped? itemEquipped;
         static Buy? buy;
         static Shop? shop;
-
+        static UseExpendables? useExpendables;
         static List<Item> allItems = new List<Item>();
         static List<Expendables> expendables = new List<Expendables>();
+        static BattleExpendables battleExpendables;
 
         static void Main(string[] args)
         {
@@ -29,14 +30,15 @@ namespace RPG_SJ
             ShowCreatMe(player);
             ShowStartMenu(); // 게임 시작
         }
-
+       
         static void InitGame()
         {
             player = new Character();
             player.MaxHP = player.HP;
-
             inventory = new Inventory(player);
-            itemEquipped = new ItemEquipped(player, inventory);
+            useExpendables = new UseExpendables(player, inventory);
+            itemEquipped = new ItemEquipped(player, inventory, useExpendables);
+            battleExpendables = new BattleExpendables(player, inventory);
 
             // 아이템 초기화
             allItems.AddRange(new[]
@@ -55,8 +57,8 @@ namespace RPG_SJ
 
             expendables.AddRange(new[]
             {
-                new Expendables(Expendables.potion()),
-                new Expendables(Expendables.manaPotion())
+                Expendables.potion(),
+                Expendables.manaPotion()
             });
 
             buy = new Buy(allItems, expendables, player, inventory, itemEquipped);
@@ -91,7 +93,7 @@ namespace RPG_SJ
                         Console.ReadLine();
                         break;
                     case "2":
-                        battle.StartBattle(player!);
+                        battle.StartBattle(player!, battleExpendables);
                         break;
                     case "3":
                         inventory!.InventoryScene();
