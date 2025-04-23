@@ -1,10 +1,8 @@
-﻿using RPG_SJ;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static RPG_SJ.Program;
 using Sparta_RPG2_;
 
 namespace Sparta_RPG2_
@@ -31,7 +29,6 @@ namespace Sparta_RPG2_
         public List<Stage> Stages { get; set; }
         public FloorType Floor { get; set; }
         public bool IsCleared { get; set; }
-
 
 
         public string GetFloorName(FloorType floor)
@@ -62,7 +59,6 @@ namespace Sparta_RPG2_
 
         private void StartDungeon(Character player, Inventory inventory)
         {
-            BattleSystem battleSystem = new();
             BattleExpendables expendables = new(player, inventory);
 
             foreach (var stage in Stages)
@@ -86,16 +82,36 @@ namespace Sparta_RPG2_
             Stages = new List<Stage>
     {
         new Stage("1층 - 붉은 늑대: 정찰병", FloorType.F1, Monstertype.N,
-            new List<Monster> { new Monster("붉은 늑대: 정찰병", 2, 30, 30, 6) }),
+            new List<Monster> 
+            { 
+                new Monster("붉은 늑대: 정찰병", 2, 30, 30, 6),
+                new Monster("붉은 늑대: 정찰병", 2, 30, 30, 6),
+                new Monster("붉은 늑대: 정찰병", 2, 30, 30, 6)
+            }),
 
         new Stage("2층 - 붉은 늑대: 추적자", FloorType.F2, Monstertype.N,
-            new List<Monster> { new Monster("붉은 늑대: 추적자", 3, 40, 40, 8) }),
+            new List<Monster>
+            { 
+                new Monster("붉은 늑대: 추적자", 3, 40, 40, 8),
+                new Monster("붉은 늑대: 추적자", 3, 40, 40, 8),
+                new Monster("붉은 늑대: 추적자", 3, 40, 40, 8)
+            }),
 
         new Stage("3층 - 붉은 늑대: 포식자", FloorType.F3, Monstertype.N,
-            new List<Monster> { new Monster("붉은 늑대: 포식자", 4, 45, 45, 10) }),
+            new List<Monster>
+            { 
+                new Monster("붉은 늑대: 포식자", 4, 45, 45, 10),
+                new Monster("붉은 늑대: 포식자", 4, 45, 45, 10),
+                new Monster("붉은 늑대: 포식자", 4, 45, 45, 10)
+            }),
 
         new Stage("4층 - 붉은 늑대: 광전사", FloorType.F4, Monstertype.N,
-            new List<Monster> { new Monster("붉은 늑대: 광전사", 5, 50, 50, 12) }),
+            new List<Monster>
+            {
+                new Monster("붉은 늑대: 광전사", 5, 50, 50, 12),
+                new Monster("붉은 늑대: 광전사", 5, 50, 50, 12),
+                new Monster("붉은 늑대: 광전사", 5, 50, 50, 12)
+            }),
 
         new Stage("5층 - 붉은 늑대: 저주받은 왕", FloorType.F5, Monstertype.B,
             new List<Monster> { new Monster("붉은 늑대: 저주받은 왕", 10, 150, 150, 30) })
@@ -122,7 +138,17 @@ namespace Sparta_RPG2_
             int beforeHP = player.HP;
 
             // 전투 진입 시 연출
-            Console.WriteLine("\n👀 적 몬스터들이 당신을 노려보고 있습니다!\n");
+            string message;
+            if (monsters.Count == 1)
+            {
+                message = $"\n👀 {monsters[0].Name}이(가) 당신을 노려보고 있습니다!\n";
+            }
+            else
+            {
+                string names = string.Join(", ", monsters.Select(m => m.Name));
+                message = $"\n👀 {names}들이 당신을 노려보고 있습니다!\n";
+            }
+            Console.WriteLine(message);
 
             foreach (var monster in monsters)
             {
