@@ -8,7 +8,7 @@
             public string Name { get; set; }
             public int Level { get; set; }
             public int HP { get; set; }
-
+            public bool IsDead { get; set; } // ✅ 읽기/쓰기 가능
             public int Attack { get; set; }
             public int MaxHP { get; set; }
 
@@ -21,9 +21,8 @@
                 HP = hp;
                 MaxHP = maxHP;
                 Attack = attack;
-            }
-
-            public bool IsDead => HP <= 0;
+                IsDead = false; 
+            }            
         }
     }
 }

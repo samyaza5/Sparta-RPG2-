@@ -107,7 +107,7 @@ namespace RPG_SJ
                         break;
                     case "6":
                         Console.WriteLine("⚔ [던전] 타락한 아레스의 탑에 진입합니다...");
-                        Dungeon.AresTower.Enter(player!);
+                        Dungeon.AresTower.Enter(player, inventory);
                         Console.ReadLine();
                         break;
                     case "0":
