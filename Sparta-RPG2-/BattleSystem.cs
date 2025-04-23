@@ -352,7 +352,7 @@ namespace Sparta_RPG2_
 
                                         Console.ForegroundColor = ConsoleColor.Green;
                                         Console.WriteLine($"Lv.{player.Level} {player.Name}");
-                                        Console.WriteLine($"HP {player.HP} + {skillDamage_1} -> {player.HP + skillDamage_1}");
+                                        Console.WriteLine($"HP {player.HP} + {skillDamage_1} -> {(player.HP + skillDamage_1 > 50 ? player.MaxHP : player.HP + skillDamage_1)}");
                                         Console.ResetColor();
                                        
 
@@ -377,7 +377,7 @@ namespace Sparta_RPG2_
                                             int skillDamage_2_1 = (int)Math.Round(damage * rate1 * 1.2f);
                                             int skillDamage_2_2 = (int)Math.Round(damage * rate2 * 1.2f);
                                             int skillDamage_2_3 = (int)Math.Round(damage * rate3 * 1.2f);
-                                            Console.WriteLine($"Lv.{target1.Level} {target1.Name} / Lv.{target2.Level} {target2.Name} / Lv.{target3.Level} {target3.Name}에게 썬더볼트 을(를) 맞췄습니다. [데미지 : {skillDamage_2_1} / {skillDamage_2_2} / {skillDamage_2_3}]\n");
+                                            Console.WriteLine($"Lv.{target1.Level} {target1.Name} / Lv.{target2.Level} {target2.Name} / Lv.{target3.Level} {target3.Name}에게 생텀 버스트 을(를) 맞췄습니다. [데미지 : {skillDamage_2_1} / {skillDamage_2_2} / {skillDamage_2_3}]\n");
                                             Console.WriteLine($"MP {player.MP} - {mp_4} -> {player.MP - mp_4}\n");
 
                                             if (target1.HP - skillDamage_2_1 <= 0)
@@ -433,7 +433,7 @@ namespace Sparta_RPG2_
 
                                             int skillDamage_2_1 = (int)Math.Round(damage * rate1 * 1.2f);
                                             int skillDamage_2_2 = (int)Math.Round(damage * rate2 * 1.2f);
-                                            Console.WriteLine($"Lv.{target1.Level} {target1.Name} / Lv.{target2.Level} {target2.Name}에게 썬더볼트 을(를) 맞췄습니다. [데미지 : {skillDamage_2_1} / {skillDamage_2_2}]");
+                                            Console.WriteLine($"Lv.{target1.Level} {target1.Name} / Lv.{target2.Level} {target2.Name}에게 생텀 버스트 을(를) 맞췄습니다. [데미지 : {skillDamage_2_1} / {skillDamage_2_2}]");
                                             Console.WriteLine($"MP {player.MP} - {mp_4} -> {player.MP - mp_4}\n");
 
                                             if (target1.HP - skillDamage_2_1 <= 0)
@@ -472,7 +472,7 @@ namespace Sparta_RPG2_
                                             Monster target1 = aliveMonsters[0];
 
                                             int skillDamage_2 = (int)Math.Round(damage * rate1 * 1.2f);
-                                            Console.WriteLine($"Lv.{target1.Level} {target1.Name}에게 썬더볼트 을(를) 맞췄습니다. [데미지 : {skillDamage_2}]");
+                                            Console.WriteLine($"Lv.{target1.Level} {target1.Name}에게 생텀 버스트 을(를) 맞췄습니다. [데미지 : {skillDamage_2}]");
                                             Console.WriteLine($"MP {player.MP} - {mp_4} -> {player.MP - mp_4}\n");
 
                                             if (target1.HP - skillDamage_2 <= 0)
