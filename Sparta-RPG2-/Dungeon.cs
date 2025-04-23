@@ -1,10 +1,10 @@
-﻿using RPG_SJ;
+﻿
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static RPG_SJ.Program;
+using static Sparta_RPG2_.Program;
 
 namespace Sparta_RPG2_
 {
