@@ -2,9 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.Threading;
-using static RPG_SJ.Program;
 
-namespace RPG_SJ
+
+namespace Sparta_RPG2_
 {
     public class ItemEquipped
     {

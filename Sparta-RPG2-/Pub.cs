@@ -1,25 +1,26 @@
-﻿using System.Numerics;
-using System.Text.Json.Serialization;
-using Sparta_RPG2_;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
 
 namespace Sparta_RPG2_
 {
     internal partial class Program
     {
-        class Shop // 상점
+        public class Pub
         {
-            public List<Item> allItems;
-            public List<Expendables> expendables;
-            Buy buy;
+            public List<Soldier> soldiers;
+            BuySoldier buySoldier;
 
             Character character; // 필드 선언만 남김
 
-            public Shop(Character character, List<Item> allItems, List<Expendables> expendables, Buy buy)
+            public Pub(Character character,List<Soldier> soldiers ,BuySoldier buySoldier)
             {
                 this.character = character;
-                this.allItems = allItems;
-                this.expendables = expendables;
-                this.buy = buy;
+                this.buySoldier = buySoldier;
+                this.soldiers = soldiers;
             }
 
             public void ShopScene()
@@ -32,11 +33,7 @@ namespace Sparta_RPG2_
                 Console.WriteLine($"{character.Gold}G");
                 Console.WriteLine();
                 Console.WriteLine("[아이템 목록]");
-                foreach (var Item in allItems)
-                {
-                    Console.WriteLine(Item);
-                }
-                foreach (var Item in expendables)
+                foreach (var Item in soldiers)
                 {
                     Console.WriteLine(Item);
                 }
@@ -59,12 +56,12 @@ namespace Sparta_RPG2_
                     {
                         Console.WriteLine("잘못된 입력입니다!");
                         Thread.Sleep(1000);
-                       ShopScene();
+                        ShopScene();
                     }
                 }
                 if (choice == 1)
                 {
-                   buy.BuyScene();
+                    buySoldier.BuyScene();
                 }
                 else if (choice == 0)
                 {
@@ -83,5 +80,4 @@ namespace Sparta_RPG2_
             }
         }
     }
-
 }

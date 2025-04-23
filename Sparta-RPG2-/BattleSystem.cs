@@ -1,6 +1,6 @@
 ﻿using Sparta_RPG2_;
 
-namespace RPG_SJ
+namespace Sparta_RPG2_
 {
     internal partial class Program
     {

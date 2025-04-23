@@ -1,9 +1,11 @@
 using Sparta_RPG2_;
-using static RPG_SJ.Program.Quest;
+
 using System;
 using System.Collections.Generic;
+using static Sparta_RPG2_.Program;
+using static Sparta_RPG2_.Program.Quest;
 
-namespace RPG_SJ
+namespace Sparta_RPG2_
 {
     internal partial class Program
     {
@@ -11,11 +13,16 @@ namespace RPG_SJ
         static Character? player;
         static Inventory? inventory;
         static ItemEquipped? itemEquipped;
+        static SoldierEquipped? soldierEquipped;
+        static SoldierInven? soldierInven;
         static Buy? buy;
+        static BuySoldier? buySoldier;
         static Shop? shop;
+        static Pub? pub;
         static UseExpendables? useExpendables;
         static List<Item> allItems = new List<Item>();
         static List<Expendables> expendables = new List<Expendables>();
+        static List<Soldier> soldiers = new List<Soldier>();
         static BattleExpendables battleExpendables;
 
         static void Main(string[] args)
@@ -39,6 +46,8 @@ namespace RPG_SJ
             useExpendables = new UseExpendables(player, inventory);
             itemEquipped = new ItemEquipped(player, inventory, useExpendables);
             battleExpendables = new BattleExpendables(player, inventory);
+            soldierInven = new SoldierInven(player);
+
 
             // 아이템 초기화
             allItems.AddRange(new[]
@@ -61,9 +70,27 @@ namespace RPG_SJ
                 Expendables.manaPotion()
             });
 
+            soldiers.AddRange(new[]
+           {
+                new Soldier(Soldier.Recruit()),
+                new Soldier(Soldier.TrainedSoldier()),
+                new Soldier(Soldier.EliteSoldier()),
+                new Soldier(Soldier.ShieldNovice()),
+                new Soldier(Soldier.ShieldWarrior()),
+                new Soldier(Soldier.ShieldGuardian()),
+                new Soldier(Soldier.SpartanWarrior()),
+                new Soldier(Soldier.AresDisciple()),
+                new Soldier(Soldier.AresProphet()),
+                new Soldier(Soldier.AresApostle())
+            });
+
             buy = new Buy(allItems, expendables, player, inventory, itemEquipped);
             shop = new Shop(player, allItems, expendables, buy);
             buy.SetShop(shop);
+
+            buySoldier = new BuySoldier(soldiers,player, soldierInven, soldierEquipped);
+            pub = new Pub(player, soldiers, buySoldier);
+            buySoldier.SetShop(pub);
         }
 
         static void ShowStartMenu()
@@ -82,6 +109,8 @@ namespace RPG_SJ
                 Console.WriteLine("4. 상점");
                 Console.WriteLine("5. 📜 의뢰 목록");
                 Console.WriteLine("6. 🔱 [던전] ⚔️ 타락한 아레스의 탑 ⚔️");
+                Console.WriteLine("7. 선술집");
+                Console.WriteLine("8. 병영");
                 Console.WriteLine("0. 게임 종료\n");
 
                 Console.Write("원하시는 행동을 입력해주세요.\n>> ");
@@ -104,11 +133,17 @@ namespace RPG_SJ
                         break;
                     case "5":
                         questManager?.ShowQuestMenu();
-                        break;
+                        break;   
                     case "6":
                         Console.WriteLine("⚔ [던전] 타락한 아레스의 탑에 진입합니다...");
                         Dungeon.AresTower.Enter(player, inventory);
                         Console.ReadLine();
+                        break;
+                    case "7":
+                        pub?.ShopScene();
+                        break;   
+                    case "8":
+                        soldierInven?.InventoryScene();
                         break;
                     case "0":
                         playGame = false;
