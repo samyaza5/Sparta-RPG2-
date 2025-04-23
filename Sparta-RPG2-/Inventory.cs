@@ -12,20 +12,17 @@ namespace RPG_SJ
         public List<Item> AllItems { get; private set; }
         public List<Expendables> expendables { get; private set; }
 
-        private ItemEquipped? itemEquipped;
-        private Character? player;
+        private ItemEquipped itemEquipped;
+        private UseExpendables useExpendables;
+        private Character player;
 
-        public Inventory()
+        public Inventory(Character player)
         {
             AllItems = new List<Item>();
             expendables = new List<Expendables>();
-        }
-
-        // 의존성 주입 메서드
-        public void SetDependencies(ItemEquipped itemEquipped, Character player)
-        {
-            this.itemEquipped = itemEquipped;
             this.player = player;
+            itemEquipped = new ItemEquipped(player, this);
+            useExpendables = new UseExpendables(player, this);
         }
 
         public void InventoryScene()
@@ -51,6 +48,7 @@ namespace RPG_SJ
                 }
 
                 Console.WriteLine("\n1. 장착 관리");
+                Console.WriteLine("2. 소모품 사용");
                 Console.WriteLine("0. 나가기");
                 Console.Write("\n원하시는 행동을 입력해주세요: ");
 
@@ -60,7 +58,10 @@ namespace RPG_SJ
                     switch (choice)
                     {
                         case 1:
-                            itemEquipped?.EqualsScene(); // null 체크 추가
+                            itemEquipped.EqualsScene(); // null 체크 추가
+                            break;
+                        case 2:
+                            useExpendables.UseExpend();
                             break;
                         case 0:
                             return;
