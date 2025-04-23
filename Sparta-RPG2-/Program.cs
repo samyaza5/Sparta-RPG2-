@@ -25,6 +25,7 @@ namespace RPG_SJ
 
             questManager = new QuestManager(player!);
             questManager.InitQuests(); // 퀘스트 생성
+            Intro.Start();
             ShowCreatMe(player);
             ShowStartMenu(); // 게임 시작
         }
