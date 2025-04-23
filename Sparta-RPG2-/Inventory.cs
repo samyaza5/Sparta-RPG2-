@@ -14,15 +14,17 @@ namespace RPG_SJ
 
         private ItemEquipped itemEquipped;
         private UseExpendables useExpendables;
+        private ExpendablesEquipped expendablesEquipped;
         private Character player;
 
         public Inventory(Character player)
         {
+            expendablesEquipped = new ExpendablesEquipped(this);
             AllItems = new List<Item>();
             expendables = new List<Expendables>();
             this.player = player;
-            itemEquipped = new ItemEquipped(player, this);
-            useExpendables = new UseExpendables();
+            useExpendables = new UseExpendables(player, this);
+            itemEquipped = new ItemEquipped(player, this, useExpendables);
         }
 
         public void InventoryScene()
@@ -47,8 +49,9 @@ namespace RPG_SJ
                         Console.WriteLine(exp.expendablesPro.ToInventoryString());
                 }
 
-                Console.WriteLine("\n1. 장착 관리");
-                Console.WriteLine("2. 소모품 사용");
+                Console.WriteLine("\n1. 장비 장착 관리");
+                Console.WriteLine("2. 소모품 장착 관리");
+                Console.WriteLine("3. 소모품 사용");
                 Console.WriteLine("0. 나가기");
                 Console.Write("\n원하시는 행동을 입력해주세요: ");
 
@@ -60,7 +63,10 @@ namespace RPG_SJ
                         case 1:
                             itemEquipped.EqualsScene(); // null 체크 추가
                             break;
-                        case 2:
+                            case 2:
+                            expendablesEquipped.ExpendablesEq();
+                                break;
+                        case 3:
                             useExpendables.UseExpend();
                             break;
                         case 0:

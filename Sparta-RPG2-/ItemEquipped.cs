@@ -10,11 +10,13 @@ namespace RPG_SJ
     {
         public Inventory inventory;
         public Character player;
-        
-        public ItemEquipped(Character player, Inventory inventory)
+        public UseExpendables useExpendables;
+
+        public ItemEquipped(Character player, Inventory inventory, UseExpendables useExpendables)
         {
             this.player = player;
             this.inventory = inventory;
+            this.useExpendables = useExpendables;
         }
 
         public void UpdateStatsFromInventory(List<Item> items)
@@ -39,12 +41,12 @@ namespace RPG_SJ
             while (true)
             {
                 Console.Clear();
-                Console.WriteLine("인벤토리 - 장착 관리");
-                Console.WriteLine("보유 중인 아이템을 관리할 수 있습니다.");
+                Console.WriteLine("인벤토리 - 장비 장착 관리");
+                Console.WriteLine("보유 중인 장비를 관리할 수 있습니다.");
                 Console.WriteLine("[아이템 목록]");
                 Console.WriteLine();
 
-                if (inventory?.AllItems == null || inventory.AllItems.Count == 0)
+                if (inventory.AllItems.Count == 0 && inventory.expendables.Count == 0)
                 {
                     Console.WriteLine("보유한 아이템이 없습니다.");
                 }
@@ -65,8 +67,9 @@ namespace RPG_SJ
                 {
                     if (input == 0)
                         return;
-
                     int index = input - 1;
+
+
                     if (inventory != null && index >= 0 && index < inventory.AllItems.Count)
                     {
                         var selectedItem = inventory.AllItems[index];
@@ -90,6 +93,7 @@ namespace RPG_SJ
                             Console.WriteLine($"'{selectedItem.itemPro.ItemName}'를 장착했습니다!");
                             Thread.Sleep(1000);
                         }
+
                     }
                     else
                     {
