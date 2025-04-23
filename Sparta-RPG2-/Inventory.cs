@@ -22,7 +22,7 @@ namespace RPG_SJ
             expendables = new List<Expendables>();
             this.player = player;
             itemEquipped = new ItemEquipped(player, this);
-            useExpendables = new UseExpendables();
+            useExpendables = new UseExpendables(player, this);
         }
 
         public void InventoryScene()
