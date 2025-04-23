@@ -21,6 +21,24 @@
         public int beforeHP { get; set; } = 100;
         public int MP { get; set; } = 50;
         public int MaxMP { get; set; }
+
+        public void AddExp(int amount)
+        {
+            Exp += amount;
+
+            while (Exp >= MaxExp)
+            {
+                Exp -= MaxExp;
+                Level++;
+                Attack += 2;   // 예시 능력치 상승
+                Defense += 2;
+
+                // MaxExp 증가 (예: 1.1배씩 증가)
+                MaxExp = (int)(MaxExp * 1.1);
+
+                Console.WriteLine($"\n🎉 레벨업! Lv.{Level}");
+            }
+        }
     }
 }
     
