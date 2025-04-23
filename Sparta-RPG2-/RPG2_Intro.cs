@@ -1,4 +1,4 @@
-﻿class Intro
+class Intro
 {
     public static void Start()
     {
