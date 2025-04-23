@@ -1,0 +1,12 @@
+*.bin
+.vs/ProjectEvaluation/sparta-rpg2-.projects.v9.bin
+*.vsidx
+*.v2
+.vs/Sparta-RPG2-/v17/.suo
+*.json
+*.dll
+*.cache
+*.pdb
+*.txt
+*.BuildWithSkipAnalyzers
+*.exe
