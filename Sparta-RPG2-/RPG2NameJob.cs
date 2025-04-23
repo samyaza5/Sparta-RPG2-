@@ -24,7 +24,7 @@ namespace RPG_SJ
                 default:
                     Console.WriteLine("잘못된 직업입니다. 스파르타로 설정합니다.");
                     player.Job = "스파르타";
-                    player.Attack = 10; player.Defense = 10; player.HP = 80; player.MaxHP = 80; player.MP = 5; player.MaxMP = 5; break;
+                    player.Attack = 21; player.Defense = 21; player.HP = 121; player.MaxHP = 121; player.MP = 210; player.MaxMP = 210; break;
             }
 
             Console.WriteLine($"\n캐릭터 생성 완료! 이름 : {player.Name}, 직업 : {player.Job}");
