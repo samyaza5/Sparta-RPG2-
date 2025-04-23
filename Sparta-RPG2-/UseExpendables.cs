@@ -20,10 +20,19 @@ namespace Sparta_RPG2_
                 if (item.expendablesPro.ItemName == "회복물약")
                 { 
                     player.HP += item.expendablesPro.ItemStat;
+                    if (player.HP > player.MaxHP) 
+                    {
+                        player.HP = player.MaxHP;
+                    }
+
                 }
                 else if (item.expendablesPro.ItemName == "마나물약{")
                 {
                     player.MP += item.expendablesPro.ItemStat;
+                    if (player.MP > player.MaxMP)
+                    {
+                        player.MP = player.MaxMP;
+                    }
                 }
                        
  
