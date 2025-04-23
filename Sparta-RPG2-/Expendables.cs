@@ -8,20 +8,24 @@ namespace Sparta_RPG2_
 {
     public class Expendables
     {
-        public ExpendablesPro expendablesPro;
-
+        public ExpendablesPro expendablesPro { get; set; }
+        public bool IsEquipped { get; set; }  // 장착 여부 개별 관리
 
         public Expendables(ExpendablesPro expendablesPro)
         {
-            this.expendablesPro = expendablesPro;
+            this.expendablesPro = new ExpendablesPro(
+            expendablesPro.ItemName,
+            expendablesPro.ItemStat,
+            expendablesPro.ItemInfo,
+            expendablesPro.ItemValue); ;
         }
-        public static ExpendablesPro potion()
+        public static Expendables potion()
         {
-            return new ExpendablesPro("회복물약", 30 , "체력을 회복시켜주는 물약입니다.", 2000);
+            return new Expendables(new ExpendablesPro("회복물약", 30 , "체력을 회복시켜주는 물약입니다.", 2000));
         }
-        public static ExpendablesPro manaPotion()
+        public static Expendables manaPotion()
         {
-            return new ExpendablesPro("마나물약", 10 , "마나를 회복시켜주는 물약입니다.", 3000);
+            return new Expendables(new ExpendablesPro("마나물약", 10 , "마나를 회복시켜주는 물약입니다.", 3000));
         }
        
         public override string ToString()

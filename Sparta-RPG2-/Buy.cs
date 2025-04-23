@@ -121,19 +121,20 @@ namespace RPG_SJ
 
             private void HandleExpendablePurchase(Expendables ex)
             {
-                if (ex.expendablesPro.IsSold)
-                {
-                    Console.WriteLine("⚠ 이미 구매한 소모품입니다.");
-                }
-                else if (character.Gold < ex.expendablesPro.ItemValue)
+                if (character.Gold < ex.expendablesPro.ItemValue)
                 {
                     Console.WriteLine("⚠ 골드가 부족합니다.");
                 }
                 else
                 {
+                    var newEx = new Expendables(new ExpendablesPro(
+    ex.expendablesPro.ItemName,
+    ex.expendablesPro.ItemStat,
+    ex.expendablesPro.ItemInfo,
+    ex.expendablesPro.ItemValue
+));
                     character.Gold -= ex.expendablesPro.ItemValue;
-                    ex.expendablesPro.IsSold = true;
-                    inventory.expendables.Add(ex);
+                    inventory.expendables.Add(newEx);
                     Console.WriteLine("✅ 소모품 구매 완료!");
                 }
             }

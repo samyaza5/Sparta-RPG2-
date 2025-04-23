@@ -1,20 +1,23 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using RPG_SJ;
 
 namespace Sparta_RPG2_
 {
-    public class UseExpendables
+    public class BattleExpendables
     {
         private Character player;
         Inventory inventory;
-        
 
-        public UseExpendables(Character player, Inventory inventory)
+        public BattleExpendables(Character player, Inventory inventory)
         {
             this.player = player;
             this.inventory = inventory;
         }
-        public void UpdateStatsFromExpendables(List<Expendables> expendables)
+        void UpdateStatsFromExpendables(List<Expendables> expendables)
         {
             foreach (var item in expendables)
             {
@@ -22,16 +25,19 @@ namespace Sparta_RPG2_
                 if (item.expendablesPro.ItemName == "회복물약")
                 {
                     player.HP += item.expendablesPro.ItemStat;
-
-                    if(player.HP > player.MaxHP) player.HP = player.MaxHP;
+                    if (player.HP > player.MaxHP)
+                    {
+                        player.HP = player.MaxHP;
+                    }
 
                 }
                 else if (item.expendablesPro.ItemName == "마나물약")
                 {
                     player.MP += item.expendablesPro.ItemStat;
-
-                    if (player.MP > player.MaxMP) player.MP = player.MaxMP;
-
+                    if (player.MP > player.MaxMP)
+                    {
+                        player.MP = player.MaxMP;
+                    }
                 }
 
 
@@ -39,20 +45,21 @@ namespace Sparta_RPG2_
         }
         public void UseExpend()
         {
+            var equippedExpendables = inventory.expendables.Where(x => x.IsEquipped).ToList();
             Console.Clear();
-            Console.WriteLine("인벤토리 - 소모품 사용");
-            Console.WriteLine("보유중인 소모품을 사용할 수 있습니다.");
+            Console.WriteLine("전투 - 소모품 사용");
+            Console.WriteLine("장착중인 소모품을 사용할 수 있습니다.");
             Console.WriteLine("[소모품 목록]");
             Console.WriteLine();
-            if (inventory.expendables.Count == 0)
+            if (equippedExpendables.Count == 0)
             {
-                Console.WriteLine(" 보유한 아이템이 없습니다.");
+                Console.WriteLine("장착한 물약이 없습니다.");
             }
             else
             {
-                for (int i = 0; i < inventory.expendables.Count; i++)
+                for (int i = 0; i < equippedExpendables.Count; i++)
                 {
-                    var exp = inventory.expendables[i];
+                    var exp = equippedExpendables[i];
                     Console.WriteLine($"[{i + 1}] {exp.expendablesPro.ToInventoryString()}");
                 }
             }
@@ -67,14 +74,13 @@ namespace Sparta_RPG2_
                     return;
 
                 int index = input - 1;
-                if (inventory != null && index >= 0 && index < inventory.expendables.Count)
+                if (inventory != null && index >= 0 && index < equippedExpendables.Count)
                 {
-                    var selectedItem = inventory.expendables[index];
-                        UpdateStatsFromExpendables(inventory.expendables);
-                        Console.WriteLine($"'{selectedItem.expendablesPro.ItemName}'를 사용했습니다!");
+                    var selectedItem = equippedExpendables[index];
+                    UpdateStatsFromExpendables(new List<Expendables> { selectedItem });
+                    Console.WriteLine($"'{selectedItem.expendablesPro.ItemName}'를 사용했습니다!");
                     inventory.expendables.Remove(selectedItem);
-                        Thread.Sleep(1000);
-                    
+                    Thread.Sleep(1000);
                 }
                 else
                 {
@@ -90,5 +96,3 @@ namespace Sparta_RPG2_
         }
     }
 }
-    
-

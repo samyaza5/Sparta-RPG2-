@@ -1,11 +1,14 @@
-﻿namespace RPG_SJ
+﻿using Sparta_RPG2_;
+
+namespace RPG_SJ
 {
     internal partial class Program
-    {
+    { 
         // ⚔ 전투 시작
         public class BattleSystem
         {
-            public void StartBattle(Character player)
+
+            public void StartBattle(Character player, BattleExpendables battleExpendables)
             {
                 List<Monster> monsters = GenerateMonsters();
 
@@ -14,7 +17,7 @@
                 {
 
 
-                    PlayerAttack(player, monsters);
+                    PlayerAttack(player, monsters, battleExpendables);
                     if (!monsters.Exists(m => !m.IsDead)) break;
 
                     EnemyPhase(player, monsters);
@@ -70,7 +73,7 @@
                 return list;
             }
 
-            static void PlayerAttack(Character player, List<Monster> monsters)
+            static void PlayerAttack(Character player, List<Monster> monsters, BattleExpendables battleExpendables)
             {
 
                 Console.Clear();
@@ -99,7 +102,7 @@
 
                 while (true)
                 {
-                    Console.Write("1. 공격\n2. 스킬\n\n원하시는 행동을 입력해주세요.\n>> ");
+                    Console.Write("1. 공격\n2. 스킬\n3. 소모품 사용\n\n원하시는 행동을 입력해주세요.\n>> ");
                     string? input = Console.ReadLine();
                     switch (input)
                     {
@@ -656,9 +659,13 @@
                             break; // 스킬
 
 
-                        case "3": //물약사용
-                                break;
-                                default:
+
+
+                        case "3":
+                            battleExpendables.UseExpend();
+                            continue;
+                        default:
+
                             continue;
 
                     }//switch
@@ -723,9 +730,10 @@
 
                 Console.WriteLine("\n📣 당신의 차례입니다!");
             }
+        }
 
 
-            static void BattleResult(Character player, List<Monster> monsters, Quest.QuestManager questManager)
+        static void BattleResult(Character player, List<Monster> monsters, Quest.QuestManager questManager)
 
             {
                 DungeonResult dungeonResult = new DungeonResult(inventory, allItems, expendables); // 던전결과 클래스 초기화
@@ -776,4 +784,3 @@
             }
         }
     }
-}

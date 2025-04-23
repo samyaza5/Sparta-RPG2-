@@ -9,6 +9,9 @@
             LevelUp
         }
 
+        /// <summary>
+        /// 퀘스트 클래스 - 퀘스트 하나의 모든 속성과 상태를 표현
+        /// </summary>
         public class Quest
         {
             public string? Title { get; set; }
@@ -18,22 +21,22 @@
             public int CurrentProgress { get; set; }
             public int Goal { get; set; }
             public QuestType Type { get; set; }
-            // 🆕 보상 관련 필드
             public int RewardEXP { get; set; }
             public int RewardGold { get; set; }
             public Character? player { get; private set; }
 
+            /// <summary>
+            /// 퀘스트 매니저 클래스 - 전체 퀘스트 로직을 관리
+            /// </summary>
             public class QuestManager
-            {                
+            {
                 public List<Quest> AllQuests = new List<Quest>();
                 public Character player { get; private set; }
 
-                // ✅ 생성자 추가
                 public QuestManager(Character player)
                 {
                     this.player = player;
                 }
-
 
                 public void InitQuests()
                 {
@@ -42,9 +45,6 @@
                         Title = "마을을 위협하는 미니언 처치",
                         Description = "근처에 출몰하는 미니언을 5마리 처치하세요.",
                         Goal = 5,
-                        CurrentProgress = 0,
-                        IsAccepted = false,
-                        IsCompleted = false,
                         Type = QuestType.MonsterKill,
                         RewardEXP = 100,
                         RewardGold = 500
@@ -55,9 +55,6 @@
                         Title = "장비를 장착해보자",
                         Description = "인벤토리에서 장비를 장착해보세요.",
                         Goal = 1,
-                        CurrentProgress = 0,
-                        IsAccepted = false,
-                        IsCompleted = false,
                         Type = QuestType.EquipItem
                     });
 
@@ -67,142 +64,141 @@
                         Description = "레벨을 3까지 올려보세요.",
                         Goal = 3,
                         CurrentProgress = 1,
-                        IsAccepted = false,
-                        IsCompleted = false,
                         Type = QuestType.LevelUp
-
                     });
                 }
 
                 public void ShowQuestMenu()
                 {
-                    Console.Clear();
-                    ShowActiveQuestSummary();
-                    ShowCompletableQuests();
-                    ShowAvailableQuests();
-                }
-
-                // 진행중인 퀘스트 함수
-                private void ShowActiveQuestSummary()
-                {
-                    var active = AllQuests.Where(q => q.IsAccepted && !q.IsCompleted).ToList();
-                    if (active.Count == 0) return;
-
-                    Console.ForegroundColor = ConsoleColor.Yellow;
-                    Console.WriteLine("[🕐 진행 중인 퀘스트 요약]");
-                    Console.ResetColor();
-                    foreach (var q in active)
+                    while (true)
                     {
-                        int displayedProgress = Math.Min(q.CurrentProgress, q.Goal);
-                        Console.Write("- " + q.Title + " ");
-                        Console.WriteLine($"({displayedProgress}/{q.Goal})");
+                        Console.Clear();
+                        Console.WriteLine("[퀘스트 메뉴]");
+                        Console.WriteLine("1. 📜 수락 가능한 퀘스트 보기");
+                        Console.WriteLine("2. 🕐 진행 중인 퀘스트 보기");
+                        Console.WriteLine("3. ✔ 완료 가능한 퀘스트 완료하기");
+                        Console.WriteLine("0. 나가기");
+                        Console.Write("\n>> ");
+
+                        string? input = Console.ReadLine();
+                        switch (input)
+                        {
+                            case "1":
+                                ShowAvailableQuests();
+                                break;
+                            case "2":
+                                ShowActiveQuests();
+                                Console.WriteLine("\n엔터를 누르면 퀘스트 메뉴로 돌아갑니다.");
+                                Console.ReadLine();
+                                break;
+                            case "3":
+                                ShowCompletableQuests();
+                                Console.WriteLine("\n엔터를 누르면 퀘스트 메뉴로 돌아갑니다.");
+                                Console.ReadLine();
+                                break;
+                            case "0":
+                                return;
+                            default:
+                                Console.WriteLine("❌ 잘못된 입력입니다.");
+                                break;
+                        }
                     }
-                    Console.WriteLine();
                 }
 
-                // 퀘스트 완료 함수
-                private void ShowCompletableQuests()
+                public void ShowAvailableQuests()
                 {
-                    var completable = AllQuests.Where(q => q.IsAccepted && q.CurrentProgress >= q.Goal).ToList();
-
-                    if (completable.Count == 0)
+                    var available = AllQuests.Where(q => !q.IsAccepted).ToList();
+                    if (available.Count == 0)
                     {
-                        Console.ForegroundColor = ConsoleColor.DarkGray;
-                        Console.WriteLine("✔ 완료 가능한 퀘스트가 없습니다.\n");
-                        Console.ResetColor();
+                        Console.WriteLine("❌ 수락 가능한 퀘스트가 없습니다.");
                         return;
                     }
 
-                    Console.ForegroundColor = ConsoleColor.Green;
-                    Console.WriteLine("✔ 완료 가능한 퀘스트 목록");
-                    Console.ResetColor();
-
-                    for (int i = 0; i < completable.Count; i++)
-                    {
-                        var q = completable[i];
-                        string extra = q.CurrentProgress > q.Goal ? "+" : "";
-                        int displayedProgress = Math.Min(q.CurrentProgress, q.Goal);
-                        Console.WriteLine($"- {q.Title} ({displayedProgress}/{q.Goal}){extra}");
-                    }
-
-                    Console.WriteLine("0. 나가기");
-                    Console.Write("원하시는 퀘스트의 번호를 선택해주세요.\n>> ");
-
-                    if (int.TryParse(Console.ReadLine(), out int choice))
-                    {
-                        if (choice == 0) return;
-
-                        if (choice > 0 && choice <= completable.Count)
-                        {
-                            var selected = completable[choice - 1];
-                            selected.IsCompleted = true;
-                            GiveQuestReward(selected); // 보상 지급
-                            Console.WriteLine($"\n🎉 '{selected.Title}' 퀘스트를 완료했습니다.!\n");
-                        }
-                        else
-                        {
-                            Console.WriteLine("❌ 잘못된 선택입니다.");
-                        }
-                    }
-                    else
-                    {
-                        Console.WriteLine("❌ 숫자로 입력해주세요.");
-                    }
-                }
-
-                // 퀘스트 리스트 함수
-                private void ShowAvailableQuests()
-                {
-                    var available = AllQuests.Where(q => !q.IsAccepted).ToList();
-
+                    Console.ForegroundColor = ConsoleColor.DarkYellow;
                     Console.WriteLine("📜 [수락 가능한 퀘스트 목록]");
+                    Console.ResetColor();
                     for (int i = 0; i < available.Count; i++)
                     {
                         Console.WriteLine($"{i + 1}. {available[i].Title}");
                     }
                     Console.WriteLine("0. 나가기");
-                    Console.Write("원하시는 퀘스트를 선택해주세요.\n>> ");
+                    Console.Write("원하시는 퀘스트 번호를 선택해주세요.\n>> ");
 
-                    if (!int.TryParse(Console.ReadLine(), out int choice))
+                    if (int.TryParse(Console.ReadLine(), out int choice) && choice > 0 && choice <= available.Count)
                     {
-                        Console.WriteLine("❌ 숫자로 입력해주세요.\n");
-                        return;
-                    }
-
-                    if (choice == 0)
-                    {
-                        Console.WriteLine("메뉴로 돌아갑니다...\n");
-                        return;
-                    }
-
-                    if (choice > 0 && choice <= available.Count)
-                    {
-                        var selectedQuest = available[choice - 1];
-                        int displayedProgress = Math.Min(selectedQuest.CurrentProgress, selectedQuest.Goal);
-
-                        Console.Clear();
-                        Console.WriteLine($"\n📘 [{selectedQuest.Title}]");
-                        Console.WriteLine(selectedQuest.Description);
-                        Console.WriteLine($"목표: {selectedQuest.Goal}개 / 진행: {selectedQuest.CurrentProgress}개\n");
-
-                        Console.WriteLine("1. 수락하기");
-                        Console.WriteLine("0. 나가기");
+                        var selected = available[choice - 1];
+                        Console.WriteLine($"\n📘 {selected.Title}\n{selected.Description}");
+                        Console.WriteLine("1. 수락하기\n0. 취소");
                         Console.Write(">> ");
-
-                        string? confirm = Console.ReadLine();
-                        if (confirm == "1")
+                        if (Console.ReadLine() == "1")
                         {
-                            selectedQuest.IsAccepted = true;
-                            Console.WriteLine($"\n✅ '{selectedQuest.Title}' 퀘스트를 수락했습니다!\n");
-                        }
-                        else
-                        {
-                            Console.WriteLine("❎ 퀘스트 수락을 취소했습니다.\n");
+                            selected.IsAccepted = true;
+                            Console.WriteLine($"\n✅ '{selected.Title}' 퀘스트를 수락했습니다!");
                         }
                     }
+                }
+
+                public void ShowActiveQuests()
+                {
+                    var active = AllQuests.Where(q => q.IsAccepted && !q.IsCompleted && q.CurrentProgress < q.Goal).ToList();
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.WriteLine("[🕐 진행 중인 퀘스트 요약]");
+                    Console.ResetColor();
+
+                    if (active.Count == 0)
+                        Console.WriteLine("- 없음");
                     else
                     {
-                        Console.WriteLine("❌ 유효하지 않은 선택입니다.\n");
+                        foreach (var q in active)
+                        {
+                            int display = Math.Min(q.CurrentProgress, q.Goal);
+                            Console.WriteLine($"- {q.Title} ({display}/{q.Goal})");
+                        }
+                    }
+                }
+
+                public void ShowCompletableQuests()
+                {
+                    var completable = AllQuests.Where(q => q.IsAccepted && q.CurrentProgress >= q.Goal && !q.IsCompleted).ToList();
+                    var completed = AllQuests.Where(q => q.IsCompleted).ToList();
+
+                    if (completable.Count == 0 && completed.Count == 0)
+                    {
+                        Console.WriteLine("✔ 완료 가능한 퀘스트가 없습니다.");
+                        return;
+                    }
+
+                    if (completed.Count > 0)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Cyan;
+                        Console.WriteLine("\n🎯 [완료한 퀘스트 목록]");
+                        Console.ResetColor();
+
+                        for (int i = 0; i < completed.Count; i++)
+                        {
+                            Console.WriteLine($"{i + 1}. {completed[i].Title}");
+                        }
+
+                        Console.WriteLine("0. 나가기");
+                        Console.Write("자세히 보고 싶은 퀘스트 번호를 선택해주세요.\n>> ");
+
+                        if (int.TryParse(Console.ReadLine(), out int detailChoice) && detailChoice > 0 && detailChoice <= completed.Count)
+                        {
+                            var selected = completed[detailChoice - 1];
+                            Console.Clear();
+                            Console.ForegroundColor = ConsoleColor.Cyan;
+                            Console.WriteLine($"📘 [{selected.Title}]");
+                            Console.ResetColor();
+                            Console.WriteLine($"{selected.Description}");
+                            Console.WriteLine($"목표: {selected.Goal} / 완료함");
+                            Console.WriteLine($"보상: {selected.RewardEXP} EXP, {selected.RewardGold} G");
+                            Console.WriteLine("\n엔터를 누르면 보상이 수령됩니다.");
+                            Console.ReadLine();
+                        }
+                        else if (detailChoice != 0)
+                        {
+                            Console.WriteLine("❌ 잘못된 입력입니다.");
+                        }
                     }
                 }
 
@@ -213,29 +209,12 @@
                         if (quest.Type == type)
                         {
                             quest.CurrentProgress += amount;
-
                             if (quest.CurrentProgress >= quest.Goal)
                             {
                                 quest.IsCompleted = true;
                                 Console.WriteLine($"\n🎉 '{quest.Title}' 퀘스트를 완료했습니다!");
                             }
                         }
-                    }
-                }
-
-                public void ShowActiveQuests()
-                {
-                    var activeQuests = AllQuests.Where(q => q.IsAccepted && !q.IsCompleted).ToList();
-                    if (activeQuests.Count == 0)
-                    {
-                        Console.WriteLine("❌ 현재 진행 중인 퀘스트가 없습니다.");
-                        return;
-                    }
-
-                    Console.WriteLine("📘 [진행 중인 퀘스트]");
-                    foreach (var q in activeQuests)
-                    {
-                        Console.WriteLine($"- {q.Title} ({q.CurrentProgress}/{q.Goal})");
                     }
                 }
 
@@ -249,6 +228,7 @@
 
                     Console.ForegroundColor = ConsoleColor.Green;
                     Console.WriteLine($"\n🎁 퀘스트 보상 수령: {quest.RewardEXP}EXP, {quest.RewardGold}G");
+                    Console.ResetColor();
 
                     player.Exp += quest.RewardEXP;
                     player.Gold += quest.RewardGold;
@@ -257,5 +237,3 @@
         }
     }
 }
-
-

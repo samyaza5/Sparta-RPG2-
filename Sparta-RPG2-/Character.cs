@@ -13,8 +13,9 @@
         public int Defense { get; set; } = 5;
         public int HP { get; set; } = 100;
         public int MaxHP { get; set; }
-        public int Gold { get; set; } = 5000;
+        public int Gold { get; set; } = 50000;
         public int Exp { get; set; }
+        public int MaxExp { get; set; } = 100;
         public int ArmorPower { get; set; } = 0;
         public int WeaponPower { get; set; } = 0;
         public int beforeHP { get; set; } = 100;
