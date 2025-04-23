@@ -1,5 +1,5 @@
 ﻿using System;
-using RPG_SJ;
+
 
 namespace Sparta_RPG2_
 {

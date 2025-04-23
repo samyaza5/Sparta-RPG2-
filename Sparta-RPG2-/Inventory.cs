@@ -2,10 +2,9 @@
 using System.Collections.Generic;
 using System.Threading;
 using Sparta_RPG2_;
-using RPG_SJ;
-using static RPG_SJ.Program;
 
-namespace RPG_SJ
+
+namespace Sparta_RPG2_
 {
     public class Inventory
     {

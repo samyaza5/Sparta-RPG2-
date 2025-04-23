@@ -1,8 +1,8 @@
 ﻿using System.Numerics;
 using Sparta_RPG2_;
-using static RPG_SJ.Program;
 
-namespace RPG_SJ
+
+namespace Sparta_RPG2_
 {
     internal partial class Program
     {

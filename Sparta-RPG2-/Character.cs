@@ -1,4 +1,4 @@
-﻿namespace RPG_SJ
+﻿namespace Sparta_RPG2_
 {
 
     // 🧍 캐릭터 클래스
@@ -21,6 +21,9 @@
         public int beforeHP { get; set; } = 100;
         public int MP { get; set; } = 50;
         public int MaxMP { get; set; }
+
+        public int SoldierAttack { get; set; } = 0;
+        public int SoldierDefense { get; set; } = 0;
 
         public void AddExp(int amount)
         {

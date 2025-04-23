@@ -1,4 +1,4 @@
-﻿namespace RPG_SJ
+﻿namespace Sparta_RPG2_
 {
     internal partial class Program
     {
@@ -11,6 +11,7 @@
                 Console.WriteLine($"🧝‍ {player.Name} ({player.Job})");
                 Console.WriteLine($"⚔️ 공격력 : {player.Attack} {(player.WeaponPower == 0 ? "" : " + " + player.WeaponPower)}");
                 Console.WriteLine($"🛡️ 방어력 : {player.Defense} {(player.ArmorPower == 0 ? "" : " + " + player.ArmorPower)}");
+                Console.WriteLine($"🏰 군대 : 전투력 {player.SoldierAttack} | 결집력 : {player.SoldierDefense}");
                 Console.WriteLine($"❤️ 체 력 : {player.HP} / {player.MaxHP}");
                 Console.WriteLine($"💰 Gold : {player.Gold:N0} G");
                 ShowExpBar(player); // 🎯 경험치 게이지 출력
