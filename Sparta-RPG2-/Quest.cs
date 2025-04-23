@@ -2,6 +2,9 @@
 {
     internal partial class Program
     {
+        /// <summary>
+        /// 퀘스트의 분류를 정의하는 열거형입니다.
+        /// </summary>
         public enum QuestType
         {
             MonsterKill,
@@ -26,18 +29,25 @@
             public Character? player { get; private set; }
 
             /// <summary>
-            /// 퀘스트 매니저 클래스 - 전체 퀘스트 로직을 관리
+            /// 전체 퀘스트 데이터 및 로직을 통합 관리하는 클래스입니다.
             /// </summary>
             public class QuestManager
             {
                 public List<Quest> AllQuests = new List<Quest>();
                 public Character player { get; private set; }
 
+                /// <summary>
+                /// 퀘스트 매니저를 초기화합니다.
+                /// </summary>
+                /// <param name="player">퀘스트 대상이 되는 플레이어</param>
                 public QuestManager(Character player)
                 {
                     this.player = player;
                 }
 
+                /// <summary>
+                /// 게임 시작 시 퀘스트 목록을 초기 등록합니다.
+                /// </summary>
                 public void InitQuests()
                 {
                     AllQuests.Add(new Quest
@@ -72,6 +82,9 @@
                     });
                 }
 
+                /// <summary>
+                /// 유저가 수락/진행/완료 가능한 퀘스트를 확인할 수 있는 메인 메뉴를 출력합니다.
+                /// </summary>
                 public void ShowQuestMenu()
                 {
                     while (true)
@@ -109,6 +122,9 @@
                     }
                 }
 
+                /// <summary>
+                /// 수락하지 않은 퀘스트 목록을 출력하고, 유저가 퀘스트를 수락할 수 있게 합니다.
+                /// </summary>
                 public void ShowAvailableQuests()
                 {
                     var available = AllQuests.Where(q => !q.IsAccepted).ToList();
@@ -142,6 +158,9 @@
                     }
                 }
 
+                /// <summary>
+                /// 현재 진행 중인 퀘스트들을 간략히 출력합니다.
+                /// </summary>
                 public void ShowActiveQuests()
                 {
                     var active = AllQuests.Where(q => q.IsAccepted && !q.IsCompleted && q.CurrentProgress < q.Goal).ToList();
@@ -161,6 +180,9 @@
                     }
                 }
 
+                /// <summary>
+                /// 완료 가능한 퀘스트와 이미 완료된 퀘스트를 출력하고, 보상을 수령합니다.
+                /// </summary>
                 public void ShowCompletableQuests()
                 {
                     var completable = AllQuests.Where(q => q.IsAccepted && q.CurrentProgress >= q.Goal && !q.IsCompleted).ToList();
@@ -208,6 +230,11 @@
                     }
                 }
 
+                // <summary>
+                /// 지정된 퀘스트 타입의 퀘스트 진행도를 업데이트합니다.
+                /// </summary>
+                /// <param name="type">퀘스트 타입 (몬스터 처치, 장비 착용 등)</param>
+                /// <param name="amount">증가할 진행도 수치 (기본값 1)</param>
                 public void OngoingQuests(QuestType type, int amount = 1)
                 {
                     foreach (var quest in AllQuests.Where(q => q.IsAccepted && !q.IsCompleted))
@@ -224,6 +251,10 @@
                     }
                 }
 
+                /// <summary>
+                /// 퀘스트 보상을 지급하고 플레이어의 경험치와 골드를 증가시킵니다.
+                /// </summary>
+                /// <param name="quest">보상을 받을 퀘스트 객체</param>
                 public void GiveQuestReward(Quest quest)
                 {
                     if (player == null)
