@@ -9,7 +9,7 @@
             {
                 List<Monster> monsters = GenerateMonsters();
 
-                int beforeHP = player.HP;
+                player.beforeHP = player.HP;
                 while (player.HP > 0 && monsters.Exists(m => !m.IsDead))
                 {
 
@@ -257,6 +257,10 @@
                                 break;
 
                             } // 스킬2
+                            else if(select !="1" || select != "2")
+                            {
+                                
+                            }
                             else
                             {
                                 Console.WriteLine("MP가 부족합니다!");
@@ -365,7 +369,7 @@
                     //player.HP -= damageTaken;
                     player.beforeHP = player.HP;
                     player.MP += 10;
-                    if (player.MP >= 50) player.MP = 50;
+                    if (player.MP >= player.MaxMP) player.MP = player.MaxMP;
 
                     //던전리워드
                     dungeonResult.LevelUp(monsters, player);
