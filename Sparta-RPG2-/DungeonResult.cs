@@ -150,21 +150,7 @@ internal partial class Program
                     //    Console.WriteLine($": {inventory.AllItems[i].itemPro.ItemName}");
                     //}
                 }
-                else if (randItemRate < dropNormalItemRate)   //기본드롭아이템추가
-                {
-                    int randItem = rand.Next(7, itemList.Count - 2);
-                    inventory.AllItems.Add(itemList[randItem]);
-                    getItem.Add(itemList[randItem].itemPro.ItemName);
-                    //Console.WriteLine(itemList[randItem].itemPro.ItemName);
-                    ////테스트출력
-                    //Console.WriteLine("테스트출력");
-                    //Console.WriteLine($"rare:{dropRareItemRate} normal:{dropNormalItemRate}");
-                    //for (int i = 0; i < inventory.AllItems.Count; i++)
-                    //{
-                    //    Console.WriteLine($": {inventory.AllItems[i].itemPro.ItemName}");
-                    //}
-                }
-                else
+                else  //기본드롭아이템추가
                 {
                     if (deadMonsterName == monsterName[0])
                     {
@@ -175,7 +161,7 @@ internal partial class Program
                     }
                     else if (deadMonsterName == monsterName[1])
                     {
-                        int randItem = rand.Next(0,  4);
+                        int randItem = rand.Next(0, 4);
                         inventory.AllItems.Add(itemList[randItem]);
                         getItem.Add(itemList[randItem].itemPro.ItemName);
                     }
@@ -186,9 +172,18 @@ internal partial class Program
                         getItem.Add(itemList[randItem].itemPro.ItemName);
                     }
                 }
-                
-                Console.WriteLine($"-{getItem[j]}");
+
+                //Console.WriteLine($"-{getItem[j]}");
             }
+                Console.WriteLine(getItem.Count);
+                if (getItem.Count > 0)
+                {
+                    foreach (var item in getItem)
+                    {
+                        Console.WriteLine($"- {item}");
+                        
+                    }
+                }
         }
     }
 }
