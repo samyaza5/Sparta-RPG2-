@@ -12,6 +12,7 @@ internal partial class Program
         List<Item> itemList;
         List<Expendables> expendableList;
         string[] monsterName = { "공허충", "미니언", "대포미니언" };
+        //string[] rareItemName = { "스파르타쿠스의 의지", "스파르타쿠스의 분노" };
 
         public DungeonResult(Inventory inventory, List<Item> itemList, List<Expendables> expendables)
         {
@@ -66,7 +67,7 @@ internal partial class Program
             }
 
 
-            Console.WriteLine($"Lv.{beforeLevel} -> Lv.{player.Level} {player.Name}");
+            Console.WriteLine($"{(beforeLevel == player.Level  ? "":$"Lv.{beforeLevel} -> Lv.{player.Level}")} {player.Name}");
             Console.WriteLine($"exp {beforeExp} -> {player.Exp}");
         }
 
@@ -96,7 +97,7 @@ internal partial class Program
                 addGold += (levelGold + monsterGold);
             }
             player.Gold += addGold;
-
+            Console.WriteLine();
             Console.WriteLine("[획득아이템]");
             Console.WriteLine($"{addGold} Gold");
         }
@@ -127,20 +128,22 @@ internal partial class Program
                 int dropRareItemRate = 0;
                 int monsterLevel = deadMonsterList[j].Level;
                 dropNormalItemRate += 10 + (monsterLevel * 1);
+
                 if (monsterLevel > 4)
                 {
                     dropRareItemRate = 10;
                 }
                 int randItemRate = rand.Next(0, 100);
                 string deadMonsterName = deadMonsterList[j].Name;
-                
+
                 //int rareItemIndex = itemList.Count - 1;
 
                 if (randItemRate < dropRareItemRate)  //레어드롭아이템추가   
                 {
-                    int rareRandItem = rand.Next(itemList.Count - 2, itemList.Count);
-                    inventory.AllItems.Add(itemList[rareRandItem]);
-                    getItem.Add(itemList[rareRandItem].itemPro.ItemName);
+                    int rareItemIndex = rand.Next(0, 2);
+                    rareItemIndex += 5;
+                    inventory.AllItems.Add(itemList[rareItemIndex]);
+                    getItem.Add(itemList[rareItemIndex].itemPro.ItemName);
                     //Console.WriteLine(itemList[rareItemIndex].itemPro.ItemName);
                     ////테스트출력
                     //Console.WriteLine("테스트출력");
@@ -167,7 +170,7 @@ internal partial class Program
                     }
                     else if (deadMonsterName == monsterName[2])
                     {
-                        int randItem = rand.Next(4, 7);
+                        int randItem = rand.Next(5, 9);
                         inventory.AllItems.Add(itemList[randItem]);
                         getItem.Add(itemList[randItem].itemPro.ItemName);
                     }
@@ -175,15 +178,26 @@ internal partial class Program
 
                 //Console.WriteLine($"-{getItem[j]}");
             }
-                Console.WriteLine(getItem.Count);
-                if (getItem.Count > 0)
+            //Console.WriteLine(getItem.Count);
+
+            //아이템 출력
+            if (getItem.Count > 0)
+            {
+                //Console.WriteLine(getItem.Count);
+                for (int i = 0; i < getItem.Count; i++) //아이템갯수출력
                 {
-                    foreach (var item in getItem)
+                    int itemEA = 1;
+                    for (int j = 1 + i; j < getItem.Count;j++)
                     {
-                        Console.WriteLine($"- {item}");
-                        
+                        if (getItem[i] == getItem[j])
+                        {
+                            itemEA++;
+                            getItem.Remove(getItem[j]);
+                        }
                     }
+                    Console.WriteLine($"- {getItem[i]} {itemEA} ");
                 }
+            }
         }
     }
 }
