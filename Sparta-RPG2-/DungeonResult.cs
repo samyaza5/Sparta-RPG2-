@@ -67,7 +67,7 @@ internal partial class Program
             }
 
 
-            Console.WriteLine($"Lv.{beforeLevel} -> Lv.{player.Level} {player.Name}");
+            Console.WriteLine($"{(beforeLevel == player.Level  ? "":$"Lv.{beforeLevel} -> Lv.{player.Level}")} {player.Name}");
             Console.WriteLine($"exp {beforeExp} -> {player.Exp}");
         }
 
