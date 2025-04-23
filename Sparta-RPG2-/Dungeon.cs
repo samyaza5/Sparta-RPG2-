@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using static RPG_SJ.Program;
+using Sparta_RPG2_;
 
 namespace Sparta_RPG2_
 {
@@ -30,6 +31,21 @@ namespace Sparta_RPG2_
         public List<Stage> Stages { get; set; }
         public FloorType Floor { get; set; }
         public bool IsCleared { get; set; }
+
+
+
+        public string GetFloorName(FloorType floor)
+        {
+            return floor switch
+            {
+                FloorType.F1 => "1층",
+                FloorType.F2 => "2층",
+                FloorType.F3 => "3층",
+                FloorType.F4 => "4층",
+                FloorType.F5 => "5층",
+                _ => "???"
+            };
+        }
 
         public void Enter(Character player, Inventory inventory)
         {
@@ -68,20 +84,29 @@ namespace Sparta_RPG2_
             Name = "타락한 아레스의 탑",
             RequiredLevel = 1,
             Stages = new List<Stage>
-            {
-                 new Stage("1층 - 붉은 늑대: 정찰병", FloorType.F1, Monstertype.N),
-                 new Stage("2층 - 붉은 늑대: 추적자", FloorType.F2, Monstertype.N),
-                 new Stage("3층 - 붉은 늑대: 포식자", FloorType.F3, Monstertype.N),
-                 new Stage("4층 - 붉은 늑대: 광전사", FloorType.F3, Monstertype.N),
-                 new Stage("3층 - 붉은 늑대: 저주받은 왕", FloorType.F3, Monstertype.N)
-            }
+    {
+        new Stage("1층 - 붉은 늑대: 정찰병", FloorType.F1, Monstertype.N,
+            new List<Monster> { new Monster("붉은 늑대: 정찰병", 2, 30, 30, 6) }),
+
+        new Stage("2층 - 붉은 늑대: 추적자", FloorType.F2, Monstertype.N,
+            new List<Monster> { new Monster("붉은 늑대: 추적자", 3, 40, 40, 8) }),
+
+        new Stage("3층 - 붉은 늑대: 포식자", FloorType.F3, Monstertype.N,
+            new List<Monster> { new Monster("붉은 늑대: 포식자", 4, 45, 45, 10) }),
+
+        new Stage("4층 - 붉은 늑대: 광전사", FloorType.F4, Monstertype.N,
+            new List<Monster> { new Monster("붉은 늑대: 광전사", 5, 50, 50, 12) }),
+
+        new Stage("5층 - 붉은 늑대: 저주받은 왕", FloorType.F5, Monstertype.B,
+            new List<Monster> { new Monster("붉은 늑대: 저주받은 왕", 10, 150, 150, 30) })
+    }
         };
 
         private void StartDungeonBattle(Character player, Stage stage, BattleExpendables expendables)
         {
             Console.Clear();
 
-            List<Monster> monsters = GenerateMonsters(stage.Type);
+            List<Monster> monsters = stage.Monsters;
 
             if (stage.Type == Monstertype.B)
             {
@@ -145,8 +170,8 @@ namespace Sparta_RPG2_
                 Console.WriteLine($"\n❤️ {player.Name} HP: {player.HP}");
                 Console.WriteLine("0. 다음");
                 while (Console.ReadLine() != "0") ;
-
-                Console.WriteLine($"\n🧭 {stage.Floor}의 적을 전부 처치했습니다.");
+                
+                Console.WriteLine($"\n🧭 {GetFloorName(stage.Floor)}의 적을 전부 처치했습니다.");
             }
 
             // 전투 결과 출력
@@ -165,25 +190,7 @@ namespace Sparta_RPG2_
             Console.ResetColor();
             Console.WriteLine("\n0. 다음");
             while (Console.ReadLine() != "0") ;
-        }
-
-        private List<Monster> GenerateMonsters(Monstertype type)
-        {
-            List<Monster> list = new();
-
-            if (type == Monstertype.B)
-            {
-                list.Add(new Monster("붉은 아레스의 화신", 10, 150, 150, 30)); // 보스
-            }
-            else
-            {
-                list.Add(new Monster("타락한 병사", 3, 40, 40, 8));
-                list.Add(new Monster("광신자 사제", 4, 35, 35, 7));
-            }
-
-            return list;
-        }
-
+        }        
     }
 
     public class Stage
@@ -191,25 +198,25 @@ namespace Sparta_RPG2_
         public string Name { get; set; }
         public Monstertype Type { get; set; }
         public FloorType Floor { get; set; }
+        public List<Monster> Monsters { get; set; }
 
-        public Stage(string name, FloorType floor, Monstertype type)
+        public Stage(string name, FloorType floor, Monstertype type, List<Monster> monsters)
         {
             Name = name;
             Floor = floor;
             Type = type;
+            Monsters = monsters;
         }
 
         public bool Execute(Character player)
         {
             Console.WriteLine($"▶ {Name} ({Type})에 진입합니다.");
-
             if (Type == Monstertype.B)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("🔥 보스 전투 시작!");
                 Console.ResetColor();
             }
-
             return true;
         }
     }
