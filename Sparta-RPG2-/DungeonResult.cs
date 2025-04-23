@@ -12,6 +12,7 @@ internal partial class Program
         List<Item> itemList;
         List<Expendables> expendableList;
         string[] monsterName = { "공허충", "미니언", "대포미니언" };
+        //string[] rareItemName = { "스파르타쿠스의 의지", "스파르타쿠스의 분노" };
 
         public DungeonResult(Inventory inventory, List<Item> itemList, List<Expendables> expendables)
         {
@@ -138,9 +139,10 @@ internal partial class Program
 
                 if (randItemRate < dropRareItemRate)  //레어드롭아이템추가   
                 {
-                    int rareRandItem = rand.Next(itemList.Count - 2, itemList.Count);
-                    inventory.AllItems.Add(itemList[rareRandItem]);
-                    getItem.Add(itemList[rareRandItem].itemPro.ItemName);
+                    int rareItemIndex = rand.Next(0, 2);
+                    rareItemIndex += 5;
+                    inventory.AllItems.Add(itemList[rareItemIndex]);
+                    getItem.Add(itemList[rareItemIndex].itemPro.ItemName);
                     //Console.WriteLine(itemList[rareItemIndex].itemPro.ItemName);
                     ////테스트출력
                     //Console.WriteLine("테스트출력");
@@ -167,7 +169,7 @@ internal partial class Program
                     }
                     else if (deadMonsterName == monsterName[2])
                     {
-                        int randItem = rand.Next(4, 7);
+                        int randItem = rand.Next(5, 9);
                         inventory.AllItems.Add(itemList[randItem]);
                         getItem.Add(itemList[randItem].itemPro.ItemName);
                     }
