@@ -332,6 +332,7 @@
             static void BattleResult(Character player, List<Monster> monsters, Quest.QuestManager questManager)
 
             {
+                DungeonResult dungeonResult = new DungeonResult(inventory, allItems, expendables); // 던전결과 클래스 초기화
                 Console.Clear();
                 Console.WriteLine("Battle!! - Result\n");
 
@@ -365,6 +366,12 @@
                     player.beforeHP = player.HP;
                     player.MP += 10;
                     if (player.MP >= 50) player.MP = 50;
+
+                    //던전리워드
+                    dungeonResult.LevelUp(monsters, player);
+                    dungeonResult.DungeonGold(monsters, player);
+                    dungeonResult.DungeonItem(monsters);
+
 
                 }
 
