@@ -97,7 +97,7 @@ internal partial class Program
                 addGold += (levelGold + monsterGold);
             }
             player.Gold += addGold;
-
+            Console.WriteLine();
             Console.WriteLine("[획득아이템]");
             Console.WriteLine($"{addGold} Gold");
         }
@@ -128,13 +128,14 @@ internal partial class Program
                 int dropRareItemRate = 0;
                 int monsterLevel = deadMonsterList[j].Level;
                 dropNormalItemRate += 10 + (monsterLevel * 1);
+
                 if (monsterLevel > 4)
                 {
                     dropRareItemRate = 10;
                 }
                 int randItemRate = rand.Next(0, 100);
                 string deadMonsterName = deadMonsterList[j].Name;
-                
+
                 //int rareItemIndex = itemList.Count - 1;
 
                 if (randItemRate < dropRareItemRate)  //레어드롭아이템추가   
@@ -177,15 +178,26 @@ internal partial class Program
 
                 //Console.WriteLine($"-{getItem[j]}");
             }
-                Console.WriteLine(getItem.Count);
-                if (getItem.Count > 0)
+            //Console.WriteLine(getItem.Count);
+
+            //아이템 출력
+            if (getItem.Count > 0)
+            {
+                //Console.WriteLine(getItem.Count);
+                for (int i = 0; i < getItem.Count; i++) //아이템갯수출력
                 {
-                    foreach (var item in getItem)
+                    int itemEA = 1;
+                    for (int j = 1 + i; j < getItem.Count;j++)
                     {
-                        Console.WriteLine($"- {item}");
-                        
+                        if (getItem[i] == getItem[j])
+                        {
+                            itemEA++;
+                            getItem.Remove(getItem[j]);
+                        }
                     }
+                    Console.WriteLine($"- {getItem[i]} {itemEA} ");
                 }
+            }
         }
     }
 }
