@@ -25,7 +25,7 @@ namespace RPG_SJ
 
             questManager = new QuestManager(player!);
             questManager.InitQuests(); // 퀘스트 생성
-
+            ShowCreatMe(player);
             ShowStartMenu(); // 게임 시작
         }
 
@@ -68,7 +68,7 @@ namespace RPG_SJ
             GameUI ui = new GameUI();
             BattleSystem battle = new BattleSystem();
             bool playGame = true;
-
+            
             while (playGame)
             {
                 Console.Clear();
