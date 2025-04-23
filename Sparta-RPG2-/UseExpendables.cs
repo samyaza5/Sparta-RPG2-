@@ -1,4 +1,5 @@
-﻿using RPG_SJ;
+﻿using System;
+using RPG_SJ;
 
 namespace Sparta_RPG2_
 {
@@ -51,8 +52,11 @@ namespace Sparta_RPG2_
             }
             else
             {
-                foreach (var exp in inventory.expendables)
-                    Console.WriteLine(exp.expendablesPro.ToInventoryString());
+                for (int i = 0; i < inventory.expendables.Count; i++)
+                {
+                    var exp = inventory.expendables[i];
+                    Console.WriteLine($"[{i + 1}] {exp.expendablesPro.ToInventoryString()}");
+                }
             }
             Console.WriteLine();
             Console.WriteLine("0. 나가기");
