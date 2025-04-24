@@ -172,18 +172,18 @@ namespace Sparta_RPG2_
                 else if (randItem == 0)
                 {
                     int randReward = rand.Next(0, expendableList.Count);
-                    inventory.expendables.Add(expendableList[randItem]);
-                    getItem.Add(expendableList[randItem].expendablesPro.ItemName);
+                    inventory.expendables.Add(expendableList[randReward]);
+                    getItem.Add(expendableList[randReward].expendablesPro.ItemName);
                 }
                 else if (randItem == 1) {
                     int randReward = rand.Next(0, 4);
-                    inventory.AllItems.Add(itemList[randItem]);
-                    getItem.Add(itemList[randItem].itemPro.ItemName);
+                    inventory.AllItems.Add(itemList[randReward]);
+                    getItem.Add(itemList[randReward].itemPro.ItemName);
                 }
                 else if (randItem == 2) {
-                    int ranrandRewarddItem = rand.Next(5, 9);
-                    inventory.AllItems.Add(itemList[randItem]);
-                    getItem.Add(itemList[randItem].itemPro.ItemName);
+                    int randReward = rand.Next(5, 9);
+                    inventory.AllItems.Add(itemList[randReward]);
+                    getItem.Add(itemList[randReward].itemPro.ItemName);
                 }
             }
 
