@@ -8,7 +8,8 @@
 
         public string Name { get; set; } = "";
 
-        public string Job { get; set; } = "전사";
+        public string Job { get; set; } = "1";
+        public string JobName { get; set; } = "팔랑크스 중보병";
         public int Attack { get; set; } = 50;
         public int Defense { get; set; } = 5;
         public int HP { get; set; } = 100;
