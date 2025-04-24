@@ -88,6 +88,12 @@ namespace Sparta_RPG2_
             float damageRate = rand.Next(9, 12) / 10f;
             int damage = player.Attack;
             int normalDamage = (int)Math.Round(damage * damageRate);
+            int criDamege = (int)Math.Round(normalDamage * criDamageRate);
+            bool isCritical = false;
+            //if (criRate > 85)
+            //{
+            //    damage = criDamege;
+            //}
 
             var alive = monsters.Where(m => !m.IsDead).ToList();
             if (alive.Count == 0) return;  // 전부 죽은 경우 예외처리
@@ -103,6 +109,7 @@ namespace Sparta_RPG2_
 
             while (true)
             {
+                
                 Console.Write("1. 공격\n2. 스킬\n3. 소모품 사용\n\n원하시는 행동을 입력해주세요.\n>> ");
                 string? input = Console.ReadLine();
                 switch (input)
@@ -119,7 +126,7 @@ namespace Sparta_RPG2_
                         {
                             if (criRate > 85) // 크리터짐
                             {
-                                int criDamege = (int)Math.Round(normalDamage * criDamageRate);
+                                
                                 Console.WriteLine($"Lv.{target.Level} {target.Name} 을(를) 맞췄습니다. [데미지 : {criDamege}] - 치명타 공격!!\n");
 
 
@@ -164,6 +171,11 @@ namespace Sparta_RPG2_
                         }
                         break; // 공격
                     case "2": // 스킬사용
+                        if(criRate > 85)
+                        {
+                            damage = criDamege;
+                            isCritical = true;
+                        }
                         switch (player.JobName)
                         {
                             case "팔랑크스 중보병":
@@ -176,7 +188,7 @@ namespace Sparta_RPG2_
                                 {
                                     float rate1 = rand.Next(9, 12) / 10f;
                                     int skillDamage_1 = (int)Math.Round(damage * rate1 * 2.0f);
-                                    Console.WriteLine($"Lv.{target.Level} {target.Name}에게 돌진 을(를) 맞췄습니다. [데미지 : {skillDamage_1}]\n");
+                                    Console.WriteLine($"Lv.{target.Level} {target.Name}에게 돌진 을(를) 맞췄습니다. [데미지 : {skillDamage_1}]{(isCritical ? " - 치명타 공격!" : "")}\n");
                                     Console.WriteLine($"MP {player.MP} - {mp_1} -> {player.MP - mp_1}\n");
 
                                     if (target.HP - skillDamage_1 <= 0)
@@ -211,7 +223,7 @@ namespace Sparta_RPG2_
                                         int skillDamage_2_1 = (int)Math.Round(damage * rate1 * 1.2f);
                                         int skillDamage_2_2 = (int)Math.Round(damage * rate2 * 1.2f);
                                         int skillDamage_2_3 = (int)Math.Round(damage * rate3 * 1.2f);
-                                        Console.WriteLine($"Lv.{target1.Level} {target1.Name} / Lv.{target2.Level} {target2.Name} / Lv.{target3.Level} {target3.Name}에게 아레스의 포효 을(를) 맞췄습니다. [데미지 : {skillDamage_2_1} / {skillDamage_2_2} / {skillDamage_2_3}]\n");
+                                        Console.WriteLine($"Lv.{target1.Level} {target1.Name} / Lv.{target2.Level} {target2.Name} / Lv.{target3.Level} {target3.Name}에게 아레스의 포효 을(를) 맞췄습니다. [데미지 : {skillDamage_2_1} / {skillDamage_2_2} / {skillDamage_2_3}]{(isCritical ? " - 치명타 공격!" : "")}\n");
                                         Console.WriteLine($"MP {player.MP} - {mp_2} -> {player.MP - mp_2}\n");
 
                                         if (target1.HP - skillDamage_2_1 <= 0)
@@ -267,7 +279,7 @@ namespace Sparta_RPG2_
                                         Monster target2 = aliveMonsters[1];
                                         int skillDamage_2_1 = (int)Math.Round(damage * rate1 * 1.2f);
                                         int skillDamage_2_2 = (int)Math.Round(damage * rate2 * 1.2f);
-                                        Console.WriteLine($"Lv.{target1.Level} {target1.Name} / Lv.{target2.Level} {target2.Name}에게 아레스의 포효 을(를) 맞췄습니다. [데미지 : {skillDamage_2_1} / {skillDamage_2_2}]\n");
+                                        Console.WriteLine($"Lv.{target1.Level} {target1.Name} / Lv.{target2.Level} {target2.Name}에게 아레스의 포효 을(를) 맞췄습니다. [데미지 : {skillDamage_2_1} / {skillDamage_2_2}]{(isCritical ? " - 치명타 공격!" : "")}\n");
                                         Console.WriteLine($"MP {player.MP} - {mp_2} -> {player.MP - mp_2}\n");
 
                                         if (target1.HP - skillDamage_2_1 <= 0)
@@ -305,7 +317,7 @@ namespace Sparta_RPG2_
                                         float rate1 = rand.Next(9, 12) / 10f;
                                         Monster target1 = aliveMonsters[0];
                                         int skillDamage_2 = (int)Math.Round(damage * rate1 * 1.5f);
-                                        Console.WriteLine($"Lv.{target1.Level} {target1.Name}에게 아레스의 포효 을(를) 맞췄습니다. [데미지 : {skillDamage_2}]");
+                                        Console.WriteLine($"Lv.{target1.Level} {target1.Name}에게 아레스의 포효 을(를) 맞췄습니다. [데미지 : {skillDamage_2}]{(isCritical ? " - 치명타 공격!" : "")}");
                                         Console.WriteLine($"MP {player.MP} - {mp_2} -> {player.MP - mp_2}\n");
 
                                         if (target1.HP - skillDamage_2 <= 0)
@@ -347,7 +359,7 @@ namespace Sparta_RPG2_
                                 {
                                     float rate1 = rand.Next(9, 12) / 10f;
                                     int skillDamage_1 = (int)Math.Round(damage * rate1 * 2.5f);
-                                    Console.WriteLine($"Lv.{player.Level} {player.Name}에게 에이르의 손길을(를) 사용했습니다. [HP회복 : {skillDamage_1}]\n");
+                                    Console.WriteLine($"Lv.{player.Level} {player.Name}에게 에이르의 손길을(를) 사용했습니다. [HP회복 : {skillDamage_1}]{(isCritical ? " - 치명타 공격!" : "")}\n");
                                     Console.WriteLine($"MP {player.MP} - {mp_3} -> {player.MP - mp_3}\n");
 
 
@@ -378,7 +390,7 @@ namespace Sparta_RPG2_
                                         int skillDamage_2_1 = (int)Math.Round(damage * rate1 * 1.2f);
                                         int skillDamage_2_2 = (int)Math.Round(damage * rate2 * 1.2f);
                                         int skillDamage_2_3 = (int)Math.Round(damage * rate3 * 1.2f);
-                                        Console.WriteLine($"Lv.{target1.Level} {target1.Name} / Lv.{target2.Level} {target2.Name} / Lv.{target3.Level} {target3.Name}에게 생텀 버스트 을(를) 맞췄습니다. [데미지 : {skillDamage_2_1} / {skillDamage_2_2} / {skillDamage_2_3}]\n");
+                                        Console.WriteLine($"Lv.{target1.Level} {target1.Name} / Lv.{target2.Level} {target2.Name} / Lv.{target3.Level} {target3.Name}에게 생텀 버스트 을(를) 맞췄습니다. [데미지 : {skillDamage_2_1} / {skillDamage_2_2} / {skillDamage_2_3}]{(isCritical ? " - 치명타 공격!" : "")}\n");
                                         Console.WriteLine($"MP {player.MP} - {mp_4} -> {player.MP - mp_4}\n");
 
                                         if (target1.HP - skillDamage_2_1 <= 0)
@@ -434,7 +446,7 @@ namespace Sparta_RPG2_
 
                                         int skillDamage_2_1 = (int)Math.Round(damage * rate1 * 1.2f);
                                         int skillDamage_2_2 = (int)Math.Round(damage * rate2 * 1.2f);
-                                        Console.WriteLine($"Lv.{target1.Level} {target1.Name} / Lv.{target2.Level} {target2.Name}에게 생텀 버스트 을(를) 맞췄습니다. [데미지 : {skillDamage_2_1} / {skillDamage_2_2}]");
+                                        Console.WriteLine($"Lv.{target1.Level} {target1.Name} / Lv.{target2.Level} {target2.Name}에게 생텀 버스트 을(를) 맞췄습니다. [데미지 : {skillDamage_2_1} / {skillDamage_2_2}]{(isCritical ? " - 치명타 공격!" : "")}");
                                         Console.WriteLine($"MP {player.MP} - {mp_4} -> {player.MP - mp_4}\n");
 
                                         if (target1.HP - skillDamage_2_1 <= 0)
@@ -473,7 +485,7 @@ namespace Sparta_RPG2_
                                         Monster target1 = aliveMonsters[0];
 
                                         int skillDamage_2 = (int)Math.Round(damage * rate1 * 1.2f);
-                                        Console.WriteLine($"Lv.{target1.Level} {target1.Name}에게 생텀 버스트 을(를) 맞췄습니다. [데미지 : {skillDamage_2}]");
+                                        Console.WriteLine($"Lv.{target1.Level} {target1.Name}에게 생텀 버스트 을(를) 맞췄습니다. [데미지 : {skillDamage_2}]{(isCritical ? " - 치명타 공격!" : "")}");
                                         Console.WriteLine($"MP {player.MP} - {mp_4} -> {player.MP - mp_4}\n");
 
                                         if (target1.HP - skillDamage_2 <= 0)
@@ -521,7 +533,7 @@ namespace Sparta_RPG2_
                                         Monster target2 = aliveMonsters[1];
                                         int skillDamage_1_1 = (int)Math.Round(damage * rate1 * 1.5f);
                                         int skillDamage_1_2 = (int)Math.Round(damage * rate2 * 1.5f * 0.7f);
-                                        Console.WriteLine($"Lv.{target1.Level} {target1.Name} / Lv.{target2.Level} {target2.Name}에게 관통 을(를) 맞췄습니다. [데미지 : {skillDamage_1_1} / {skillDamage_1_2}]\n");
+                                        Console.WriteLine($"Lv.{target1.Level} {target1.Name} / Lv.{target2.Level} {target2.Name}에게 관통 을(를) 맞췄습니다. [데미지 : {skillDamage_1_1} / {skillDamage_1_2}]{(isCritical ? " - 치명타 공격!" : "")}\n");
                                         Console.WriteLine($"MP {player.MP} - {mp_6} -> {player.MP - mp_6}\n");
 
                                         if (target1.HP - skillDamage_1_1 <= 0)
@@ -559,7 +571,7 @@ namespace Sparta_RPG2_
                                         float rate1 = rand.Next(9, 12) / 10f;
                                         Monster target1 = aliveMonsters[0];
                                         int skillDamage_1 = (int)Math.Round(damage * 1.5f);
-                                        Console.WriteLine($"Lv.{target1.Level} {target1.Name}에게 관통 을(를) 맞췄습니다. [데미지 : {skillDamage_1}]");
+                                        Console.WriteLine($"Lv.{target1.Level} {target1.Name}에게 관통 을(를) 맞췄습니다. [데미지 : {skillDamage_1}]{(isCritical ? " - 치명타 공격!" : "")}");
                                         Console.WriteLine($"MP {player.MP} - {mp_6} -> {player.MP - mp_6}\n");
 
                                         if (target1.HP - skillDamage_1 <= 0)
@@ -596,7 +608,7 @@ namespace Sparta_RPG2_
                                         int skillDamage_2_1 = (int)Math.Round(damage * rate1 * 1.2f);
                                         int skillDamage_2_2 = (int)Math.Round(damage * rate2 * 1.2f);
                                         int skillDamage_2_3 = (int)Math.Round(damage * rate3 * 1.2f);
-                                        Console.WriteLine($"Lv.{target1.Level} {target1.Name} / Lv.{target2.Level} {target2.Name} / Lv.{target3.Level} {target3.Name} 에게 팔랑크스의 화살비 을(를) 맞췄습니다. [데미지 : {skillDamage_2_1} / {skillDamage_2_2} / {skillDamage_2_3}]\n");
+                                        Console.WriteLine($"Lv.{target1.Level} {target1.Name} / Lv.{target2.Level} {target2.Name} / Lv.{target3.Level} {target3.Name} 에게 팔랑크스의 화살비 을(를) 맞췄습니다. [데미지 : {skillDamage_2_1} / {skillDamage_2_2} / {skillDamage_2_3}]{(isCritical ? " - 치명타 공격!" : "")}\n");
                                         Console.WriteLine($"MP {player.MP} - {mp_6} -> {player.MP - mp_6}\n");
 
                                         if (target1.HP - skillDamage_2_1 <= 0)
@@ -651,7 +663,7 @@ namespace Sparta_RPG2_
                                         Monster target2 = aliveMonsters[1];
                                         int skillDamage_2_1 = (int)Math.Round(damage * rate1 * 1.2f);
                                         int skillDamage_2_2 = (int)Math.Round(damage * rate2 * 1.2f);
-                                        Console.WriteLine($"Lv.{target1.Level} {target1.Name} / Lv.{target2.Level} {target2.Name} 에게 팔랑크스의 화살비 을(를) 맞췄습니다. [데미지 : {skillDamage_2_1} / {skillDamage_2_2}]\n");
+                                        Console.WriteLine($"Lv.{target1.Level} {target1.Name} / Lv.{target2.Level} {target2.Name} 에게 팔랑크스의 화살비 을(를) 맞췄습니다. [데미지 : {skillDamage_2_1} / {skillDamage_2_2}] {(isCritical ? " - 치명타 공격!" : "")} \n");
                                         Console.WriteLine($"MP {player.MP} - {mp_6} -> {player.MP - mp_6}\n");
 
                                         if (target1.HP - skillDamage_2_1 <= 0)
@@ -689,7 +701,7 @@ namespace Sparta_RPG2_
                                         float rate1 = rand.Next(9, 12) / 10f;
                                         Monster target1 = aliveMonsters[0];
                                         int skillDamage_2_1 = (int)Math.Round(damage * rate1 * 1.2f);
-                                        Console.WriteLine($"Lv.{target1.Level} {target1.Name} 에게 팔랑크스의 화살비 을(를) 맞췄습니다. [데미지 : {skillDamage_2_1}]\n");
+                                        Console.WriteLine($"Lv.{target1.Level} {target1.Name} 에게 팔랑크스의 화살비 을(를) 맞췄습니다. [데미지 : {skillDamage_2_1}]{(isCritical ? " - 치명타 공격!" : "")}\n");
                                         Console.WriteLine($"MP {player.MP} - {mp_6} -> {player.MP - mp_6}\n");
 
                                         if (target1.HP - skillDamage_2_1 <= 0)
