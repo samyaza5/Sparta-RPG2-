@@ -94,8 +94,10 @@ namespace Sparta_RPG2_
                 else
                 {
                     character.Gold -= soldier.soldierPro.ItemValue;
+                    Soldier newSoldier = new Soldier(soldier.soldierPro.Clone());
+
                     soldierInven.soldiers.Add(soldier);
-                    Console.WriteLine("✅ 아이템 구매 완료!");
+                    Console.WriteLine($"✅ {newSoldier.soldierPro.ItemName} 고용 완료!");
                 }
             }
         }

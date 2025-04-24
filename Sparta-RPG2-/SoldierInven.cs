@@ -34,8 +34,13 @@ namespace Sparta_RPG2_
                 }
                 else
                 {
-                    foreach (var soldier in soldiers)
-                        Console.WriteLine(soldier.soldierPro.ToInventoryString());
+                    var groupedSoldiers = soldiers. GroupBy(s => s.soldierPro.ItemName).ToList();
+                    foreach (var group in groupedSoldiers) 
+                    {
+                        var exampleSolder = group.First();
+                        Console.WriteLine($" {exampleSolder.soldierPro.ToInventoryString()} {group.Count()}명");
+                    }
+  
                 }
 
                 Console.WriteLine("\n1. 병사 출정 관리");
