@@ -4,7 +4,6 @@ using System.Reflection;
 
 namespace Sparta_RPG2_
 {
-
     public class DungeonResult
     {
 
@@ -26,13 +25,25 @@ namespace Sparta_RPG2_
             int beforeExp = player.Exp;
             int beforeLevel = player.Level;
             int addExp = 0;
+
+            int[] ints = new int[100];
+
             List<int> levelUpExp = new List<int>()
             {
                 10,
                 45,
                 100,
-                200
+                200,
             };
+
+
+            int needExp = levelUpExp[player.Level - 1];
+            player.Exp += addExp;
+
+            for (int i = 3; i < 100; i++)
+            {
+                levelUpExp.Add(levelUpExp[i] * 2);
+            }
 
             for (int i = 0; i < deadMonsterList.Count; i++)
             {
@@ -67,8 +78,24 @@ namespace Sparta_RPG2_
             }
 
 
-            Console.WriteLine($"{(beforeLevel == player.Level ? "" : $"Lv.{beforeLevel} -> Lv.{player.Level}")} {player.Name}");
-            Console.WriteLine($"exp {beforeExp} -> {player.Exp}");
+            Console.Write($"{(beforeLevel == player.Level ? "" : $"Lv.")}");
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.Write($"{(beforeLevel == player.Level ? "" : $"{beforeLevel}")}");
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
+            Console.Write($"{(beforeLevel == player.Level ? "" : $" -> ")}");
+            Console.ResetColor();
+            Console.Write($"{(beforeLevel == player.Level ? "" : $"Lv.")}");
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine($"{(beforeLevel == player.Level ? "" : $"{player.Level}")}");
+            Console.ResetColor();
+            Console.Write("exp ");
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.Write($"{beforeExp}");
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
+            Console.Write($" -> ");
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine($"{player.Exp}");
+            Console.ResetColor();
         }
 
         //골드 보상
@@ -99,7 +126,10 @@ namespace Sparta_RPG2_
             player.Gold += addGold;
             Console.WriteLine();
             Console.WriteLine("[획득아이템]");
-            Console.WriteLine($"{addGold} Gold");
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.Write($"{addGold}");
+            Console.ResetColor();
+            Console.WriteLine(" Gold");
         }
         //임시
         //Program program;
@@ -195,7 +225,13 @@ namespace Sparta_RPG2_
                             getItem.Remove(getItem[j]);
                         }
                     }
-                    Console.WriteLine($"- {getItem[i]} {itemEA} ");
+                    
+                    Console.Write($"{getItem[i]}");
+                    Console.ForegroundColor = ConsoleColor.DarkYellow;
+                    Console.Write(" - ");
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine($"{itemEA} ");
+                    Console.ResetColor();
                 }
             }
         }
