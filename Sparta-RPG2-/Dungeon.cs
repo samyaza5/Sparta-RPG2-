@@ -129,16 +129,9 @@ namespace Sparta_RPG2_
 
         private void StartDungeon(Character player, Inventory inventory)
         {
-            BattleExpendables expendables = new(player, inventory);
-            var context = new BattleContext(player, expendables, Program.questManager!, inventory, Program.allItems, Program.expendables);
-
-            BattleSystem battle = new(); // ✅ 이 줄이 필요합니다
-
-            foreach (var stage in Stages)
-            {
-                stage.Execute(player); // 층별 안내 출력
-                battle.StartBattle(context);
-            }
+            // 던전 전투 시스템 사용으로 교체
+            DungeonBattleSystem dungeonBattle = new DungeonBattleSystem(this, player, inventory);
+            dungeonBattle.Start(); // 던전 전용 전투 실행
 
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("🏁 던전 클리어!");
@@ -190,6 +183,7 @@ namespace Sparta_RPG2_
             new List<Monster> { new Monster("붉은 늑대: 저주받은 왕", 10, 150, 150, 30) })
     }
         };
+
     }
 
     public class Stage
