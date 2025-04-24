@@ -1,5 +1,4 @@
 ﻿using Sparta_RPG2_;
-using static RPG_SJ.Program;
 
 namespace Sparta_RPG2_
 {

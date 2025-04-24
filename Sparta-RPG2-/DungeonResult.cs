@@ -2,8 +2,7 @@
 using System;
 using System.Reflection;
 
-namespace RPG_SJ;
-internal partial class Program
+namespace Sparta_RPG2_
 {
     public class DungeonResult
     {
