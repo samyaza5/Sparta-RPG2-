@@ -207,7 +207,7 @@ namespace Sparta_RPG2_
                                         float rate3 = rand.Next(9, 12) / 10f;
                                         Monster target1 = aliveMonsters[0];
                                         Monster target2 = aliveMonsters[1];
-                                        Monster target3 = aliveMonsters[1];
+                                        Monster target3 = aliveMonsters[2];
                                         int skillDamage_2_1 = (int)Math.Round(damage * rate1 * 1.2f);
                                         int skillDamage_2_2 = (int)Math.Round(damage * rate2 * 1.2f);
                                         int skillDamage_2_3 = (int)Math.Round(damage * rate3 * 1.2f);
