@@ -118,7 +118,6 @@ namespace Sparta_RPG2_
                     Console.WriteLine("✅ 아이템 구매 완료!");
                 }
             }
-
             private void HandleExpendablePurchase(Expendables ex)
             {
                 if (character.Gold < ex.expendablesPro.ItemValue)
@@ -128,11 +127,11 @@ namespace Sparta_RPG2_
                 else
                 {
                     var newEx = new Expendables(new ExpendablesPro(
-    ex.expendablesPro.ItemName,
-    ex.expendablesPro.ItemStat,
-    ex.expendablesPro.ItemInfo,
-    ex.expendablesPro.ItemValue
-));
+                      ex.expendablesPro.ItemName,
+                      ex.expendablesPro.ItemStat,
+                      ex.expendablesPro.ItemInfo,
+                      ex.expendablesPro.ItemValue
+                ));
                     character.Gold -= ex.expendablesPro.ItemValue;
                     inventory.expendables.Add(newEx);
                     Console.WriteLine("✅ 소모품 구매 완료!");
