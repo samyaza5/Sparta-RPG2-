@@ -50,8 +50,6 @@ namespace Sparta_RPG2_
                 addExp += deadMonsterList[i].Level * 1;
             }
 
-            int needExp = levelUpExp[player.Level - 1];
-            player.Exp += addExp;
 
             //if (player.Exp > needExp)
             //{
