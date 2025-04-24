@@ -29,7 +29,7 @@ namespace Sparta_RPG2_
 
             InitGame();
 
-            questManager = new QuestManager(player!);
+            
             questManager.InitQuests(); // 퀘스트 생성
             Intro.Start();// 게임 시작 인트로
             ShowCreatMe(player);
@@ -40,11 +40,14 @@ namespace Sparta_RPG2_
         {
             player = new Character();
             player.MaxHP = player.HP;
-            inventory = new Inventory(player);
+            inventory = new Inventory(player, questManager); // ✅ 수정된 생성자 사용
             useExpendables = new UseExpendables(player, inventory);
-            itemEquipped = new ItemEquipped(player, inventory, useExpendables);
+            questManager = new QuestManager(player);
+            itemEquipped = new ItemEquipped(player, inventory, useExpendables, questManager);
+            inventory.SetItemEquipped(itemEquipped);
             battleExpendables = new BattleExpendables(player, inventory);
             soldierInven = new SoldierInven(player);
+ 
 
 
             // 아이템 초기화

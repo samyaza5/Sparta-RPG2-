@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading;
 using Sparta_RPG2_;
+using static Sparta_RPG2_.Quest;
 
 
 namespace Sparta_RPG2_
@@ -15,15 +16,21 @@ namespace Sparta_RPG2_
         private UseExpendables useExpendables;
         private ExpendablesEquipped expendablesEquipped;
         private Character player;
+        public QuestManager questManager;
 
-        public Inventory(Character player)
+        public Inventory(Character player, QuestManager questManager)
         {
             expendablesEquipped = new ExpendablesEquipped(this);
             AllItems = new List<Item>();
             expendables = new List<Expendables>();
             this.player = player;
             useExpendables = new UseExpendables(player, this);
-            itemEquipped = new ItemEquipped(player, this, useExpendables);
+            itemEquipped = new ItemEquipped(player, this, useExpendables, questManager);  // ✅ 정상 전달
+        }
+
+        public void SetItemEquipped(ItemEquipped equipped)
+        {
+            this.itemEquipped = equipped;
         }
 
         public void InventoryScene()
@@ -62,7 +69,7 @@ namespace Sparta_RPG2_
                         case 1:
                             itemEquipped.EqualsScene(); // null 체크 추가
                             break;
-                            case 2:
+                        case 2:
                             expendablesEquipped.ExpendablesEq();
                                 break;
                         case 3:

@@ -87,8 +87,7 @@
             public void ShowQuestMenu()
             {
                 while (true)
-                {
-                    Console.Clear();
+                {                    
                     Console.WriteLine("[의뢰 목록]");
                     Console.WriteLine("1. 📜 수락 가능한 의뢰 보기");
                     Console.WriteLine("2. 🕐 진행 중인 의뢰 보기");
@@ -152,7 +151,7 @@
                     if (Console.ReadLine() == "1")
                     {
                         selected.IsAccepted = true;
-                        Console.WriteLine($"\n✅ '{selected.Title}' 의뢰를 수락했습니다!");
+                        Console.WriteLine($"\n✅ '{selected.Title}' 의뢰를 수락했습니다!\n");
                     }
                 }
             }

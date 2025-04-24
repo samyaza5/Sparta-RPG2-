@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading;
+using static Sparta_RPG2_.Quest;
 
 
 namespace Sparta_RPG2_
@@ -11,12 +12,14 @@ namespace Sparta_RPG2_
         public Inventory inventory;
         public Character player;
         public UseExpendables useExpendables;
+        public QuestManager questManager;
 
-        public ItemEquipped(Character player, Inventory inventory, UseExpendables useExpendables)
+        public ItemEquipped(Character player, Inventory inventory, UseExpendables useExpendables, QuestManager questManager)
         {
             this.player = player;
             this.inventory = inventory;
             this.useExpendables = useExpendables;
+            this.questManager = questManager;
         }
 
         public void UpdateStatsFromInventory(List<Item> items)
@@ -40,7 +43,7 @@ namespace Sparta_RPG2_
         {
             while (true)
             {
-                Console.Clear();
+                // 콘솔 클리어
                 Console.WriteLine("인벤토리 - 장비 장착 관리");
                 Console.WriteLine("보유 중인 장비를 관리할 수 있습니다.");
                 Console.WriteLine("[아이템 목록]");
@@ -92,8 +95,9 @@ namespace Sparta_RPG2_
                             UpdateStatsFromInventory(inventory.AllItems);
                             Console.WriteLine($"'{selectedItem.itemPro.ItemName}'를 장착했습니다!");
                             Thread.Sleep(1000);
-                        }
 
+                            questManager?.OngoingQuests(QuestType.EquipItem, 1);  // ✅ 장착 퀘스트 진행 반영
+                        }
                     }
                     else
                     {
