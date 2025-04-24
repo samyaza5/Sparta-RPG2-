@@ -46,6 +46,42 @@ namespace Sparta_RPG2_
             };
         }
 
+        public class DungeonManager
+        {
+            private Dungeon currentDungeon;
+            private int currentStageIndex = 0;
+
+            public DungeonManager(Dungeon dungeon)
+            {
+                currentDungeon = dungeon;
+            }
+
+            public List<Monster> GetCurrentStageMonsters()
+            {
+                return currentDungeon.Stages[currentStageIndex].Monsters;
+            }
+
+            public string GetCurrentStageName()
+            {
+                return currentDungeon.Stages[currentStageIndex].Name;
+            }
+
+            public bool MoveToNextStage()
+            {
+                if (currentStageIndex < currentDungeon.Stages.Count - 1)
+                {
+                    currentStageIndex++;
+                    return true;
+                }
+                return false; // 마지막 스테이지 도달
+            }
+
+            public bool IsBossStage()
+            {
+                return currentDungeon.Stages[currentStageIndex].Type == Monstertype.B;
+            }
+        }
+
         public void Enter(Character player, Inventory inventory)
         {
             if (player.Level >= RequiredLevel)
@@ -94,12 +130,14 @@ namespace Sparta_RPG2_
         private void StartDungeon(Character player, Inventory inventory)
         {
             BattleExpendables expendables = new(player, inventory);
-            BattleSystem battle = new();
+            var context = new BattleContext(player, expendables, Program.questManager!, inventory, Program.allItems, Program.expendables);
+
+            BattleSystem battle = new(); // ✅ 이 줄이 필요합니다
 
             foreach (var stage in Stages)
             {
                 stage.Execute(player); // 층별 안내 출력
-                battle.StartBattle(player, expendables, Program.questManager!, inventory, Program.allItems, Program.expendables);
+                battle.StartBattle(context);
             }
 
             Console.ForegroundColor = ConsoleColor.Green;

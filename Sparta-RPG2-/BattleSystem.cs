@@ -3,35 +3,53 @@ using static Sparta_RPG2_.Quest;
 
 namespace Sparta_RPG2_
 {
+    public class BattleContext
+    {
+        public Character Player { get; set; }
+        public BattleExpendables BattleExpendables { get; set; }
+        public QuestManager QuestManager { get; set; }
+        public Inventory Inventory { get; set; }
+        public List<Item> AllItems { get; set; }
+        public List<Expendables> Expendables { get; set; }
+
+        public BattleContext(Character player, BattleExpendables battleExpendables, QuestManager questManager,
+                             Inventory inventory, List<Item> allItems, List<Expendables> expendables)
+        {
+            Player = player;
+            BattleExpendables = battleExpendables;
+            QuestManager = questManager;
+            Inventory = inventory;
+            AllItems = allItems;
+            Expendables = expendables;
+        }
+    }
 
     // ⚔ 전투 시작
     public class BattleSystem
     {
 
-        public void StartBattle(Character player, BattleExpendables battleExpendables, QuestManager questManager, Inventory inventory, List<Item> allItems, List<Expendables> expendables)
+        public void StartBattle(BattleContext context)
         {
-            List<Monster> monsters = GenerateMonsters();
+            var monsters = GenerateMonsters();
 
-            player.beforeHP = player.HP;
-            while (player.HP > 0 && monsters.Exists(m => !m.IsDead))
+            context.Player.beforeHP = context.Player.HP;
+
+            while (context.Player.HP > 0 && monsters.Exists(m => !m.IsDead))
             {
-
-
-                PlayerAttack(player, monsters, battleExpendables);
+                PlayerAttack(context.Player, monsters, context.BattleExpendables);
                 if (!monsters.Exists(m => !m.IsDead)) break;
 
-                EnemyPhase(player, monsters);
+                EnemyPhase(context.Player, monsters);
             }
 
-            if (questManager != null)
+            if (context.QuestManager != null)
             {
-                BattleResult(player, monsters, questManager, inventory, allItems, expendables);
+                BattleResult(context, monsters);
             }
             else
             {
                 Console.WriteLine("⚠️ 퀘스트 매니저가 초기화되지 않았습니다!");
             }
-
         }
 
         private List<Monster> GenerateMonsters()
@@ -792,24 +810,24 @@ namespace Sparta_RPG2_
 
             Console.WriteLine("\n📣 당신의 차례입니다!");
         }
-        
 
 
-        private void BattleResult(Character player, List<Monster> monsters, QuestManager questManager, Inventory inventory, List<Item> allItems, List<Expendables> expendables)
+
+        private void BattleResult(BattleContext context, List<Monster> monsters)
         {
-            DungeonResult dungeonResult = new DungeonResult(inventory, allItems, expendables); // 던전결과 클래스 초기화
+            var dungeonResult = new DungeonResult(context.Inventory, context.AllItems, context.Expendables); // 던전결과 클래스 초기화
             Console.Clear();
             Console.WriteLine("Battle!! - Result\n");
 
-            if (player.HP <= 0)
+            if (context.Player.HP <= 0)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("You Lose\n");
                 Console.ResetColor();
 
-                Console.WriteLine($"Lv.{player.Level} {player.Name}");
+                Console.WriteLine($"Lv.{context.Player.Level} {context.Player.Name}");
 
-                Console.WriteLine($"HP {player.HP} -> 0");
+                Console.WriteLine($"HP {context.Player.HP} -> 0");
 
             }
             else
@@ -822,19 +840,19 @@ namespace Sparta_RPG2_
                 Console.WriteLine($"던전에서 몬스터 {monsters.Count}마리를 잡았습니다.\n");
 
 
-                questManager.OngoingQuests(QuestType.MonsterKill, defeatedCount);
-                Console.WriteLine($"Lv.{player.Level} {player.Name}");
-                int damageTaken = player.beforeHP - player.HP;
-                Console.WriteLine($"HP {player.beforeHP} -> {player.HP} (-{damageTaken})");
-                Console.WriteLine($"MP {player.MP} -> {player.MP + 10} (+10)");
+                context.QuestManager.OngoingQuests(QuestType.MonsterKill, defeatedCount);
+                Console.WriteLine($"Lv.{context.Player.Level} {context.Player.Name}");
+                int damageTaken = context.Player.beforeHP - context.Player.HP;
+                Console.WriteLine($"HP {context.Player.beforeHP} -> {context.Player.HP} (-{damageTaken})");
+                Console.WriteLine($"MP {context.Player.MP} -> {context.Player.MP + 10} (+10)");
                 //player.HP -= damageTaken;
-                player.beforeHP = player.HP;
-                player.MP += 10;
-                if (player.MP >= player.MaxMP) player.MP = player.MaxMP;
+                context.Player.beforeHP = context.Player.HP;
+                context.Player.MP += 10;
+                if (context.Player.MP >= context.Player.MaxMP) context.Player.MP = context.Player.MaxMP;
 
                 //던전리워드
-                dungeonResult.LevelUp(monsters, player);
-                dungeonResult.DungeonGold(monsters, player);
+                dungeonResult.LevelUp(monsters, context.Player);
+                dungeonResult.DungeonGold(monsters, context.Player);
                 dungeonResult.DungeonItem(monsters);
 
 

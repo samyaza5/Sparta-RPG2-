@@ -97,7 +97,9 @@ namespace Sparta_RPG2_
         static void ShowStartMenu()
         {
             GameUI ui = new GameUI();
-            BattleSystem battle = new BattleSystem();
+            BattleSystem battle = new();
+            BattleContext context = new(player!, battleExpendables, questManager!, inventory!, allItems, expendables);
+            battle.StartBattle(context);
             bool playGame = true;
             
             while (playGame)
@@ -124,7 +126,7 @@ namespace Sparta_RPG2_
                         Console.ReadLine();
                         break;
                     case "2":
-                        battle.StartBattle(player!, battleExpendables, questManager!, inventory!, allItems, expendables);
+                        battle.StartBattle(context);
                         break;
                     case "3":
                         inventory!.InventoryScene();
