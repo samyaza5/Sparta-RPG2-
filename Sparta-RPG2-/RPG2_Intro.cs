@@ -4,7 +4,7 @@ class Intro
     {
         Console.ReadKey();
         Console.Clear();
-        Console.ForegroundColor = ConsoleColor.Red;
+        Console.ForegroundColor = ConsoleColor.Red;       
 
         string[] introLines = {
    ". . .기원전 480년.",
@@ -24,12 +24,44 @@ class Intro
 
         };
 
+        Console.WriteLine("▶ 인트로 스토리를 보시려면 잠시 기다려주세요...");
+        Console.WriteLine("⏩ [S] 키를 누르면 인트로를 스킵할 수 있습니다.\n");
+        Thread.Sleep(2000);
 
-        // ✨ 먼저 대사 출력
-        foreach (var line in introLines)
+        bool isSkipped = false;
+
+        for (int i = 0; i < introLines.Length; i++)
         {
-            TypeWriterCenteredLine(line, 40);  // 한 글자씩 출력
+            // 사용자 입력 체크
+            if (Console.KeyAvailable)
+            {
+                if (Console.KeyAvailable && Console.ReadKey(true).Key == ConsoleKey.S)
+                {
+                    isSkipped = true;
+                    break;
+                }
+            }
+
+            TypeWriterCenteredLine(introLines[i], 40);
             Thread.Sleep(500);
+        }
+
+        if (isSkipped)
+        {
+            Console.Clear();
+            Console.WriteLine("[⏩ 인트로가 스킵되었습니다.]\n");
+            Thread.Sleep(1000);
+            Console.ResetColor();
+            return; // ⛔ 인트로 전체 종료
+        }
+        else
+        {
+            // ✨ 먼저 대사 출력
+            foreach (var line in introLines)
+            {
+                TypeWriterCenteredLine(line, 40);  // 한 글자씩 출력
+                Thread.Sleep(500);
+            }
         }
 
         Console.Clear();
