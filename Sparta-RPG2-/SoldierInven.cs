@@ -11,12 +11,14 @@ namespace Sparta_RPG2_
         public List<Soldier> soldiers { get; private set; }
         private SoldierEquipped soldierEquipped;
         private Character player;
+        private SoldierUnequipper soldierUnequipper;
 
         public SoldierInven(Character player)
         {
             this.player = player;
             soldiers = new List<Soldier>();
             soldierEquipped = new SoldierEquipped(this, player);
+            soldierUnequipper = new SoldierUnequipper(this, player);
         }
 
         public void InventoryScene()
@@ -44,7 +46,7 @@ namespace Sparta_RPG2_
                 }
 
                 Console.WriteLine("\n1. 병사 출정 관리");
-                Console.WriteLine("2. 병사 훈련");
+                Console.WriteLine("2. 병사 휴식 관리");
                 Console.WriteLine("0. 나가기");
                 Console.Write("\n원하시는 행동을 입력해주세요: ");
 
@@ -57,6 +59,7 @@ namespace Sparta_RPG2_
                             soldierEquipped.EqualsScene(); // null 체크 추가
                             break;
                         case 2:
+                            soldierUnequipper.UnequipScene();
                             break;
                         case 0:
                             return;
