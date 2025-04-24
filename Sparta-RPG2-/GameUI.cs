@@ -8,7 +8,7 @@
             public void ShowStatus(Character player)
             {
                 Console.WriteLine($"\n📛 Lv. {player.Level}");
-                Console.WriteLine($"🧝‍ {player.Name} ({JobName})");
+                Console.WriteLine($"🧝‍ {player.Name} ({player.JobName})");
                 Console.WriteLine($"⚔️ 공격력 : {player.Attack} {(player.WeaponPower == 0 ? "" : " + " + player.WeaponPower)}");
                 Console.WriteLine($"🛡️ 방어력 : {player.Defense} {(player.ArmorPower == 0 ? "" : " + " + player.ArmorPower)}");
                 Console.WriteLine($"🏰 군대 : 전투력 {player.SoldierAttack} | 결집력 : {player.SoldierDefense}");
