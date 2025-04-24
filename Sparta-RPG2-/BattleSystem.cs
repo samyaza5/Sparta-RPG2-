@@ -797,7 +797,7 @@ namespace Sparta_RPG2_
 
         private void BattleResult(Character player, List<Monster> monsters, QuestManager questManager, Inventory inventory, List<Item> allItems, List<Expendables> expendables)
         {
-            DungeonResult dungeonResult = new DungeonResult(inventory, allItems, expendables); // 던전결과 클래스 초기화
+            DungeonResult dungeonResult = new DungeonResult(inventory,allItems,expendables); // 던전결과 클래스 초기화
             Console.Clear();
             Console.WriteLine("Battle!! - Result\n");
 
@@ -834,8 +834,8 @@ namespace Sparta_RPG2_
 
                 //던전리워드
                 dungeonResult.LevelUp(monsters, player);
-                dungeonResult.DungeonGold(monsters, player);
-                dungeonResult.DungeonItem(monsters);
+                dungeonResult.BattleGold(monsters, player);
+                dungeonResult.BattleItemReward(monsters);
 
 
             }
