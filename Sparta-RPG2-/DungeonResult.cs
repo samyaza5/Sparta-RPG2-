@@ -154,75 +154,8 @@ namespace Sparta_RPG2_
 
         public void DungeonItemReward(List<Monster> deadMonsterList)
         {
-            //드랍아이템확률
-            Random rand = new Random();
-
-            int EndItemIndex = itemList.FindIndex(item => item.itemPro.ItemName == "스파르타쿠스의 분노");
-            List<string> getItem = new List<string>();
-
-            for (int i = 0; i < deadMonsterList.Count; i++)
-            {
-                int randItem = rand.Next(0,3);
-                int monsterLevel = deadMonsterList[i].Level;
-                if (monsterLevel >= 10)
-                {
-                    inventory.AllItems.Add(itemList[EndItemIndex]);
-                    getItem.Add(itemList[EndItemIndex].itemPro.ItemName);
-                }
-                else if (randItem == 0)
-                {
-                    int randReward = rand.Next(0, expendableList.Count);
-                    inventory.expendables.Add(expendableList[randReward]);
-                    getItem.Add(expendableList[randReward].expendablesPro.ItemName);
-                }
-                else if (randItem == 1) {
-                    int randReward = rand.Next(0, 4);
-                    inventory.AllItems.Add(itemList[randReward]);
-                    getItem.Add(itemList[randReward].itemPro.ItemName);
-                }
-                else if (randItem == 2) {
-                    int randReward = rand.Next(5, 9);
-                    inventory.AllItems.Add(itemList[randReward]);
-                    getItem.Add(itemList[randReward].itemPro.ItemName);
-                }
-            }
-
-            //아이템 출력
-            PrintItemReward(getItem);
-
-        }
-
-        private static void PrintItemReward(List<string> getItem)
-        {
-            if (getItem.Count > 0)
-            {
-                //Console.WriteLine(getItem.Count);
-                for (int i = 0; i < getItem.Count; i++) //아이템갯수출력
-                {
-                    int itemEA = 1;
-                    for (int j = 1 + i; j < getItem.Count; j++)
-                    {
-                        if (getItem[i] == getItem[j])
-                        {
-                            itemEA++;
-                            getItem.Remove(getItem[j]);
-                        }
-                    }
-                    Console.Write($"{getItem[i]}");
-
-                    Console.ForegroundColor = ConsoleColor.DarkYellow;
-                    Console.Write(" - ");
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine($"{itemEA} ");
-                    Console.ResetColor();
-                }
-            }
-        }
 
 
-        //아이템보상
-        public void BattleItemReward(List<Monster> deadMonsterList)
-        {
             //inventory = new Inventory(itemEquipped, player, program); // 임시
             //itemDb.Add(new Item(Item.BeginnerArmor())); //임시데이터
             //itemDb.Add(new Item(Item.IronArmor())); // 임시데이터
@@ -287,11 +220,79 @@ namespace Sparta_RPG2_
                         getItem.Add(itemList[randItem].itemPro.ItemName);
                     }
                 }
-
-                //Console.WriteLine($"-{getItem[j]}");
             }
-            //Console.WriteLine(getItem.Count);
+            //아이템 출력
+            PrintItemReward(getItem);
 
+        }
+
+        private static void PrintItemReward(List<string> getItem)
+        {
+            if (getItem.Count > 0)
+            {
+                //Console.WriteLine(getItem.Count);
+                for (int i = 0; i < getItem.Count; i++) //아이템갯수출력
+                {
+                    int itemEA = 1;
+                    for (int j = 1 + i; j < getItem.Count; j++)
+                    {
+                        if (getItem[i] == getItem[j])
+                        {
+                            itemEA++;
+                            getItem.Remove(getItem[j]);
+                        }
+                    }
+                    Console.Write($"{getItem[i]}");
+
+                    Console.ForegroundColor = ConsoleColor.DarkYellow;
+                    Console.Write(" - ");
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine($"{itemEA} ");
+                    Console.ResetColor();
+                }
+            }
+        }
+
+
+        //아이템보상
+        public void BattleItemReward(List<Monster> deadMonsterList)
+        {
+            //드랍아이템확률
+            Random rand = new Random();
+
+            int EndItemIndex = itemList.FindIndex(item => item.itemPro.ItemName == "스파르타쿠스의 분노");
+            List<string> getItem = new List<string>();
+
+            for (int i = 0; i < deadMonsterList.Count; i++)
+            {
+                int randItem = rand.Next(0, 3);
+                int monsterLevel = deadMonsterList[i].Level;
+                if (monsterLevel >= 10)
+                {
+                    inventory.AllItems.Add(itemList[EndItemIndex]);
+                    getItem.Add(itemList[EndItemIndex].itemPro.ItemName);
+                }
+                else if (randItem == 0)
+                {
+                    int randReward = rand.Next(0, expendableList.Count);
+                    inventory.expendables.Add(expendableList[randReward]);
+                    getItem.Add(expendableList[randReward].expendablesPro.ItemName);
+                }
+                else if (randItem == 1)
+                {
+                    int randReward = rand.Next(0, 4);
+                    inventory.AllItems.Add(itemList[randReward]);
+                    getItem.Add(itemList[randReward].itemPro.ItemName);
+                }
+                else if (randItem == 2)
+                {
+                    int randReward = rand.Next(5, 9);
+                    inventory.AllItems.Add(itemList[randReward]);
+                    getItem.Add(itemList[randReward].itemPro.ItemName);
+                }
+            }
+            //Console.WriteLine($"-{getItem[j]}");
+            //Console.WriteLine(getItem.Count);
             //아이템 출력
             PrintItemReward(getItem);
         }
