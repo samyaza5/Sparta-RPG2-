@@ -4,9 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Sparta_RPG2_;
 
 namespace Sparta_RPG2_
 {
+    public enum BattleResult
+    {
+        Victory,
+        Defeat,
+        Escape
+    }
+
     /// <summary>
     /// 던전 전용 전투 시스템을 담당하는 클래스입니다.
     /// 각 스테이지를 순차적으로 진행하며, 플레이어와 몬스터 간의 전투를 처리합니다.
@@ -105,101 +113,132 @@ namespace Sparta_RPG2_
         /// </summary>
         public void Start()
         {
-            BattleExpendables expendables = new(player, inventory);
-            BattleContext context = new(player, expendables, Program.questManager!, inventory, Program.allItems, Program.expendables);
+            var expendables = new BattleExpendables(player, inventory);
+            var context = new BattleContext(player, expendables, Program.questManager!, inventory, Program.allItems, Program.expendables);
 
             foreach (var stage in dungeon.Stages)
             {
-                stage.Execute(player);
-                Console.Clear();
-                Console.WriteLine($"🗡 {stage.Name}에 진입합니다...");
+                EnterStage(stage);
+                var result = HandleStageBattle(stage, context);
 
-                HandleStageBattle(stage, context);
+                switch (result)
+                {
+                    case BattleResult.Victory:
+                        WriteColoredLine($"✔ {stage.Name} 클리어!", ConsoleColor.Cyan);
+                        break;
+
+                    case BattleResult.Escape:
+                        WriteColoredLine($"⚠️ {stage.Name}에서 도망쳤습니다. 던전 진행이 중단됩니다.", ConsoleColor.Yellow);
+                        return;
+
+                    case BattleResult.Defeat:
+                        WriteColoredLine($"💀 {stage.Name}에서 전투에 패배했습니다.", ConsoleColor.Red);
+                        return;
+                }
 
                 if (player.HP <= 0)
-                    break;
-
-                Console.WriteLine($"✔ {stage.Name} 클리어!");
+                    return;
             }
 
             if (player.HP > 0)
             {
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine("🎉 던전 전체 클리어!");
-                Console.ResetColor();
+                WriteColoredLine("🎉 던전 전체 클리어!", ConsoleColor.Green);
                 dungeon.IsCleared = true;
             }
         }
 
-        /// <summary>
-        /// 단일 스테이지의 전투를 처리합니다. 플레이어 선택 및 반격, 체력 업데이트까지 담당합니다.
-        /// </summary>
-        private void HandleStageBattle(Stage stage, BattleContext context)
+
+        public BattleResult HandleStageBattle(Stage stage, BattleContext context)
         {
-            List<Monster> monsters = stage.Monsters;
+            var monsters = stage.Monsters;
 
             while (context.Player.HP > 0 && monsters.Any(m => !m.IsDead))
             {
-                Console.Clear();
-                Console.WriteLine("⚔️ 전투 중 - 당신의 선택은?");
-                Console.WriteLine("1. 스킬");
-                Console.WriteLine("2. 소모품 사용");
-                Console.WriteLine("3. 도망친다");
-                Console.Write(">> ");
-
+                ShowBattleMenu();
                 string? choice = Console.ReadLine();
+                var action = HandlePlayerChoice(choice, context, monsters);
 
-                if (!HandlePlayerChoice(choice, context, monsters))
-                    return; // 도망 또는 잘못된 선택
+                if (action == BattleResult.Escape)
+                    return BattleResult.Escape;
 
                 ProcessEnemyCounterAttack(monsters, context.Player);
                 CheckMonsterDeaths(monsters);
-
                 PrintBattleStatus(monsters, context.Player);
 
                 if (context.Player.HP <= 0)
                 {
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("☠️ 당신은 쓰러졌습니다...");
-                    Console.ResetColor();
-                    break;
+                    WriteColoredLine("☠️ 당신은 쓰러졌습니다...", ConsoleColor.Red);
+                    return BattleResult.Defeat;
                 }
 
-                Console.WriteLine("\n[Enter] 키를 눌러 다음 턴으로 진행...");
-                while (Console.ReadKey(true).Key != ConsoleKey.Enter) ;
+                WaitForNextTurn();
             }
+
+            return BattleResult.Victory;
         }
+
+        private void EnterStage(Stage stage)
+        {
+            stage.Execute(player);
+            Console.Clear();
+            Console.WriteLine($"🗡 {stage.Name}에 진입합니다...");
+        }
+
+        private void ShowBattleMenu()
+        {
+            Console.Clear();
+            Console.WriteLine("⚔️ 전투 중 - 당신의 선택은?");
+            Console.WriteLine("1. 스킬");
+            Console.WriteLine("2. 소모품 사용");
+            Console.WriteLine("3. 도망친다");
+            Console.Write(">> ");
+        }
+
+        private void WaitForNextTurn()
+        {
+            Console.WriteLine("\n[Enter] 키를 눌러 다음 턴으로 진행...");
+            while (Console.ReadKey(true).Key != ConsoleKey.Enter) ;
+        }
+
+        private void WriteColoredLine(string message, ConsoleColor color)
+        {
+            Console.ForegroundColor = color;
+            Console.WriteLine(message);
+            Console.ResetColor();
+        }
+
 
         /// <summary>
         /// 플레이어의 전투 선택을 처리합니다. 스킬, 소모품 사용, 도망 기능을 포함합니다.
         /// </summary>
-        private bool HandlePlayerChoice(string? choice, BattleContext context, List<Monster> monsters)
+        private BattleResult HandlePlayerChoice(string? choice, BattleContext context, List<Monster> monsters)
         {
             switch (choice)
             {
                 case "1":
                     DugeonSkill(context.Player, monsters);
-                    return true;
+                    return BattleResult.Victory; // 계속 진행
 
                 case "2":
                     context.BattleExpendables.UseExpend();
                     Console.WriteLine("💡 소모품 사용 후 다음 턴으로 진행됩니다.");
                     Thread.Sleep(1000);
-                    return true;
+                    return BattleResult.Victory;
 
                 case "3":
                     Console.ForegroundColor = ConsoleColor.Yellow;
                     Console.WriteLine("🏃 당신은 도망쳤습니다.");
                     Console.ResetColor();
                     Thread.Sleep(1000);
-                    return false;
+                    return BattleResult.Escape;
 
                 default:
                     Console.WriteLine("❌ 잘못된 입력입니다. 다시 선택해주세요.");
                     Thread.Sleep(1000);
-                    return true;
+                    return BattleResult.Victory;
             }
         }
+
 
         /// <summary>
         /// 생존 중인 몬스터들의 반격을 처리합니다.
@@ -232,13 +271,31 @@ namespace Sparta_RPG2_
         private void PrintBattleStatus(List<Monster> monsters, Character player)
         {
             Console.WriteLine("\n------------------------");
+
             Console.WriteLine($"👤 {player.Name} HP: {player.HP} / {player.MaxHP}");
+            Console.WriteLine($"    {GenerateHpBar(player.HP, player.MaxHP, 20, showPercent: true)}");
 
             foreach (var monster in monsters)
             {
+                bool isBoss = monster.Name.Contains("화신") || monster.Name.Contains("탈로스") || monster.Name.Contains("포보스") || monster.Name.Contains("루가에") || monster.Name.Contains("케르베르");
+                int barLength = isBoss ? 30 : 20;
+
                 Console.WriteLine($"🐺 {monster.Name} HP: {monster.HP} / {monster.MaxHP}");
+                Console.WriteLine($"    {GenerateHpBar(monster.HP, monster.MaxHP, barLength, showPercent: true)}");
             }
+
             Console.WriteLine("------------------------\n");
+        }
+
+        private string GenerateHpBar(int current, int max, int barLength = 20, bool showPercent = false)
+        {
+            int filledLength = (int)((double)current / max * barLength);
+            string bar = new string('█', filledLength) + new string('─', barLength - filledLength);
+            int percent = (int)((double)current / max * 100);
+
+            return showPercent
+                ? $"[{bar}] {percent}%"
+                : $"[{bar}]";
         }
     }
 }
