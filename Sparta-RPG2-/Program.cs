@@ -138,7 +138,7 @@ namespace Sparta_RPG2_
                         break;   
                     case "6":
                         Console.WriteLine("⚔ [던전] 타락한 아레스의 탑에 진입합니다...");
-                        Dungeon.AresTower.Enter(player, inventory,allItems,expendables);
+                        Dungeon.AresTower.Enter(player, inventory);
                         Console.ReadLine();
                         break;
                     case "7":

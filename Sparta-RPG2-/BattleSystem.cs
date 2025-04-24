@@ -865,7 +865,7 @@ namespace Sparta_RPG2_
                 //던전리워드
                 dungeonResult.LevelUp(monsters, context.Player);
                 dungeonResult.DungeonGold(monsters, context.Player);
-                dungeonResult.DungeonItem(monsters);
+                dungeonResult.DungeonItemReward(monsters);
 
 
             }
