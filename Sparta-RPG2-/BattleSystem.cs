@@ -104,7 +104,7 @@ namespace Sparta_RPG2_
             int criRate = rand.Next(1, 101);
             float criDamageRate = 1.6f;
             float damageRate = rand.Next(9, 12) / 10f;
-            int damage = player.Attack;
+            int damage = player.Attack+player.SoldierAttack;
             int normalDamage = (int)Math.Round(damage * damageRate);
             int criDamege = (int)Math.Round(normalDamage * criDamageRate);
             bool isCritical = false;
