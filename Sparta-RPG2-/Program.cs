@@ -99,7 +99,6 @@ namespace Sparta_RPG2_
             GameUI ui = new GameUI();
             BattleSystem battle = new();
             BattleContext context = new(player!, battleExpendables, questManager!, inventory!, allItems, expendables);
-            battle.StartBattle(context);
             bool playGame = true;
             
             while (playGame)
