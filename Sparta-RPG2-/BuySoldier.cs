@@ -96,7 +96,7 @@ namespace Sparta_RPG2_
                     character.Gold -= soldier.soldierPro.ItemValue;
                     Soldier newSoldier = new Soldier(soldier.soldierPro.Clone());
 
-                    soldierInven.soldiers.Add(soldier);
+                    soldierInven.soldiers.Add(newSoldier);
                     Console.WriteLine($"✅ {newSoldier.soldierPro.ItemName} 고용 완료!");
                 }
             }
