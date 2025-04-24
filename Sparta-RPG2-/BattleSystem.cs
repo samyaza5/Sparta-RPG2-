@@ -240,24 +240,25 @@ namespace Sparta_RPG2_
                                             Console.WriteLine($"Lv.{target2.Level} {target2.Name}");
                                             Console.WriteLine($"HP {target2.HP} - {skillDamage_2_2} -> {target2.HP - skillDamage_2_2}");
                                         }
-                                        if (target2.HP - skillDamage_2_3 <= 0)
+                                        if (target3.HP - skillDamage_2_3 <= 0)
                                         {
                                             Console.ForegroundColor = ConsoleColor.Red;
                                             Console.WriteLine($"\nLv.{target2.Level} {target2.Name}");
-                                            Console.WriteLine($"HP {target2.HP} - {skillDamage_2_3} -> 0 (Dead)");
+                                            Console.WriteLine($"HP {target3.HP} - {skillDamage_2_3} -> 0 (Dead)");
                                             Console.ResetColor();
-                                            target2.HP = 0;
+                                            target3.HP = 0;
                                         }
                                         else
                                         {
-                                            Console.WriteLine($"Lv.{target2.Level} {target2.Name}");
-                                            Console.WriteLine($"HP {target2.HP} - {skillDamage_2_3} -> {target2.HP - skillDamage_2_3}");
+                                            Console.WriteLine($"Lv.{target3.Level} {target3.Name}");
+                                            Console.WriteLine($"HP {target3.HP} - {skillDamage_2_3} -> {target3.HP - skillDamage_2_3}");
                                         }
                                         target1.HP -= skillDamage_2_1;
                                         target2.HP -= skillDamage_2_2;
                                         target3.HP -= skillDamage_2_3;
 
                                     }
+
                                     if (aliveMonsters.Count == 2)
                                     {
                                         float rate1 = rand.Next(9, 12) / 10f;
@@ -757,9 +758,8 @@ namespace Sparta_RPG2_
             {
                 if (monster.HP <= 0)
                 {
-
                     monster.HP = 0;
-
+                    monster.IsDead = true;
                     continue;  // Dead 상태인 몬스터는 스킵
                 }
 
