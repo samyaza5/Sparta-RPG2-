@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace Sparta_RPG2_
 {
@@ -26,12 +27,16 @@ namespace Sparta_RPG2_
             Defense = defense;
         }
 
+        public SoldierPro Clone()
+        {
+            return new SoldierPro(ItemName, ItemInfo, Attack, Defense, ItemValue);
+        }
         // 인벤토리에서 출력용
         public string ToInventoryString()
         {
             string equipStatus = IsEquipped ? "[전투준비]" : "";
 
-          return $"-{ItemName} | 공격력 : {Attack} | 방어력 : {Defense} | {ItemInfo} {equipStatus}";
+          return $"- {ItemName} | 공격력 : {Attack} | 방어력 : {Defense} | {ItemInfo}";
         }
         public string ToSellString()
         {

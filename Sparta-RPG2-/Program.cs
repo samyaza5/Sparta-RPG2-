@@ -7,21 +7,21 @@ namespace Sparta_RPG2_
 {
     internal partial class Program
     {
-        static QuestManager questManager;
-        static Character? player;
-        static Inventory? inventory;
-        static ItemEquipped? itemEquipped;
-        static SoldierEquipped? soldierEquipped;
-        static SoldierInven? soldierInven;
+        public static QuestManager questManager;
+        public static Character? player;
+        public static Inventory? inventory;
+        public static ItemEquipped? itemEquipped;
+        public static SoldierEquipped? soldierEquipped;
+        public static SoldierInven? soldierInven;
         static Buy? buy;
-        static BuySoldier? buySoldier;
+        public static BuySoldier? buySoldier;
         static Shop? shop;
-        static Pub? pub;
-        static UseExpendables? useExpendables;
-        static List<Item> allItems = new List<Item>();
-        static List<Expendables> expendables = new List<Expendables>();
-        static List<Soldier> soldiers = new List<Soldier>();
-        static BattleExpendables battleExpendables;
+        public static Pub? pub;
+        public static UseExpendables? useExpendables;
+        public static List<Item> allItems = new List<Item>();
+        public static List<Expendables> expendables = new List<Expendables>();
+        public static List<Soldier> soldiers = new List<Soldier>();
+        public static BattleExpendables battleExpendables;
 
         static void Main(string[] args)
         {
@@ -97,7 +97,8 @@ namespace Sparta_RPG2_
         static void ShowStartMenu()
         {
             GameUI ui = new GameUI();
-            BattleSystem battle = new BattleSystem();
+            BattleSystem battle = new();
+            BattleContext context = new(player!, battleExpendables, questManager!, inventory!, allItems, expendables);
             bool playGame = true;
             
             while (playGame)
@@ -124,7 +125,7 @@ namespace Sparta_RPG2_
                         Console.ReadLine();
                         break;
                     case "2":
-                        battle.StartBattle(player!, battleExpendables, questManager!, inventory!, allItems, expendables);
+                        battle.StartBattle(context);
                         break;
                     case "3":
                         inventory!.InventoryScene();
