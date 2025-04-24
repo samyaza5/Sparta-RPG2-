@@ -46,19 +46,19 @@ namespace Sparta_RPG2_
             };
         }
 
-        public void Enter(Character player, Inventory inventory)
+        public void Enter(Character player, Inventory inventory, List<Item> itemList, List<Expendables> expendableList)
         {
             if (player.Level >= RequiredLevel)
             {
                 Console.WriteLine($"⚔ {Name}에 진입합니다...");
                 ShowDungeonEntranceEffect(Name);
-                StartDungeon(player, inventory);
+                StartDungeon(player, inventory, itemList, expendableList);
             }
             else
             {
                 Console.WriteLine("레벨이 부족합니다.");
-            }           
-        }       
+            }
+        }
 
         private void ShowDungeonEntranceEffect(string dungeonName)
         {
@@ -91,14 +91,14 @@ namespace Sparta_RPG2_
             while (Console.ReadKey(true).Key != ConsoleKey.Enter) ;
         }
 
-        private void StartDungeon(Character player, Inventory inventory)
+        private void StartDungeon(Character player, Inventory inventory, List<Item> itemList,List<Expendables> expendableList )
         {
             BattleExpendables expendables = new(player, inventory);
 
             foreach (var stage in Stages)
             {
                 stage.Execute(player); // 층별 안내 출력
-                StartDungeonBattle(player, stage, expendables); // ✅ 수정된 호출
+                StartDungeonBattle(player, stage, expendables, inventory, itemList, expendableList); // ✅ 수정된 호출
             }
 
             Console.ForegroundColor = ConsoleColor.Green;
@@ -116,8 +116,8 @@ namespace Sparta_RPG2_
             Stages = new List<Stage>
     {
         new Stage("1층 - 붉은 늑대: 정찰병", FloorType.F1, Monstertype.N,
-            new List<Monster> 
-            { 
+            new List<Monster>
+            {
                 new Monster("붉은 늑대: 정찰병", 2, 30, 30, 6),
                 new Monster("붉은 늑대: 정찰병", 2, 30, 30, 6),
                 new Monster("붉은 늑대: 정찰병", 2, 30, 30, 6)
@@ -125,7 +125,7 @@ namespace Sparta_RPG2_
 
         new Stage("2층 - 붉은 늑대: 추적자", FloorType.F2, Monstertype.N,
             new List<Monster>
-            { 
+            {
                 new Monster("붉은 늑대: 추적자", 3, 40, 40, 8),
                 new Monster("붉은 늑대: 추적자", 3, 40, 40, 8),
                 new Monster("붉은 늑대: 추적자", 3, 40, 40, 8)
@@ -133,7 +133,7 @@ namespace Sparta_RPG2_
 
         new Stage("3층 - 붉은 늑대: 포식자", FloorType.F3, Monstertype.N,
             new List<Monster>
-            { 
+            {
                 new Monster("붉은 늑대: 포식자", 4, 45, 45, 10),
                 new Monster("붉은 늑대: 포식자", 4, 45, 45, 10),
                 new Monster("붉은 늑대: 포식자", 4, 45, 45, 10)
@@ -152,8 +152,9 @@ namespace Sparta_RPG2_
     }
         };
 
-        private void StartDungeonBattle(Character player, Stage stage, BattleExpendables expendables)
+        private void StartDungeonBattle(Character player, Stage stage, BattleExpendables expendables, Inventory inventory,List<Item>itemList, List<Expendables> expendableList)
         {
+            DungeonResult dungeonResult = new DungeonResult(inventory, itemList, expendableList);
             Console.Clear();
 
             List<Monster> monsters = stage.Monsters;
@@ -230,7 +231,7 @@ namespace Sparta_RPG2_
                 Console.WriteLine($"\n❤️ {player.Name} HP: {player.HP}");
                 Console.WriteLine("0. 다음");
                 while (Console.ReadLine() != "0") ;
-                
+
                 Console.WriteLine($"\n🧭 {GetFloorName(stage.Floor)}의 적을 전부 처치했습니다.");
             }
 
@@ -245,12 +246,16 @@ namespace Sparta_RPG2_
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine("🎉 전투 승리! 모든 몬스터를 처치했습니다.");
                 // 경험치, 골드, 보상 아이템 등 지급 가능
+                dungeonResult.LevelUp(monsters, player);
+                dungeonResult.DungeonGold(monsters, player);
+                dungeonResult.DungeonItemReward(monsters);
+
             }
 
             Console.ResetColor();
             Console.WriteLine("\n0. 다음");
             while (Console.ReadLine() != "0") ;
-        }        
+        }
     }
 
     public class Stage
@@ -281,6 +286,6 @@ namespace Sparta_RPG2_
         }
     }
 }
-    
+
 
 
