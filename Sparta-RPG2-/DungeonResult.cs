@@ -136,7 +136,7 @@ namespace Sparta_RPG2_
             for (int i = 0; i < deadMonsterList.Count; i++)
             {
                 int monsterGold = 0;
-                int levelGold = (deadMonsterList[i].Level * 100);
+                int levelGold = (deadMonsterList[i].Level * 50);
                 //int atkGold = deadMonsterList[i].Attack * 10;
                 addGold += (levelGold + monsterGold);
             }
