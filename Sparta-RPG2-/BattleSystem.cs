@@ -164,9 +164,9 @@ namespace Sparta_RPG2_
                         }
                         break; // 공격
                     case "2": // 스킬사용
-                        switch (player.Job)
+                        switch (player.JobName)
                         {
-                            case "전사":
+                            case "팔랑크스 중보병":
                                 int mp_1 = 10;
                                 int mp_2 = 15;
                                 Console.Write($"1. 돌진 - MP {mp_1}\n   공격력*2로 하나의 적을 공격합니다.\n");
@@ -243,7 +243,7 @@ namespace Sparta_RPG2_
                                         if (target3.HP - skillDamage_2_3 <= 0)
                                         {
                                             Console.ForegroundColor = ConsoleColor.Red;
-                                            Console.WriteLine($"\nLv.{target2.Level} {target2.Name}");
+                                            Console.WriteLine($"\nLv.{target3.Level} {target3.Name}");
                                             Console.WriteLine($"HP {target3.HP} - {skillDamage_2_3} -> 0 (Dead)");
                                             Console.ResetColor();
                                             target3.HP = 0;
@@ -337,7 +337,7 @@ namespace Sparta_RPG2_
                                     Console.WriteLine("MP가 부족합니다!");
                                 }
                                 continue; // 스킬
-                            case "마법사":
+                            case "아레스의 예언자":
                                 int mp_3 = 8;
                                 int mp_4 = 12;
                                 Console.Write($"1. 에이르의 손길 - MP {mp_3}\n   공격력*2.5로 HP를 회복하여 자신을 치유 합니다.\n");
@@ -504,7 +504,7 @@ namespace Sparta_RPG2_
                                     Console.WriteLine("MP가 부족합니다!");
                                 }
                                 continue;
-                            case "궁수":
+                            case "라코니아 순찰자":
                                 int mp_5 = 10;
                                 int mp_6 = 15;
                                 Console.Write($"1. 관통 - MP {mp_5}\n   공격력*1.5으로 두명의 적을 관통하여 공격합니다.\n관통할때 데미지가 30% 감소합니다.\n");
