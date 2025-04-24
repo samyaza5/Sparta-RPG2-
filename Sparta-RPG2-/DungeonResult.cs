@@ -1,12 +1,8 @@
-﻿using Sparta_RPG2_;
-using System;
-using System.Reflection;
-using System.Security.Cryptography;
-
-namespace Sparta_RPG2_
+﻿namespace Sparta_RPG2_
 {
     public class DungeonResult
     {
+        
 
         Inventory inventory;
         List<Item> itemList;
