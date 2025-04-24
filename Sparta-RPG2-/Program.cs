@@ -1,15 +1,13 @@
 using Sparta_RPG2_;
-
 using System;
 using System.Collections.Generic;
-using static Sparta_RPG2_.Program;
-using static Sparta_RPG2_.Program.Quest;
+using static Sparta_RPG2_.Quest;
 
 namespace Sparta_RPG2_
 {
     internal partial class Program
     {
-        static QuestManager? questManager;
+        static QuestManager questManager;
         static Character? player;
         static Inventory? inventory;
         static ItemEquipped? itemEquipped;
@@ -123,7 +121,7 @@ namespace Sparta_RPG2_
                         Console.ReadLine();
                         break;
                     case "2":
-                        battle.StartBattle(player!, battleExpendables);
+                        battle.StartBattle(player!, battleExpendables, questManager!, inventory!, allItems, expendables);
                         break;
                     case "3":
                         inventory!.InventoryScene();
