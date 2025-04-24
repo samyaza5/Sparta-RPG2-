@@ -11,17 +11,19 @@ namespace Sparta_RPG2_
     {
         public SoldierInven SoldierInven;
         public Character player;
+        private List<Soldier> equippedSoldiers;
 
-        public SoldierEquipped(Character player, SoldierInven soldierInven)
+        public void AddToEquipped(Soldier soldier)
         {
-            this.player = player;
-            this.SoldierInven = soldierInven;
+            soldier.soldierPro.IsEquipped = true;
+            equippedSoldiers.Add(soldier);
         }
 
         public SoldierEquipped(SoldierInven soldierInven, Character player)
         {
             SoldierInven = soldierInven;
             this.player = player;
+            this.equippedSoldiers = new List<Soldier>();
         }
 
         public void UpdateStatsFromSoldierInven(List<Soldier> soldiers)
@@ -41,6 +43,7 @@ namespace Sparta_RPG2_
 
         public void EqualsScene()
         {
+            var grouped = SoldierInven.soldiers.GroupBy(s => s.soldierPro.ItemName).ToList();
             while (true)
             {
                 Console.Clear();
@@ -55,16 +58,16 @@ namespace Sparta_RPG2_
                 }
                 else
                 {
-                    for (int i = 0; i < SoldierInven.soldiers.Count; i++)
+                    for (int i = 0; i < grouped.Count; i++)
                     {
-                        Console.WriteLine($"{i + 1}{SoldierInven.soldiers[i].soldierPro.ToInventoryString()}");
+                        Console.WriteLine($"{i + 1}. {grouped[i].Key} {grouped[i].Count()}명");
                     }
                 }
 
                 Console.WriteLine();
                 Console.WriteLine("0. 나가기");
                 Console.WriteLine();
-                Console.WriteLine("원하시는 행동을 입력해주세요");
+                Console.WriteLine("출정시킬 병사의 종류를 선택하세요");
 
                 if (int.TryParse(Console.ReadLine(), out int input))
                 {
@@ -75,12 +78,37 @@ namespace Sparta_RPG2_
 
                     if (SoldierInven != null && index >= 0 && index < SoldierInven.soldiers.Count)
                     {
-                        var selectedItem = SoldierInven.soldiers[index];
+                        var selectedGroup = grouped[index].ToList();
+                        Console.WriteLine($"\n[{selectedGroup[0].soldierPro.ToInventoryString} 목록]");
+                        for (int i = 0; i < selectedGroup.Count; i++)
+                        {
+                            Console.WriteLine($"{i + 1}. {selectedGroup[i].soldierPro.ToInventoryString()}");
+                        }
 
-                        selectedItem.soldierPro.IsEquipped = true;
-                        UpdateStatsFromSoldierInven(SoldierInven.soldiers);
-                            Console.WriteLine($"'{selectedItem.soldierPro.ItemName}'가 준비완료 됐습니다!");
+                        Console.Write("몇 명을 출정시키겠습니까? ");
+                        int count = int.Parse(Console.ReadLine());
+
+                        var selectedToDeploy = selectedGroup.Take(count).ToList();
+
+                        if(selectedToDeploy.Count > selectedGroup.Count)
+                        {
+                            Console.WriteLine($"{selectedGroup}는 소속 인원은 {selectedGroup.Count}명 입니다.");
                             Thread.Sleep(1000);
+                        }
+                        else
+                        {
+                            foreach (var soldier in selectedToDeploy)
+                        {
+                            Console.WriteLine("추가 전: " + equippedSoldiers.Count);
+                            AddToEquipped(soldier);
+                            Console.WriteLine("추가 후: " + equippedSoldiers.Count);
+                            Console.WriteLine($"{soldier.soldierPro.ItemName} 출정!");
+                            Thread.Sleep(1000);
+                        }
+
+                        }
+                        // 출정 리스트에 추가
+                        
                     }
                     else
                     {
