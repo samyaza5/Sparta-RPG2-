@@ -4,7 +4,6 @@ using Sparta_RPG2_;
 
 namespace Sparta_RPG2_
 {
-
     class Shop // 상점
     {
         public List<Item> allItems;
