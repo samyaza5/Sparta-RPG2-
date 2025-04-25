@@ -3,6 +3,7 @@
     // 🧍 캐릭터 클래스
     public class Character
     {
+        
         // 🎯 기본 스탯
         public int Level { get; set; } = 1;
         public string Name { get; set; } = "";
@@ -15,7 +16,7 @@
         public int MaxHP { get; set; } = 100;
         public int MP { get; set; } = 50;
         public int MaxMP { get; set; } = 50;
-
+        public int SP {  get; set; } = 100;
         public int Gold { get; set; } = 50000;
         public int Exp { get; set; } = 0;
         public int MaxExp { get; set; } = 100;
@@ -62,5 +63,8 @@
                 Console.ResetColor();
             }
         }
+
+        
+        
     }
 }
