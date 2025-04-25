@@ -1,24 +1,28 @@
-﻿namespace Sparta_RPG2_
+﻿using System.Text.Json.Serialization;
+
+namespace Sparta_RPG2_
 {
     public class ItemPro
     {
-
-        public string ItemName { get; set; }
+        public string ItemName { get; set; } = string.Empty;
         public int ItemStat { get; set; }
-        public string ItemInfo { get; set; }
+        public string ItemInfo { get; set; } = string.Empty;
         public int ItemValue { get; set; }
         public bool IsSold { get; set; }
         public bool IsArmor { get; set; }
         public bool IsWeapon { get; set; }
         public bool IsEquipped { get; set; }
 
+        // 🔹 기본 생성자 (필수 - 역직렬화 시 사용됨)
+        public ItemPro() { }
 
-        public ItemPro(string name, int stat, string info, int value, bool isArmor, bool isWeapon)
+        [JsonConstructor]
+        public ItemPro(string itemName, int itemStat, string itemInfo, int itemValue, bool isArmor, bool isWeapon)
         {
-            ItemName = name;
-            ItemStat = stat;
-            ItemValue = value;
-            ItemInfo = info;
+            ItemName = itemName;
+            ItemStat = itemStat;
+            ItemValue = itemValue;
+            ItemInfo = itemInfo;
             IsSold = false;
             IsArmor = isArmor;
             IsWeapon = isWeapon;
@@ -29,45 +33,25 @@
         public string ToInventoryString()
         {
             string equipStatus = IsEquipped ? "[E]" : "";
-            if (IsArmor)
-                return $"-{equipStatus}{ItemName} | 방어력 : {ItemStat} | {ItemInfo}";
-            else
-                return $"-{equipStatus}{ItemName} | 공격력 : {ItemStat} | {ItemInfo}";
+            return IsArmor
+                ? $"-{equipStatus}{ItemName} | 방어력 : {ItemStat} | {ItemInfo}"
+                : $"-{equipStatus}{ItemName} | 공격력 : {ItemStat} | {ItemInfo}";
         }
         public string ToSellString()
         {
             string equipStatus = IsEquipped ? " [E]" : "";
+            string statLabel = IsArmor ? "방어력" : "공격력";
+            int price = ItemValue * 17 / 20;
 
-            if (IsSold && IsArmor)
-            {
-                return $"-{ItemName} | 방어력 : {ItemStat} | {ItemInfo} | {ItemValue * 17 / 20}G";
-            }
-            else
-            {
-                return $"-{ItemName} | 공격력 : {ItemStat} | {ItemInfo} | {ItemValue * 17 / 20}G";
-            }
+            return $"-{ItemName} | {statLabel} : {ItemStat} | {ItemInfo} | {price}G";
         }
 
         public override string ToString()
         {
-            string equipStatus = IsEquipped ? " [E]" : "";
+            string statLabel = IsArmor ? "방어력" : "공격력";
+            string status = IsSold ? "[구매 완료]" : $"{ItemValue}G";
 
-            if (IsSold && IsArmor)
-            {
-                return $"{ItemName} | 방어력 : {ItemStat} | {ItemInfo} | [구매 완료]";
-            }
-            else if (IsSold && IsWeapon)
-            {
-                return $"{ItemName} | 공격력 : {ItemStat} | {ItemInfo} | [구매 완료]";
-            }
-            else if (!IsSold && IsArmor)
-            {
-                return $"{ItemName} | 방어력 : {ItemStat} | {ItemInfo} | {ItemValue}G";
-            }
-            else
-            {
-                return $"{ItemName} | 공격력 : {ItemStat} | {ItemInfo} | {ItemValue}G";
-            }
+            return $"{ItemName} | {statLabel} : {ItemStat} | {ItemInfo} | {status}";
         }
     }
 }

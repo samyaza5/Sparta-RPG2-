@@ -21,9 +21,9 @@
 
         public void ShowExpBar(Character player)
         {
-            int barLength = 20; // 경험치바의 총 길이
-            int maxExp = Math.Max(player.MaxExp, 1); // 0으로 나누는 것 방지
-            double ratio = (double)player.Exp / player.MaxExp;
+            int barLength = 20;
+            int maxExp = Math.Max(player.MaxExp, 1); // MaxExp가 0이 되는 걸 방지
+            double ratio = Math.Max(0, Math.Min((double)player.Exp / maxExp, 1)); // 0 ~ 1 사이로 제한
             int filled = (int)(ratio * barLength);
 
             Console.Write("📊 경험치 : [");
