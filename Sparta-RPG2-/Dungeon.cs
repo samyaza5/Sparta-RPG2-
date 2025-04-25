@@ -24,6 +24,51 @@ namespace Sparta_RPG2_
         B, // Boss
     }
 
+    public class Stage
+    {
+        public string Name { get; set; }
+        public Monstertype Type { get; set; }
+        public FloorType Floor { get; set; }
+        public List<Monster> Monsters { get; set; }
+        public string? IntroDialogue { get; set; } // 입장 전 대사
+        public string? BossArt { get; set; }       // 연출용 ASCII 아트
+
+        public Stage(string name, FloorType floor, Monstertype type, List<Monster> monsters)
+        {
+            Name = name;
+            Floor = floor;
+            Type = type;
+            Monsters = monsters;
+        }
+
+        public bool Execute(Character player)
+        {
+            Console.WriteLine($"▶ {Name} ({Type})에 진입합니다.");
+
+            if (Type == Monstertype.B)
+            {
+                Console.ForegroundColor = ConsoleColor.DarkRed;
+
+                if (!string.IsNullOrEmpty(BossArt))
+                    Console.WriteLine(BossArt);
+
+                if (!string.IsNullOrEmpty(IntroDialogue))
+                    Console.WriteLine(IntroDialogue);
+
+                Console.ResetColor();
+
+                Console.WriteLine(); // 줄 띄움
+                Console.ForegroundColor = ConsoleColor.Gray;
+                Console.Write("[Enter] 키를 눌러 전투를 시작하세요...");
+                Console.ResetColor();
+
+                while (Console.ReadKey(true).Key != ConsoleKey.Enter) ; // Enter 대기
+            }
+
+            return true;
+        }
+    }
+
     class Dungeon
     {
         public string Name { get; set; }
@@ -93,8 +138,8 @@ namespace Sparta_RPG2_
             else
             {
                 Console.WriteLine("레벨이 부족합니다.");
-            }           
-        }       
+            }
+        }
 
         private void ShowDungeonEntranceEffect(string dungeonName)
         {
@@ -129,16 +174,9 @@ namespace Sparta_RPG2_
 
         private void StartDungeon(Character player, Inventory inventory)
         {
-            BattleExpendables expendables = new(player, inventory);
-            var context = new BattleContext(player, expendables, Program.questManager!, inventory, Program.allItems, Program.expendables);
-
-            BattleSystem battle = new(); // ✅ 이 줄이 필요합니다
-
-            foreach (var stage in Stages)
-            {
-                stage.Execute(player); // 층별 안내 출력
-                battle.StartBattle(context);
-            }
+            // 던전 전투 시스템 사용으로 교체
+            DungeonBattleSystem dungeonBattle = new DungeonBattleSystem(this, player, inventory);
+            dungeonBattle.Start(); // 던전 전용 전투 실행
 
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("🏁 던전 클리어!");
@@ -154,70 +192,73 @@ namespace Sparta_RPG2_
             RequiredLevel = 1,
             Stages = new List<Stage>
     {
-        new Stage("1층 - 붉은 늑대: 정찰병", FloorType.F1, Monstertype.N,
-            new List<Monster> 
-            { 
-                new Monster("붉은 늑대: 정찰병", 2, 30, 30, 6),
-                new Monster("붉은 늑대: 정찰병", 2, 30, 30, 6),
-                new Monster("붉은 늑대: 정찰병", 2, 30, 30, 6)
-            }),
+        new Stage("1층 - 고대의 망령 케르베르", FloorType.F1, Monstertype.B, new List<Monster>
+        {
+            new Monster("고대의 망령 케르베르", 4, 85, 85, 14),
+        })
+        {
+            IntroDialogue = "☠️ 지옥의 문은 열렸다. 삼두의 분노가 너를 삼키리라...",
+            BossArt = @"
+ ═════════════════════
+⚔️  C E R B E R U S  ☠️
+     『지옥의 문지기』
+ ═════════════════════"
 
-        new Stage("2층 - 붉은 늑대: 추적자", FloorType.F2, Monstertype.N,
-            new List<Monster>
-            { 
-                new Monster("붉은 늑대: 추적자", 3, 40, 40, 8),
-                new Monster("붉은 늑대: 추적자", 3, 40, 40, 8),
-                new Monster("붉은 늑대: 추적자", 3, 40, 40, 8)
-            }),
+        },
 
-        new Stage("3층 - 붉은 늑대: 포식자", FloorType.F3, Monstertype.N,
-            new List<Monster>
-            { 
-                new Monster("붉은 늑대: 포식자", 4, 45, 45, 10),
-                new Monster("붉은 늑대: 포식자", 4, 45, 45, 10),
-                new Monster("붉은 늑대: 포식자", 4, 45, 45, 10)
-            }),
+        new Stage("2층 - 저주받은 창병 탈로스", FloorType.F2, Monstertype.B, new List<Monster>
+        {
+            new Monster("저주받은 창병 탈로스", 5, 90, 90, 15),
+        })
+        {
+            IntroDialogue = "⚙️ 내 육체는 강철, 내 심장은 복수. 파괴는 나의 본능이다.",
+            BossArt = @"
+  ═══════════════════════════
+    ⚙️   T A L O S   ⚙️
+  『철의 창병, 살아있는 고대 병기』
+  ═══════════════════════════"
+        },
 
-        new Stage("4층 - 붉은 늑대: 광전사", FloorType.F4, Monstertype.N,
-            new List<Monster>
-            {
-                new Monster("붉은 늑대: 광전사", 5, 50, 50, 12),
-                new Monster("붉은 늑대: 광전사", 5, 50, 50, 12),
-                new Monster("붉은 늑대: 광전사", 5, 50, 50, 12)
-            }),
+        new Stage("3층 - 그림자 암살자 포보스", FloorType.F3, Monstertype.B, new List<Monster>
+        {
+            new Monster("그림자 암살자 포보스", 6, 80, 80, 16),
+        })
+        {
+            IntroDialogue = "🗡️ 칼날은 보이지 않는다. 너는 이미 내 그림자 속에 있다.",
+            BossArt = @"
+  ══════════════════════
+   🗡️  P H O B O S  🌒
+『공포의 그림자, 침묵의 암살자』
+  ══════════════════════"
+        },
 
-        new Stage("5층 - 붉은 늑대: 저주받은 왕", FloorType.F5, Monstertype.B,
-            new List<Monster> { new Monster("붉은 늑대: 저주받은 왕", 10, 150, 150, 30) })
+        new Stage("4층 - 타락한 사제 루가에", FloorType.F4, Monstertype.B, new List<Monster>
+        {
+            new Monster("타락한 사제 루가에", 7, 110, 110, 13),
+        })
+        {
+            IntroDialogue = "📖 신의 이름 아래, 타락을 선고하노라. 너는 구원받지 못하리라.",
+            BossArt = @"
+══════════════════════════
+    🕯️  L U G A Ë  📖
+『신을 배신한 자, 타락의 사제』
+══════════════════════════"
+        },
+
+        new Stage("5층 - 아레스의 화신 아스칼", FloorType.F5, Monstertype.B, new List<Monster>
+        {
+            new Monster("아레스의 화신 아스칼", 10, 150, 150, 30),
+        })
+        {
+            IntroDialogue = "🔥 신의 화염이 이 몸을 태웠다. 너도 함께 타오르리라!",
+            BossArt = @"
+════════════════════════
+   🔥  A S K A L  🔥
+『전쟁신의 분노, 불꽃의 화신』
+════════════════════════"
+        }
     }
         };
-    }
-
-    public class Stage
-    {
-        public string Name { get; set; }
-        public Monstertype Type { get; set; }
-        public FloorType Floor { get; set; }
-        public List<Monster> Monsters { get; set; }
-
-        public Stage(string name, FloorType floor, Monstertype type, List<Monster> monsters)
-        {
-            Name = name;
-            Floor = floor;
-            Type = type;
-            Monsters = monsters;
-        }
-
-        public bool Execute(Character player)
-        {
-            Console.WriteLine($"▶ {Name} ({Type})에 진입합니다.");
-            if (Type == Monstertype.B)
-            {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("🔥 보스 전투 시작!");
-                Console.ResetColor();
-            }
-            return true;
-        }
     }
 }
     

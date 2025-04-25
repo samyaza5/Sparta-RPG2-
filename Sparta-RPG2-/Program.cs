@@ -94,7 +94,7 @@ namespace Sparta_RPG2_
             buySoldier.SetShop(pub);
         }
 
-        static void ShowStartMenu()
+        public static void ShowStartMenu()
         {
             GameUI ui = new GameUI();
             BattleSystem battle = new();
