@@ -38,7 +38,7 @@ public class SoldierEquipped
 
             var groupedAll = SoldierInven.soldiers.GroupBy(s => s.soldierPro.ItemName).ToList();
 
-            Console.WriteLine("\n[병사 상태 요약]");
+            Console.WriteLine($"\n[병사 상태 요약] -  최대 {player.Level}명\n");
             foreach (var group in groupedAll)
             {
                 string name = group.Key;
@@ -46,7 +46,7 @@ public class SoldierEquipped
                 int equipped = group.Count(s => s.soldierPro.IsEquipped);
                 int available = total - equipped;
 
-                Console.WriteLine($"- {name}: 출정 가능 {available}명 / 출정 중 {equipped}명");
+                Console.WriteLine($"- {name}: 휴식 중 {available}명 / 출정 중 {equipped}명");
             }
 
             Console.WriteLine("\n[출정 병사 선택]");
@@ -76,6 +76,11 @@ public class SoldierEquipped
                         .Where(s => s.soldierPro.ItemName == name && !s.soldierPro.IsEquipped)
                         .ToList();
 
+                    var equipped = SoldierInven.soldiers
+                       .Where(s => s.soldierPro.ItemName == name && s.soldierPro.IsEquipped)
+                       .ToList();
+
+
                     if (available.Count == 0)
                     {
                         Console.WriteLine("출정 가능한 병사가 없습니다.");
@@ -83,12 +88,16 @@ public class SoldierEquipped
                         continue;
                     }
 
-                    Console.Write($"\n몇 명을 출정시키겠습니까? (최대 {available.Count}명): ");
+                    Console.Write($"\n몇 명을 출정시키겠습니까? (휴식 중인 병사 : {available.Count}명): ");
                     if (int.TryParse(Console.ReadLine(), out int count))
                     {
-                        if (count > available.Count)
+                        if (count > player.Level - equipped.Count)
                         {
-                            Console.WriteLine($"최대 {available.Count}명까지 가능합니다.");
+                            Console.WriteLine($"당신의 지휘력이 부족합니다. 최대 : {player.Level}");
+                        }
+                        else if (count > available.Count)
+                        {
+                            Console.WriteLine($"휴식 중인 병사는 {available.Count}명 입니다.");
                         }
                         else
                         {
