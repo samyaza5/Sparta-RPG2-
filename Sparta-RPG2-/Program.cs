@@ -54,7 +54,7 @@ namespace Sparta_RPG2_
             dungeonManager = new DungeonManager(Dungeon.AresTower);
 
             var loadedData = GameSaveManager.LoadGame();
-            GameSaveManager.ApplySaveData(loadedData, player, inventory, questManager, dungeonManager);
+            GameSaveManager.ApplySaveData(loadedData, player, inventory, questManager, dungeonManager, soldierInven);
 
 
             // 아이템 초기화
@@ -103,80 +103,92 @@ namespace Sparta_RPG2_
 
         public static void ShowStartMenu()
         {
-            GameUI ui = new GameUI();
+            GameUI ui = new();
             BattleSystem battle = new();
             BattleContext context = new(player!, battleExpendables, questManager!, inventory!, allItems, expendables);
             bool playGame = true;
-            
+
             while (playGame)
             {
                 Console.Clear();
-                Console.WriteLine("🌟 스파르타 던전에 오신 여러분 환영합니다.");
-                Console.WriteLine("1. 💪 상태 보기");
-                Console.WriteLine("2. ⚔️ 전투 시작");
-                Console.WriteLine("3. 🏺 인벤토리");
-                Console.WriteLine("4. 💰 상점");
-                Console.WriteLine("5. 📜 의뢰 목록");
-                Console.WriteLine("6. 🏰 [던전] ⚔️ 타락한 아레스의 탑 ⚔️");
-                Console.WriteLine("7. 🍺 선술집");
-                Console.WriteLine("8. 🛡  병영");
-                Console.WriteLine("9. ⚕️ 치유소");
-                Console.WriteLine("0. ❌ 게임 종료\n");
+                ShowMainMenu();
 
-                Console.Write("원하시는 행동을 입력해주세요.\n>> ");
-                string? input = Console.ReadLine();
+                Console.Write("\n원하시는 행동을 입력해주세요.\n>> ");
+                string? input = Console.ReadLine()?.Trim();
 
-                switch (input)
-                {
-                    case "1":
-                        ui.ShowStatus(player!);
-                        Console.ReadLine();
-                        break;
-                    case "2":
-                        battle.StartBattle(context);
-                        break;
-                    case "3":
-                        inventory!.InventoryScene();
-                        break;
-                    case "4":
-                        shop!.ShopScene();
-                        break;
-                    case "5":
-                        questManager?.ShowQuestMenu();
-                        break;   
-                    case "6":
-                        Console.WriteLine("⚔ [던전] 타락한 아레스의 탑에 진입합니다...");
-                        Dungeon.AresTower.Enter(player, inventory);
-                        Console.ReadLine();
-                        break;
-                    case "7":
-                        pub?.ShopScene();
-                        break;   
-                    case "8":
-                        soldierInven?.InventoryScene();
-                        break;
-                    case "9":
-                        recovery.Recoverycene();
-                        break;
-                    case "0":
-                        GameSaveManager.AutoSave(
-                            player,
-                            Program.inventory!,
-                            Program.questManager!,
-                            Program.itemEquipped!,
-                            Program.dungeonManager!
-                        );
-                        Console.WriteLine("💾 게임 상태가 저장되었습니다.");
-                        playGame = false;
-                        break;
-                    default:
-                        Console.WriteLine("❌ 잘못된 입력입니다.");
-                        Console.ReadLine();
-                        break;
-                }
+                playGame = HandleMenuInput(input, ui, battle, context);
             }
 
-            Console.WriteLine("게임을 종료합니다.");
+            Console.WriteLine("\n게임을 종료합니다.");
+        }
+
+        public static void ShowMainMenu()
+        {
+            Console.WriteLine("🌟 스파르타 던전에 오신 여러분 환영합니다.");
+            Console.WriteLine("1. 💪 상태 보기");
+            Console.WriteLine("2. ⚔️ 전투 시작");
+            Console.WriteLine("3. 🏺 인벤토리");
+            Console.WriteLine("4. 💰 상점");
+            Console.WriteLine("5. 📜 의뢰 목록");
+            Console.WriteLine("6. 🏰 [던전] ⚔️ 타락한 아레스의 탑 ⚔️");
+            Console.WriteLine("7. 🍺 선술집");
+            Console.WriteLine("8. 🛡  병영");
+            Console.WriteLine("9. ⚕️ 치유소");
+            Console.WriteLine("0. ❌ 게임 종료");
+        }
+
+        private static bool HandleMenuInput(string? input, GameUI ui, BattleSystem battle, BattleContext context)
+        {
+            switch (input)
+            {
+                case "1":
+                    ui.ShowStatus(player!);
+                    Console.ReadLine();
+                    break;
+                case "2":
+                    battle.StartBattle(context);
+                    break;
+                case "3":
+                    inventory!.InventoryScene();
+                    break;
+                case "4":
+                    shop!.ShopScene();
+                    break;
+                case "5":
+                    questManager?.ShowQuestMenu();
+                    break;
+                case "6":
+                    Console.WriteLine("⚔ [던전] 페르시아의 성 - 저주받은 오아시스");
+                    Dungeon.AresTower.Enter(player!, inventory!);
+                    Console.ReadLine();
+                    break;
+                case "7":
+                    pub?.ShopScene();
+                    break;
+                case "8":
+                    soldierInven?.InventoryScene();
+                    break;
+                case "9":
+                    recovery?.Recoverycene();
+                    break;
+                case "0":
+                    GameSaveManager.AutoSave(
+                        player!,
+                        inventory!,
+                        questManager!,
+                        itemEquipped!,
+                        dungeonManager!,
+                        soldierInven!
+                    );
+                    Console.WriteLine("💾 게임 상태가 저장되었습니다.");
+                    return false; 
+                default:
+                    Console.WriteLine("❌ 잘못된 입력입니다.");
+                    Console.ReadLine();
+                    break;
+            }
+
+            return true; // 계속 진행
         }
     }
 }

@@ -18,5 +18,8 @@ namespace Sparta_RPG2_
         public List<string> ClearedDungeons { get; set; } = new();
         public string? EquippedWeaponName { get; set; }
         public string? EquippedArmorName { get; set; }
+        // ✅ 병사 관련 데이터 추가
+        public List<SoldierPro> Soldiers { get; set; } = new();
+        public string? EquippedSoldierName { get; set; }
     }
 }
