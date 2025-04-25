@@ -5,6 +5,7 @@
         // 📊 상태 보기
         public void ShowStatus(Character player)
         {
+            Console.Clear();
             Console.WriteLine($"\n📛 Lv. {player.Level}");
             Console.WriteLine($"🧝‍ {player.Name} ({player.JobName})");
             Console.WriteLine($"⚔️ 공격력 : {player.Attack} {(player.WeaponPower == 0 ? "" : " + " + player.WeaponPower)}");

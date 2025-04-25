@@ -88,6 +88,7 @@
             {
                 while (true)
                 {                    
+                    Console.Clear();
                     Console.WriteLine("[의뢰 목록]");
                     Console.WriteLine("1. 📜 수락 가능한 의뢰 보기");
                     Console.WriteLine("2. 🕐 진행 중인 의뢰 보기");
@@ -132,6 +133,7 @@
                     return;
                 }
 
+                Console.Clear();
                 Console.ForegroundColor = ConsoleColor.DarkYellow;
                 Console.WriteLine("📜 [수락 가능한 의뢰 목록]");
                 Console.ResetColor();
@@ -145,6 +147,7 @@
                 if (int.TryParse(Console.ReadLine(), out int choice) && choice > 0 && choice <= available.Count)
                 {
                     var selected = available[choice - 1];
+                    Console.Clear();
                     Console.WriteLine($"\n📘 {selected.Title}\n{selected.Description}");
                     Console.WriteLine("1. 수락하기\n0. 취소");
                     Console.Write(">> ");
@@ -194,6 +197,7 @@
 
                 if (completed.Count > 0)
                 {
+                    Console.Clear();
                     Console.ForegroundColor = ConsoleColor.Cyan;
                     Console.WriteLine("\n🎯 [완료한 의뢰 목록]");
                     Console.ResetColor();
