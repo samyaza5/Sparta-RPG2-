@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
@@ -16,15 +17,17 @@ namespace Sparta_RPG2_
         public int Defense { get; set; }
         public bool IsEquipped { get; set; }
 
+        public SoldierPro() { }
 
-        public SoldierPro(string name, string info, int attack, int defense, int value)
+        [JsonConstructor]
+        public SoldierPro(string itemName, string itemInfo, int attack, int defense, int itemValue)
         {
-            ItemName = name;
-            ItemValue = value;
-            ItemInfo = info;
-            IsEquipped = false;
+            ItemName = itemName;
+            ItemInfo = itemInfo;
             Attack = attack;
             Defense = defense;
+            ItemValue = itemValue;
+            IsEquipped = false;
         }
 
         public SoldierPro Clone()

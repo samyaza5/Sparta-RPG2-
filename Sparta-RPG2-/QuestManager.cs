@@ -258,6 +258,7 @@ namespace Sparta_RPG2_
                 Program.questManager!,
                 Program.itemEquipped!,
                 Program.dungeonManager!
+                , Program.soldierInven!
 );
         }
 
