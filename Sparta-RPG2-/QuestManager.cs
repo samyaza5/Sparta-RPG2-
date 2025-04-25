@@ -251,6 +251,14 @@ namespace Sparta_RPG2_
 
             player.AddExp(quest.RewardEXP);
             player.Gold += quest.RewardGold;
+
+            GameSaveManager.AutoSave(
+                player,
+                Program.inventory!,
+                Program.questManager!,
+                Program.itemEquipped!,
+                Program.dungeonManager!
+);
         }
 
         public List<string> GetCompletedQuestTitles()
