@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static Sparta_RPG2_.Dungeon;
+using static Sparta_RPG2_.Quest;
 
 namespace Sparta_RPG2_
 {
@@ -39,6 +41,6 @@ namespace Sparta_RPG2_
         public override string ToString()
         {          
             return $"{ItemName} | 회복력 : {ItemStat} | {ItemInfo} | {ItemValue}G";
-        }
+        }        
     }
 }
