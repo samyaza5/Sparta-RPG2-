@@ -33,13 +33,12 @@
                 200,
             };
 
-
-            int needExp = levelUpExp[player.Level - 1];
-
             for (int i = 3; i < 100; i++)
             {
                 levelUpExp.Add(levelUpExp[i] * 2);
             }
+ 
+            int needExp = levelUpExp[player.Level - 1];
 
             for (int i = 0; i < deadMonsterList.Count; i++)
             {
