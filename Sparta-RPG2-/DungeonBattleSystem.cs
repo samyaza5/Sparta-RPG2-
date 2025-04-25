@@ -124,20 +124,26 @@ namespace Sparta_RPG2_
                 switch (result)
                 {
                     case BattleResult.Victory:
+                        player.HP = player.MaxHP;
                         WriteColoredLine($"✔ {stage.Name} 클리어!", ConsoleColor.Cyan);
                         break;
 
                     case BattleResult.Escape:
+                        player.HP = player.MaxHP;
                         WriteColoredLine($"⚠️ {stage.Name}에서 도망쳤습니다. 던전 진행이 중단됩니다.", ConsoleColor.Yellow);
                         return;
 
                     case BattleResult.Defeat:
+                        player.HP = player.MaxHP;
                         WriteColoredLine($"💀 {stage.Name}에서 전투에 패배했습니다.", ConsoleColor.Red);
                         return;
                 }
 
                 if (player.HP <= 0)
+                {
                     return;
+                }
+                    
             }
 
             if (player.HP > 0)
@@ -146,7 +152,6 @@ namespace Sparta_RPG2_
                 dungeon.IsCleared = true;
             }
         }
-
 
         public BattleResult HandleStageBattle(Stage stage, BattleContext context)
         {
@@ -272,16 +277,20 @@ namespace Sparta_RPG2_
         {
             Console.WriteLine("\n------------------------");
 
-            Console.WriteLine($"👤 {player.Name} HP: {player.HP} / {player.MaxHP}");
-            Console.WriteLine($"    {GenerateHpBar(player.HP, player.MaxHP, 20, showPercent: true)}");
+            // 🧑 플레이어 상태 출력
+            int playerHP = Math.Max(player.HP, 0); // 음수 방지
+            Console.WriteLine($"👤 {player.Name} HP: {playerHP} / {player.MaxHP}");
+            Console.WriteLine($"    {GenerateHpBar(playerHP, player.MaxHP, 20, showPercent: true)}");
 
+            // 🐺 몬스터 상태 출력
             foreach (var monster in monsters)
             {
                 bool isBoss = monster.Name.Contains("화신") || monster.Name.Contains("탈로스") || monster.Name.Contains("포보스") || monster.Name.Contains("루가에") || monster.Name.Contains("케르베르");
                 int barLength = isBoss ? 30 : 20;
 
-                Console.WriteLine($"🐺 {monster.Name} HP: {monster.HP} / {monster.MaxHP}");
-                Console.WriteLine($"    {GenerateHpBar(monster.HP, monster.MaxHP, barLength, showPercent: true)}");
+                int monsterHP = Math.Max(monster.HP, 0); // ❗ 여기서 음수 방지
+                Console.WriteLine($"🐺 {monster.Name} HP: {monsterHP} / {monster.MaxHP}");
+                Console.WriteLine($"    {GenerateHpBar(monsterHP, monster.MaxHP, barLength, showPercent: true)}");
             }
 
             Console.WriteLine("------------------------\n");
