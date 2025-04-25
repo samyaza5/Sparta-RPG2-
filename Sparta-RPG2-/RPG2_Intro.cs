@@ -35,7 +35,7 @@ class Intro
             // 사용자 입력 체크
             if (Console.KeyAvailable)
             {
-                if (Console.KeyAvailable && Console.ReadKey(true).Key == ConsoleKey.S)
+                if (Console.KeyAvailable && Console.ReadKey(true).Key == ConsoleKey.S) ;
                 {
                     isSkipped = true;
                     break;

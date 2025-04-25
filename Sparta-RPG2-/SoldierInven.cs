@@ -8,10 +8,12 @@ namespace Sparta_RPG2_
 {
     public class SoldierInven
     {
-        public List<Soldier> soldiers { get; private set; }
-        private SoldierEquipped soldierEquipped;
-        private Character player;
-        private SoldierUnequipper soldierUnequipper;
+        public readonly List<Soldier> soldiers = new();
+        public List<Soldier> AllSoldiers => soldiers;
+        public SoldierEquipped soldierEquipped;
+        public Character player;
+        public SoldierUnequipper soldierUnequipper;
+        public Soldier? EquippedSoldier { get; set; }
 
         public SoldierInven(Character player)
         {

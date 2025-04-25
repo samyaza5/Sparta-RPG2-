@@ -54,7 +54,7 @@ namespace Sparta_RPG2_
             dungeonManager = new DungeonManager(Dungeon.AresTower);
 
             var loadedData = GameSaveManager.LoadGame();
-            GameSaveManager.ApplySaveData(loadedData, player, inventory, questManager, dungeonManager);
+            GameSaveManager.ApplySaveData(loadedData, player, inventory, questManager, dungeonManager, soldierInven);
 
 
             // 아이템 초기화
@@ -168,7 +168,8 @@ namespace Sparta_RPG2_
                             Program.inventory!,
                             Program.questManager!,
                             Program.itemEquipped!,
-                            Program.dungeonManager!
+                            Program.dungeonManager!,
+                            Program.soldierInven
                         );
                         Console.WriteLine("💾 게임 상태가 저장되었습니다.");
                         playGame = false;
