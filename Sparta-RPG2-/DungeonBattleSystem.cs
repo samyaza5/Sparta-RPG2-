@@ -235,11 +235,13 @@ namespace Sparta_RPG2_
         private bool HandleStageResult(BattleResult result, Stage stage)
         {
             player.HP = player.MaxHP;
+            DungeonReward dungeonReward = new DungeonReward(); // 리워드
 
             switch (result)
             {
                 case BattleResult.Victory:
                     WriteColoredLine($"✔ {stage.Name} 클리어!", ConsoleColor.Cyan);
+                    dungeonReward.Reward(stage);
                     return true;
 
                 case BattleResult.Escape:

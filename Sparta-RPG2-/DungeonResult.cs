@@ -1,11 +1,11 @@
-﻿using System.Numerics;
+﻿using System.Collections.Concurrent;
+using System.Collections.Generic;
+using System.Numerics;
 
 namespace Sparta_RPG2_
 {
     public class DungeonResult
     {
-
-
         Inventory inventory;
         List<Item> itemList;
         List<Expendables> expendableList;
@@ -42,7 +42,7 @@ namespace Sparta_RPG2_
             {
                 levelUpExp.Add(levelUpExp[i] * 2);
             }
- 
+
             int needExp = levelUpExp[player.Level - 1];
 
             for (int i = 0; i < deadMonsterList.Count; i++)
@@ -97,40 +97,7 @@ namespace Sparta_RPG2_
             Console.ResetColor();
         }
 
-        //던전골드 보상
-        public void BattleGold(List<Monster> deadMonsterList, Character player)
-        {
-            
-            int addGold = 0;
-
-            for (int i = 0; i < deadMonsterList.Count; i++)
-            {
-                int monsterGold = 0;
-                string deadMonsterName = deadMonsterList[i].Name;
-                if (deadMonsterName == monsterName[0])
-                {
-                    monsterGold = 90;
-                }
-                else if (deadMonsterName == monsterName[1])
-                {
-                    monsterGold = 100;
-                }
-                else if (deadMonsterName == monsterName[2])
-                {
-                    monsterGold = 110;
-                }
-                int levelGold = (deadMonsterList[i].Level * 10);
-                //int atkGold = deadMonsterList[i].Attack * 10;
-                addGold += (levelGold + monsterGold);
-            }
-            player.Gold += addGold;
-            Console.WriteLine();
-            Console.WriteLine("[획득아이템]");
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.Write($"{addGold}");
-            Console.ResetColor();
-            Console.WriteLine(" Gold");
-        }
+        
 
         //던전골드보상
         public void DungeonGold(List<Monster> deadMonsterList, Character player)
@@ -157,12 +124,6 @@ namespace Sparta_RPG2_
         //전투하기아이템드랍
         public void DungeonItemReward(List<Monster> deadMonsterList)
         {
-            
-
-            //inventory = new Inventory(itemEquipped, player, program); // 임시
-            //itemDb.Add(new Item(Item.BeginnerArmor())); //임시데이터
-            //itemDb.Add(new Item(Item.IronArmor())); // 임시데이터
-
             //드랍아이템확률
             Random rand = new Random();
 
@@ -193,7 +154,7 @@ namespace Sparta_RPG2_
 
                     inventory.AllItems.Add(itemList[rareItemIdx]);
                     gainedItem.Add(itemList[rareItemIdx].itemPro.ItemName);
-                    
+
                     //병사추가
                     soldierList.Add(soldierDb[9]);
                     gainedItem.Add(soldierDb[9].soldierPro.ItemName);
@@ -273,49 +234,7 @@ namespace Sparta_RPG2_
         }
 
 
-        //던전아이템보상
-        public void BattleItemReward(List<Monster> deadMonsterList)
-        {
-            
-            //드랍아이템확률
-            Random rand = new Random();
 
-            int EndItemIndex = itemList.FindIndex(item => item.itemPro.ItemName == "스파르타쿠스의 분노");
-            List<string> getItem = new List<string>();
-
-            for (int i = 0; i < deadMonsterList.Count; i++)
-            {
-                int randItem = rand.Next(0, 3);
-                int monsterLevel = deadMonsterList[i].Level;
-                if (monsterLevel >= 10)
-                {
-                    inventory.AllItems.Add(itemList[EndItemIndex]);
-                    getItem.Add(itemList[EndItemIndex].itemPro.ItemName);
-                }
-                else if (randItem == 0)
-                {
-                    int randReward = rand.Next(0, expendableList.Count);
-                    inventory.expendables.Add(expendableList[randReward]);
-                    getItem.Add(expendableList[randReward].expendablesPro.ItemName);
-                }
-                else if (randItem == 1)
-                {
-                    int randReward = rand.Next(0, 4);
-                    inventory.AllItems.Add(itemList[randReward]);
-                    getItem.Add(itemList[randReward].itemPro.ItemName);
-                }
-                else if (randItem == 2)
-                {
-                    int randReward = rand.Next(5, 9);
-                    inventory.AllItems.Add(itemList[randReward]);
-                    getItem.Add(itemList[randReward].itemPro.ItemName);
-                }
-            }
-            //Console.WriteLine($"-{getItem[j]}");
-            //Console.WriteLine(getItem.Count);
-            //아이템 출력
-            PrintItemReward(getItem);
-        }
 
         //보병보상
         public void ArmyReward(List<Monster> deadMonsterList)
@@ -377,7 +296,7 @@ namespace Sparta_RPG2_
                     if (deadMonsterName == monsterName[0])
                     {
                         int randItem = rand.Next(0, expendableList.Count);
-                        inventory.expendables.Add(expendableList[randItem]);
+                        expendableList.Add(expendableList[randItem]);
                         getItem.Add(expendableList[randItem].expendablesPro.ItemName);
 
                     }
@@ -397,6 +316,272 @@ namespace Sparta_RPG2_
             }
             //아이템 출력
             PrintItemReward(getItem);
+        }
+    }
+
+    //던전ItemRward
+    public class DungeonReward
+    {
+        List<Item> itemDb = Program.allItems;
+        List<Item>? Inventory = Program.inventory.AllItems;
+        List<Expendables> potionDb = Program.expendables;
+        List<Expendables> PotionInven = Program.inventory.expendables;
+        Character? player = Program.player;
+
+        public void Reward(Stage stage)
+        {
+            LevelUp(stage);
+            BattleGold(stage);
+            BattleItemReward(stage);
+        }
+
+
+
+
+        //경험치,레벨업
+            
+        public void LevelUp( Stage stage)
+        {
+            int beforeExp = player.Exp;
+            int beforeLevel = player.Level;
+            int addExp = 0;
+
+            int[] ints = new int[100];
+            List<int> levelUpExp = new List<int>()
+            {
+                10,
+                45,
+                100,
+                200,
+            };
+
+            for (int i = 3; i < 1000; i++)
+            {
+                levelUpExp.Add(levelUpExp[i] * 2);
+            }
+
+            int needExp = levelUpExp[player.Level - 1];
+
+
+            switch (stage.Floor)
+            {
+                case FloorType.F1:
+                    addExp = 5;
+                    break;
+                case FloorType.F2:
+                    addExp = 10;
+                    break;
+                case FloorType.F3:
+                    addExp = 20;
+                    break;
+                case FloorType.F4:
+                    addExp = 40;
+                    break;
+                case FloorType.F5:
+                    addExp = 100;
+                    break;
+            }
+
+
+
+
+            player.Exp += addExp;
+            //if (player.Exp > needExp)
+            //{
+            //    player.Level++;
+            //    player.Attack++;
+            //    player.Defense++;
+            //}
+
+            int newLevel = 1;
+            for (int i = 0; i < levelUpExp.Count; i++)
+            {
+                if (player.Exp >= levelUpExp[i])
+                    newLevel = i + 2; // 레벨은 인덱스 + 1 (0-based) + 1
+                else
+                    break;
+            }
+
+            if (newLevel > player.Level)
+            {
+                int levelGain = newLevel - player.Level;
+                player.Level = newLevel;
+                player.Attack += levelGain;
+                player.Defense += levelGain;
+            }
+
+            PrintGainExp(player, beforeExp, beforeLevel);
+        }
+
+        private static void PrintGainExp(Character player, int beforeExp, int beforeLevel)
+        {
+            Console.Write($"{(beforeLevel == player.Level ? "" : $"Lv.")}");
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.Write($"{(beforeLevel == player.Level ? "" : $"{beforeLevel}")}");
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
+            Console.Write($"{(beforeLevel == player.Level ? "" : $" -> ")}");
+            Console.ResetColor();
+            Console.Write($"{(beforeLevel == player.Level ? "" : $"Lv.")}");
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine($"{(beforeLevel == player.Level ? "" : $"{player.Level}")}");
+            Console.ResetColor();
+            Console.Write("exp ");
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.Write($"{beforeExp}");
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
+            Console.Write($" -> ");
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine($"{player.Exp}");
+            Console.ResetColor();
+        }
+
+        //던전골드 보상
+        public void BattleGold(Stage stage)
+        {
+
+            int addGold = 0;
+
+
+            switch (stage.Floor)
+            {
+                case FloorType.F1:
+                    addGold = 100;
+                    break;
+                case FloorType.F2:
+                    addGold = 200;
+                    break;
+                case FloorType.F3:
+                    addGold = 300;
+                    break;
+                case FloorType.F4:
+                    addGold = 500;
+                    break;
+                case FloorType.F5:
+                    addGold = 1000;
+                    break;
+            }
+            //for (int i = 0; i < deadMonsterList.Count; i++)
+            //{
+            //    int monsterGold = 0;
+            //    string deadMonsterName = deadMonsterList[i].Name;
+            //        monsterGold = 90;
+            //        monsterGold = 100;
+            //        monsterGold = 110;
+            //    int levelGold = (deadMonsterList[i].Level * 10);
+            //    //int atkGold = deadMonsterList[i].Attack * 10;
+            //    addGold += (levelGold + monsterGold);
+            //}
+            player.Gold += addGold;
+            Console.WriteLine();
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.Write($"{addGold}");
+            Console.ResetColor();
+            Console.WriteLine(" Gold");
+        }
+
+        //던전아이템보상
+        public void BattleItemReward(Stage stage)
+        {
+            Console.WriteLine("[아이템 획득]:");
+            Console.WriteLine();
+            //드랍아이템확률
+            Random rand = new Random();
+
+            int EndItemIndex = Inventory.FindIndex(item => item.itemPro.ItemName == "스파르타쿠스의 분노");
+            List<string> getItem = new List<string>();
+            switch (stage.Floor)
+            {
+                case FloorType.F1:
+                    Inventory.Add(itemDb[0]);
+                    Inventory.Add(itemDb[5]);
+                    getItem.Add(itemDb[0].itemPro.ItemName);
+                    getItem.Add(itemDb[5].itemPro.ItemName);
+                    break;
+                case FloorType.F2:
+                    Inventory.Add(itemDb[1]);
+                    Inventory.Add(itemDb[6]);
+                    getItem.Add(itemDb[1].itemPro.ItemName);
+                    getItem.Add(itemDb[6].itemPro.ItemName);
+                    break;
+                case FloorType.F3:
+                    Inventory.Add(itemDb[2]);
+                    Inventory.Add(itemDb[7]);
+                    getItem.Add(itemDb[2].itemPro.ItemName);
+                    getItem.Add(itemDb[7].itemPro.ItemName);
+                    break;
+                case FloorType.F4:
+                    Inventory.Add(itemDb[3]);
+                    Inventory.Add(itemDb[8]);
+                    getItem.Add(itemDb[3].itemPro.ItemName);
+                    getItem.Add(itemDb[8].itemPro.ItemName);
+                    break;
+                case FloorType.F5:
+                    Inventory.Add(itemDb[9]);
+                    Inventory.Add(itemDb[4]);
+                    getItem.Add(itemDb[9].itemPro.ItemName);
+                    getItem.Add(itemDb[4].itemPro.ItemName);
+                    break;
+            }
+            //for (int i = 0; i < dungeon.Stages.Count; i++)
+            //{
+            //    int randItem = rand.Next(0, 3);
+            //    int monsterLevel = dungeon.Stages.Count;
+            //    if (monsterLevel >= 10)
+            //    {
+            //        Inventory.Add(itemDb[EndItemIndex]);
+            //        Inventory.Add(itemDb[EndItemIndex]);
+            //        getItem.Add(itemDb[EndItemIndex].itemPro.ItemName);
+            //    }
+            //    else if (randItem == 0)
+            //    {
+            //        int randReward = rand.Next(0, PotionDb.Count);
+            //        PotionInven.Add(PotionDb[randReward]);
+            //        getItem.Add(PotionDb[randReward].expendablesPro.ItemName);
+            //    }
+            //    else if (randItem == 1)
+            //    {
+            //        int randReward = rand.Next(0, 4);
+            //        Inventory.Add(itemDb[randReward]);
+            //        getItem.Add(itemDb[randReward].itemPro.ItemName);
+            //    }
+            //    else if (randItem == 2)
+            //    {
+            //        int randReward = rand.Next(5, 9);
+            //        Inventory.Add(itemDb[randReward]);
+            //        getItem.Add(itemDb[randReward].itemPro.ItemName);
+            //    }
+            //}
+            //Console.WriteLine($"-{getItem[j]}");
+            //Console.WriteLine(getItem.Count);
+            //아이템 출력
+            PrintItemReward(getItem);
+            Console.WriteLine();
+        }
+        private static void PrintItemReward(List<string> getItem)
+        {
+            if (getItem.Count > 0)
+            {
+                //Console.WriteLine(getItem.Count);
+                for (int i = 0; i < getItem.Count; i++) //아이템갯수출력
+                {
+                    int itemEA = 1;
+                    for (int j = 1 + i; j < getItem.Count; j++)
+                    {
+                        if (getItem[i] == getItem[j])
+                        {
+                            itemEA++;
+                            getItem.Remove(getItem[j]);
+                        }
+                    }
+                    Console.Write($"{getItem[i]}");
+
+                    Console.ForegroundColor = ConsoleColor.DarkYellow;
+                    Console.Write(" - ");
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine($"{itemEA} ");
+                    Console.ResetColor();
+                }
+            }
         }
     }
 }
