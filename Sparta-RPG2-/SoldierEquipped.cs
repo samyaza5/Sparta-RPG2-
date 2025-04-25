@@ -1,126 +1,130 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Sparta_RPG2_;
 
-
-namespace Sparta_RPG2_
+public class SoldierEquipped
 {
-    public class SoldierEquipped
+    public SoldierInven SoldierInven;
+    public Character player;
+
+    public SoldierEquipped(SoldierInven soldierInven, Character player)
     {
-        public SoldierInven SoldierInven;
-        public Character player;
-        private List<Soldier> equippedSoldiers;
+        SoldierInven = soldierInven;
+        this.player = player;
+    }
 
-        public void AddToEquipped(Soldier soldier)
+    public void AddToEquipped(Soldier soldier)
+    {
+        soldier.soldierPro.IsEquipped = true;
+        UpdateStatsFromSoldierInven();
+    }
+
+    public void UpdateStatsFromSoldierInven()
+    {
+        player.SoldierAttack = 0;
+        player.SoldierDefense = 0;
+
+        foreach (var soldier in SoldierInven.soldiers.Where(s => s.soldierPro.IsEquipped))
         {
-            soldier.soldierPro.IsEquipped = true;
-            equippedSoldiers.Add(soldier);
+            player.SoldierAttack += soldier.soldierPro.Attack;
+            player.SoldierDefense += soldier.soldierPro.Defense;
         }
+    }
 
-        public SoldierEquipped(SoldierInven soldierInven, Character player)
+    public void EqualsScene()
+    {
+        while (true)
         {
-            SoldierInven = soldierInven;
-            this.player = player;
-            this.equippedSoldiers = new List<Soldier>();
-        }
+            Console.Clear();
+            Console.WriteLine("병영 - 병사 출정 관리");
 
-        public void UpdateStatsFromSoldierInven(List<Soldier> soldiers)
-        {
-            player.SoldierAttack = 0;
-            player.SoldierDefense = 0;
+            var groupedAll = SoldierInven.soldiers.GroupBy(s => s.soldierPro.ItemName).ToList();
 
-            foreach (var soldier in soldiers)
+            Console.WriteLine($"\n[병사 상태 요약] -  최대 {player.Level}명\n");
+            foreach (var group in groupedAll)
             {
-                if (soldier.soldierPro.IsEquipped)
-                {
-                        player.SoldierAttack += soldier.soldierPro.Attack;
-                        player.SoldierDefense += soldier.soldierPro.Defense;
-                }
+                string name = group.Key;
+                int total = group.Count();
+                int equipped = group.Count(s => s.soldierPro.IsEquipped);
+                int available = total - equipped;
+
+                Console.WriteLine($"- {name}: 휴식 중 {available}명 / 출정 중 {equipped}명");
             }
-        }
 
-        public void EqualsScene()
-        {
-            var grouped = SoldierInven.soldiers.GroupBy(s => s.soldierPro.ItemName).ToList();
-            while (true)
+            Console.WriteLine("\n[출정 병사 선택]");
+            for (int i = 0; i < groupedAll.Count; i++)
             {
-                Console.Clear();
-                Console.WriteLine("병영 -  병사 출정 관리");
-                Console.WriteLine("소속 병사를 관리할 수 있습니다.");
-                Console.WriteLine("[병사 목록]");
-                Console.WriteLine();
+                Console.WriteLine($"{i + 1}. {groupedAll[i].Key} 병사 출정");
+            }
 
-                if (SoldierInven.soldiers.Count == 0 && SoldierInven.soldiers.Count == 0)
+            Console.WriteLine("0. 출정 완료");
+            Console.Write("\n원하는 병사 선택 : ");
+
+            if (int.TryParse(Console.ReadLine(), out int input))
+            {
+                if (input == 0)
                 {
-                    Console.WriteLine("소속 병사가 없습니다.");
+                    Console.WriteLine("출정이 완료되었습니다.");
+                    Thread.Sleep(1000);
+                    return;
                 }
-                else
+
+                int index = input - 1;
+                if (index >= 0 && index < groupedAll.Count)
                 {
-                    for (int i = 0; i < grouped.Count; i++)
+                    string name = groupedAll[index].Key;
+
+                    var available = SoldierInven.soldiers
+                        .Where(s => s.soldierPro.ItemName == name && !s.soldierPro.IsEquipped)
+                        .ToList();
+
+                    var equipped = SoldierInven.soldiers
+                       .Where(s => s.soldierPro.ItemName == name && s.soldierPro.IsEquipped)
+                       .ToList();
+
+
+                    if (available.Count == 0)
                     {
-                        Console.WriteLine($"{i + 1}. {grouped[i].Key} {grouped[i].Count()}명");
+                        Console.WriteLine("출정 가능한 병사가 없습니다.");
+                        Thread.Sleep(1000);
+                        continue;
                     }
-                }
 
-                Console.WriteLine();
-                Console.WriteLine("0. 나가기");
-                Console.WriteLine();
-                Console.WriteLine("출정시킬 병사의 종류를 선택하세요");
-
-                if (int.TryParse(Console.ReadLine(), out int input))
-                {
-                    if (input == 0)
-                        return;
-                    int index = input - 1;
-
-
-                    if (SoldierInven != null && index >= 0 && index < SoldierInven.soldiers.Count)
+                    Console.Write($"\n몇 명을 출정시키겠습니까? (휴식 중인 병사 : {available.Count}명): ");
+                    if (int.TryParse(Console.ReadLine(), out int count))
                     {
-                        var selectedGroup = grouped[index].ToList();
-                        Console.WriteLine($"\n[{selectedGroup[0].soldierPro.ToInventoryString} 목록]");
-                        for (int i = 0; i < selectedGroup.Count; i++)
+                        if (count > player.Level - equipped.Count)
                         {
-                            Console.WriteLine($"{i + 1}. {selectedGroup[i].soldierPro.ToInventoryString()}");
+                            Console.WriteLine($"당신의 지휘력이 부족합니다. 최대 : {player.Level}");
                         }
-
-                        Console.Write("몇 명을 출정시키겠습니까? ");
-                        int count = int.Parse(Console.ReadLine());
-
-                        var selectedToDeploy = selectedGroup.Take(count).ToList();
-
-                        if(selectedToDeploy.Count > selectedGroup.Count)
+                        else if (count > available.Count)
                         {
-                            Console.WriteLine($"{selectedGroup}는 소속 인원은 {selectedGroup.Count}명 입니다.");
-                            Thread.Sleep(1000);
+                            Console.WriteLine($"휴식 중인 병사는 {available.Count}명 입니다.");
                         }
                         else
                         {
-                            foreach (var soldier in selectedToDeploy)
-                        {
-                            Console.WriteLine("추가 전: " + equippedSoldiers.Count);
-                            AddToEquipped(soldier);
-                            Console.WriteLine("추가 후: " + equippedSoldiers.Count);
-                            Console.WriteLine($"{soldier.soldierPro.ItemName} 출정!");
-                            Thread.Sleep(1000);
+                            foreach (var soldier in available.Take(count))
+                            {
+                                AddToEquipped(soldier);
+                            }
+                            Console.WriteLine($"{name} 병사 {count}명 출정 완료!");
                         }
-
-                        }
-                        // 출정 리스트에 추가
-                        
                     }
                     else
                     {
-                        Console.WriteLine("잘못된 입력입니다!");
-                        Thread.Sleep(1000);
+                        Console.WriteLine("숫자로 입력해주세요.");
                     }
+
+                    Thread.Sleep(1000);
                 }
                 else
                 {
-                    Console.WriteLine("잘못된 입력입니다!");
+                    Console.WriteLine("잘못된 입력입니다.");
                     Thread.Sleep(1000);
                 }
+            }
+            else
+            {
+                Console.WriteLine("숫자로 입력해주세요.");
+                Thread.Sleep(1000);
             }
         }
     }
