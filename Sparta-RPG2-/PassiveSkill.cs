@@ -27,6 +27,7 @@
         public void AddSkill()
         {
             SkillList.Add(new PassiveSkill("강인함", "최대체력이 20% 증가합니다.", 0, 1, 1.2f, false));
+            SkillList.Add(new PassiveSkill("강철피부", "방어력이 3 증가합니다.", 0, 5, 3f, false));
 
         }
 
