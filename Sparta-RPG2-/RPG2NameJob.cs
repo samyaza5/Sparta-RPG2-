@@ -9,9 +9,9 @@ namespace Sparta_RPG2_
             Console.Write("이름을 입력하세요 : ");
             player.Name = Console.ReadLine() ?? "함장";
             Console.WriteLine("직업을 선택하세요");
-            Console.WriteLine("1.팔랑크스 중보병 -  긴 창과 방패, 중갑으로 무장한 선봉. 무너지지 않는 전장의 벽.");
-            Console.WriteLine("2.올림포스의 사도 -  아레스 신의 계시를 받아, 신비한 힘으로 전장을 꿰뚫는 마술사.");
-            Console.WriteLine("3.라코니아 순찰자 -  그림자 속에서 움직이며, 치명적인 화살로 적을 사냥하는 궁수.");
+            Console.WriteLine("1.팔랑크스 중보병 -  긴 창과 방패, 중갑으로 무장한 선봉. 무너지지 않는 전장의 벽🛡️");
+            Console.WriteLine("2.올림포스의 사도 -  아레스 신의 계시를 받아, 신비한 힘으로 전장을 꿰뚫는 마술사⚡");
+            Console.WriteLine("3.라코니아 순찰자 -  그림자 속에서 움직이며, 치명적인 화살로 적을 사냥하는 궁수🏹");
             player.Job = Console.ReadLine() ?? "1";
 
             switch (player.Job)
