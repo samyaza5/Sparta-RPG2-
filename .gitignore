@@ -1,3 +1,27 @@
+# Build artifacts
+*.dll
+*.exe
+*.pdb
+*.cache
+*.BuildWithSkipAnalyzers
+
+# VS files
+.vs/
+
+# Debug folders
+bin/
+obj/
+
+# Others
+*.vsidx
+*.v2
+*.suo
+
+# Optional: comment out if needed
+# *.txt
+# *.json
+
+
 *.bin
 .vs/ProjectEvaluation/sparta-rpg2-.projects.v9.bin
 *.vsidx
