@@ -17,14 +17,14 @@ namespace Sparta_RPG2_
         public bool IsEquipped { get; set; }
 
 
-        public SoldierPro(string itemName, string itemInfo, int attack, int defense, int itemValue)
+        public SoldierPro(string name, string info, int attack, int defense, int value)
         {
-            ItemName = itemName;
-            ItemInfo = itemInfo;
-            ItemValue = itemValue;
+            ItemName = name;
+            ItemValue = value;
+            ItemInfo = info;
+            IsEquipped = false;
             Attack = attack;
             Defense = defense;
-            IsEquipped = false;
         }
 
         public SoldierPro Clone()

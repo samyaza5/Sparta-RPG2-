@@ -35,7 +35,7 @@ namespace Sparta_RPG2_
             return data ?? new GameSaveData();
         }
 
-        public static void AutoSave(Character player, Inventory inventory, QuestManager questManager, ItemEquipped itemEquipped, DungeonManager dungeonManager, SoldierInven soldierInven)
+        public static void AutoSave(Character player, Inventory inventory, QuestManager questManager, ItemEquipped itemEquipped, DungeonManager dungeonManager)
         {
             var data = new GameSaveData
             {
@@ -44,8 +44,6 @@ namespace Sparta_RPG2_
                 Expendables = inventory.expendables,
                 CompletedQuests = questManager.GetCompletedQuestTitles(),
                 ClearedDungeons = dungeonManager.GetClearedDungeons(),
-                Soldiers = soldierInven.AllSoldiers.Select(s => s.soldierPro).ToList(),
-                EquippedSoldierName = soldierInven.AllSoldiers.FirstOrDefault(s => s.soldierPro.IsEquipped)?.soldierPro.ItemName
             };
 
             SaveGame(data);
@@ -57,7 +55,7 @@ namespace Sparta_RPG2_
             return (int)(100 * Math.Pow(1.1, level % 10) * Math.Pow(2, level / 10));
         }
 
-        public static void ApplySaveData(GameSaveData data, Character player, Inventory inventory, QuestManager questManager, DungeonManager dungeonManager, SoldierInven soldierInven)
+        public static void ApplySaveData(GameSaveData data, Character player, Inventory inventory, QuestManager questManager, DungeonManager dungeonManager)
         {
             if (data == null) return;
 
@@ -99,21 +97,6 @@ namespace Sparta_RPG2_
                 if (data.ClearedDungeons.Contains(dungeon.Name))
                 {
                     dungeon.IsCleared = true;
-                }
-            }
-
-            // 🎖 병사 복원
-            if (data.Soldiers != null)
-            {
-                var soldierList = data.Soldiers.Select(p => new Soldier(p)).ToList();
-                soldierInven.AllSoldiers.Clear();
-                soldierInven.AllSoldiers.AddRange(soldierList);
-
-                var equipped = soldierList.FirstOrDefault(s => s.soldierPro.ItemName == data.EquippedSoldierName);
-                if (equipped != null)
-                {
-                    equipped.soldierPro.IsEquipped = true;
-                    soldierInven.EquippedSoldier = equipped;
                 }
             }
 
