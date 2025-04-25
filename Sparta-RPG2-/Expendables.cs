@@ -44,14 +44,6 @@ namespace Sparta_RPG2_
         {
             return new Expendables(new ExpendablesPro("액화마나", 50 ,"마나 그 자체가 담겨져있는 비약입니다.", 8000 ,"Mana"));
         }
-        public static Expendables attactPotion()
-        {
-            return new Expendables(new ExpendablesPro("광폭화물약", 30 ,"잠시 육체의 한계를 부수는 물약입니다.", 10000 ,"Attack"));
-        } 
-        public static Expendables defendPotion()
-        {
-            return new Expendables(new ExpendablesPro("경화물약", 30 ,"잠시 몸을 철과 같이 딱딱하게 하는 물약입니다.", 10000 ,"Defend"));
-        }
        
         public override string ToString()
         {

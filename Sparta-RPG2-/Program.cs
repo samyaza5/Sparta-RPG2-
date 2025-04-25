@@ -79,9 +79,7 @@ namespace Sparta_RPG2_
                 Expendables.potionPlus(),
                 Expendables.manaPotionPlus(),
                 Expendables.potionSuper(),
-                Expendables.manaPotionPlus(),
-                Expendables.attactPotion(),
-                Expendables.defendPotion(),
+                Expendables.manaPotionPlus()
             });
 
             soldiers.AddRange(new[]

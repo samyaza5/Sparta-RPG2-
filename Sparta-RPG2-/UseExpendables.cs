@@ -19,14 +19,14 @@ namespace Sparta_RPG2_
             foreach (var item in expendables)
             {
 
-                if (item.expendablesPro.ItemName == "회복물약")
+                if (item.expendablesPro.ItemType == "Heal")
                 {
                     player.HP += item.expendablesPro.ItemStat;
 
                     if(player.HP > player.MaxHP) player.HP = player.MaxHP;
 
                 }
-                else if (item.expendablesPro.ItemName == "마나물약")
+                else if (item.expendablesPro.ItemType == "Mana")
                 {
                     player.MP += item.expendablesPro.ItemStat;
 
