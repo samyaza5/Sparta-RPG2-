@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -54,11 +55,11 @@ namespace Sparta_RPG2_
             return (int)(100 * Math.Pow(1.1, level % 10) * Math.Pow(2, level / 10));
         }
 
-        public static void Apply(GameSaveData data, Character player, Inventory inventory, QuestManager questManager, DungeonManager dungeonManager)
+        public static void ApplySaveData(GameSaveData data, Character player, Inventory inventory, QuestManager questManager, DungeonManager dungeonManager)
         {
             if (data == null) return;
 
-            // Player
+            // 🧍 플레이어 정보 복원
             player.Name = data.Player.Name;
             player.Level = data.Player.Level;
             player.HP = data.Player.HP;
@@ -72,7 +73,7 @@ namespace Sparta_RPG2_
             player.Job = data.Player.Job;
             player.JobName = data.Player.JobName;
 
-            // Quests
+            // 📋 퀘스트 진행 복원
             foreach (var quest in questManager.AllQuests)
             {
                 if (data.CompletedQuests.Contains(quest.Title ?? string.Empty))
@@ -83,7 +84,7 @@ namespace Sparta_RPG2_
                 }
             }
 
-            // Dungeons
+            // 🗺 던전 클리어 여부 복원
             foreach (var dungeon in dungeonManager.Dungeons)
             {
                 if (data.ClearedDungeons.Contains(dungeon.Name))
@@ -92,16 +93,8 @@ namespace Sparta_RPG2_
                 }
             }
 
-            if (player.Exp >= player.MaxExp)
-            {
-                while (player.Exp >= player.MaxExp)
-                {
-                    player.Exp -= player.MaxExp;
-                    player.Level++;
-                    player.MaxExp = CalculateMaxExp(player.Level);
-                }
-                Console.WriteLine("🎉 저장된 데이터로 인해 레벨업이 반영되었습니다!");
-            }
+            // 🎯 레벨/경험치 동기화
+            player.AddExp(0); // MaxExp 계산 + 레벨 보정 포함
 
             Console.WriteLine("📂 저장된 데이터가 게임에 적용되었습니다.");
         }

@@ -14,6 +14,7 @@ public class Recovery
     public void Recoverycene()
     {
         Console.WriteLine("회복하시겠습니까? 1.예 2.아니오");
+
         string ansur = Console.ReadLine();
         if (ansur == "1")
         {
