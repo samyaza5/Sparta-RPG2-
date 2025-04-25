@@ -128,7 +128,8 @@ namespace Sparta_RPG2_
                   ex.expendablesPro.ItemName,
                   ex.expendablesPro.ItemStat,
                   ex.expendablesPro.ItemInfo,
-                  ex.expendablesPro.ItemValue
+                  ex.expendablesPro.ItemValue,
+                  ex.expendablesPro.ItemType
             ));
                 character.Gold -= ex.expendablesPro.ItemValue;
                 inventory.expendables.Add(newEx);
