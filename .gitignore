@@ -19,6 +19,7 @@ obj/
 
 # Optional: comment out if needed
 # *.txt
+# *.json
 
 
 *.bin
