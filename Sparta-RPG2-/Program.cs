@@ -24,6 +24,8 @@ namespace Sparta_RPG2_
         public static BattleExpendables battleExpendables;
         public static Recovery? recovery;
         public static DungeonManager dungeonManager;
+        public static List<Skill> SkillList = new List<Skill>();
+        public static PassiveSkill PassiveSkill;
 
         static void Main(string[] args)
         {
@@ -52,6 +54,8 @@ namespace Sparta_RPG2_
             soldierInven = new SoldierInven(player);
             recovery = new Recovery(player!, inventory!);
             dungeonManager = new DungeonManager(Dungeon.AresTower);
+            
+            
 
             var loadedData = GameSaveManager.LoadGame();
             GameSaveManager.ApplySaveData(loadedData, player, inventory, questManager, dungeonManager);
@@ -99,6 +103,9 @@ namespace Sparta_RPG2_
             buySoldier = new BuySoldier(soldiers,player, soldierInven, soldierEquipped);
             pub = new Pub(player, soldiers, buySoldier);
             buySoldier.SetShop(pub);
+
+            PassiveSkill = new PassiveSkill("", "", 0, 0, 0f, false);
+            PassiveSkill.AddSkill();
         }
 
         public static void ShowStartMenu()
@@ -121,6 +128,7 @@ namespace Sparta_RPG2_
                 Console.WriteLine("7. 🍺 선술집");
                 Console.WriteLine("8. 🛡  병영");
                 Console.WriteLine("9. ⚕️ 치유소");
+                Console.WriteLine("10. ⚔️ 스킬");
                 Console.WriteLine("0. ❌ 게임 종료\n");
 
                 Console.Write("원하시는 행동을 입력해주세요.\n>> ");
@@ -157,6 +165,9 @@ namespace Sparta_RPG2_
                         break;
                     case "9":
                         recovery.Recoverycene();
+                        break;
+                    case "10":
+                        Skill.SkillShop(player, PassiveSkill);
                         break;
                     case "0":
                         GameSaveManager.AutoSave(
