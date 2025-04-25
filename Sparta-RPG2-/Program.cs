@@ -13,9 +13,9 @@ namespace Sparta_RPG2_
         public static ItemEquipped? itemEquipped;
         public static SoldierEquipped? soldierEquipped;
         public static SoldierInven? soldierInven;
-        static Buy? buy;
+        public static Buy? buy;
         public static BuySoldier? buySoldier;
-        static Shop? shop;
+        public static Shop? shop;
         public static Pub? pub;
         public static UseExpendables? useExpendables;
         public static List<Item> allItems = new List<Item>();
@@ -23,6 +23,8 @@ namespace Sparta_RPG2_
         public static List<Soldier> soldiers = new List<Soldier>();
         public static BattleExpendables battleExpendables;
         public static Recovery? recovery;
+        public static DungeonManager dungeonManager;
+
         static void Main(string[] args)
         {
             Console.OutputEncoding = System.Text.Encoding.UTF8;
@@ -32,6 +34,7 @@ namespace Sparta_RPG2_
             
             questManager.InitQuests(); // 퀘스트 생성
             Intro.Start();// 게임 시작 인트로
+
             ShowCreatMe(player);
             ShowStartMenu(); // 게임 시작
         }
@@ -48,7 +51,10 @@ namespace Sparta_RPG2_
             battleExpendables = new BattleExpendables(player, inventory);
             soldierInven = new SoldierInven(player);
             recovery = new Recovery(player!, inventory!);
+            dungeonManager = new DungeonManager(Dungeon.AresTower);
 
+            var loadedData = GameSaveManager.LoadGame();
+            GameSaveManager.Apply(loadedData, player, inventory, questManager, dungeonManager);
 
 
             // 아이템 초기화
@@ -153,6 +159,14 @@ namespace Sparta_RPG2_
                         recovery.Recoverycene();
                         break;
                     case "0":
+                        GameSaveManager.AutoSave(
+                            player,
+                            Program.inventory!,
+                            Program.questManager!,
+                            Program.itemEquipped!,
+                            Program.dungeonManager!
+                        );
+                        Console.WriteLine("💾 게임 상태가 저장되었습니다.");
                         playGame = false;
                         break;
                     default:

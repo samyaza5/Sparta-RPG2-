@@ -4,6 +4,11 @@ namespace Sparta_RPG2_
     {
         static void ShowCreatMe(Character player)
         {
+            if (!string.IsNullOrWhiteSpace(player.Name) && !string.IsNullOrWhiteSpace(player.JobName))
+            {
+                return;
+            }
+
             Console.Clear();
             Console.WriteLine("캐릭터를 생성합니다.\n");
             Console.Write("이름을 입력하세요 : ");
