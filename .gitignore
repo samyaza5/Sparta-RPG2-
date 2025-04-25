@@ -19,7 +19,6 @@ obj/
 
 # Optional: comment out if needed
 # *.txt
-# *.json
 
 
 *.bin
@@ -27,7 +26,6 @@ obj/
 *.vsidx
 *.v2
 .vs/Sparta-RPG2-/v17/.suo
-*.json
 *.dll
 *.cache
 *.pdb
