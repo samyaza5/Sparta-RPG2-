@@ -42,8 +42,7 @@ class Intro
                 }
             }
 
-            TypeWriterCenteredLine(introLines[i], 40);
-            Thread.Sleep(500);
+          
         }
 
         if (isSkipped)
