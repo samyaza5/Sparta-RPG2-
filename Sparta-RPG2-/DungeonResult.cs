@@ -5,10 +5,15 @@ namespace Sparta_RPG2_
     public class DungeonResult
     {
 
+
         Inventory inventory;
         List<Item> itemList;
         List<Expendables> expendableList;
         string[] monsterName = { "공허충", "미니언", "대포미니언" };
+
+        //병사DB 
+        List<Soldier> soldierDb = Program.soldiers;
+        List<Soldier> soldierList = Program.soldierInven.soldiers;
 
         public DungeonResult(Inventory inventory, List<Item> itemList, List<Expendables> expendables)
         {
@@ -92,9 +97,10 @@ namespace Sparta_RPG2_
             Console.ResetColor();
         }
 
-        //전투하기골드 보상
+        //던전골드 보상
         public void BattleGold(List<Monster> deadMonsterList, Character player)
         {
+            
             int addGold = 0;
 
             for (int i = 0; i < deadMonsterList.Count; i++)
@@ -151,7 +157,7 @@ namespace Sparta_RPG2_
         //전투하기아이템드랍
         public void DungeonItemReward(List<Monster> deadMonsterList)
         {
-
+            
 
             //inventory = new Inventory(itemEquipped, player, program); // 임시
             //itemDb.Add(new Item(Item.BeginnerArmor())); //임시데이터
@@ -161,7 +167,7 @@ namespace Sparta_RPG2_
             Random rand = new Random();
 
             //랜덤아이템추가 
-            List<string> getItem = new List<string>();
+            List<string> gainedItem = new List<string>();
 
 
             for (int i = 0; i < deadMonsterList.Count; i++)
@@ -186,7 +192,12 @@ namespace Sparta_RPG2_
                     int rareItemIdx = randRareItem == 0 ? randRareItem = 4 : randRareItem = 9;
 
                     inventory.AllItems.Add(itemList[rareItemIdx]);
-                    getItem.Add(itemList[rareItemIdx].itemPro.ItemName);
+                    gainedItem.Add(itemList[rareItemIdx].itemPro.ItemName);
+                    
+                    //병사추가
+                    soldierList.Add(soldierDb[9]);
+                    gainedItem.Add(soldierDb[9].soldierPro.ItemName);
+
                     //Console.WriteLine(itemList[rareItemIndex].itemPro.ItemName);
                     ////테스트출력
                     //Console.WriteLine("테스트출력");
@@ -202,25 +213,32 @@ namespace Sparta_RPG2_
                     {
                         int randItem = rand.Next(0, expendableList.Count);
                         inventory.expendables.Add(expendableList[randItem]);
-                        getItem.Add(expendableList[randItem].expendablesPro.ItemName);
+                        gainedItem.Add(expendableList[randItem].expendablesPro.ItemName);
 
                     }
                     else if (deadMonsterName == monsterName[1])
                     {
                         int randItem = rand.Next(0, 4);
                         inventory.AllItems.Add(itemList[randItem]);
-                        getItem.Add(itemList[randItem].itemPro.ItemName);
+                        gainedItem.Add(itemList[randItem].itemPro.ItemName);
+
+                        //병사추가
+                        soldierList.Add(soldierDb[randItem]);
+                        gainedItem.Add(soldierDb[randItem].soldierPro.ItemName);
+
                     }
                     else if (deadMonsterName == monsterName[2])
                     {
                         int randItem = rand.Next(5, 9);
                         inventory.AllItems.Add(itemList[randItem]);
-                        getItem.Add(itemList[randItem].itemPro.ItemName);
+                        gainedItem.Add(itemList[randItem].itemPro.ItemName);
+
+
                     }
                 }
             }
             //아이템 출력
-            PrintItemReward(getItem);
+            PrintItemReward(gainedItem);
         }
 
 
@@ -258,6 +276,7 @@ namespace Sparta_RPG2_
         //던전아이템보상
         public void BattleItemReward(List<Monster> deadMonsterList)
         {
+            
             //드랍아이템확률
             Random rand = new Random();
 
@@ -301,8 +320,15 @@ namespace Sparta_RPG2_
         //보병보상
         public void ArmyReward(List<Monster> deadMonsterList)
         {
+            List<Soldier> soldierList = new List<Soldier>();
+            soldierList.AddRange(Program.soldiers);
+            Console.WriteLine($"soldierList count: {soldierList}");
+            //foreach (Soldier item in Program.soldiers) 
+            //{
+            //    soldierList.Add(item);
+            //}
 
-            
+            //Program.soldierInven.soldiers.Add(Program.soldiers[0]);
             //inventory = new Inventory(itemEquipped, player, program); // 임시
             //itemDb.Add(new Item(Item.BeginnerArmor())); //임시데이터
             //itemDb.Add(new Item(Item.IronArmor())); // 임시데이터
