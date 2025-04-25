@@ -73,6 +73,13 @@ namespace Sparta_RPG2_
             player.Job = data.Player.Job;
             player.JobName = data.Player.JobName;
 
+            inventory.AllItems.Clear();
+            if (data.Inventory != null)
+            {
+                foreach (var item in data.Inventory)
+                    inventory.AllItems.Add(item);
+            }
+
             // 📋 퀘스트 진행 복원
             foreach (var quest in questManager.AllQuests)
             {

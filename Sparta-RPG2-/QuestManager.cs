@@ -36,7 +36,7 @@ namespace Sparta_RPG2_
                 Goal = 1,
                 Type = QuestType.MonsterKill,
                 RewardEXP = 5000,
-                RewardGold = 5000
+                RewardGold = 99999
             });
 
             AllQuests.Add(new Quest
@@ -46,7 +46,7 @@ namespace Sparta_RPG2_
                 Goal = 1,
                 Type = QuestType.EquipItem,
                 RewardEXP = 5000,
-                RewardGold = 5000
+                RewardGold = 99999
             });
 
             AllQuests.Add(new Quest
@@ -57,7 +57,7 @@ namespace Sparta_RPG2_
                 CurrentProgress = 1,
                 Type = QuestType.LevelUp,
                 RewardEXP = 5000,
-                RewardGold = 5000
+                RewardGold = 999999
             });
         }
 
