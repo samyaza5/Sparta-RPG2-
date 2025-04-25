@@ -367,7 +367,7 @@ namespace Sparta_RPG2_
                                     Console.WriteLine("MP가 부족합니다!");
                                 }
                                 continue; // 스킬
-                            case "아레스의 예언자":
+                            case "올림포스의 사도":
                                 int mp_3 = 8;
                                 int mp_4 = 12;
                                 Console.Write($"1. 에이르의 손길 - MP {mp_3}\n   공격력*2.5로 HP를 회복하여 자신을 치유 합니다.\n");

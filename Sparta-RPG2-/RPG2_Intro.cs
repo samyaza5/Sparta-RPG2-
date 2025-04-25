@@ -42,7 +42,6 @@ class Intro
                 }
             }
 
-          
         }
 
         if (isSkipped)
