@@ -10,7 +10,7 @@ namespace Sparta_RPG2_
             player.Name = Console.ReadLine() ?? "함장";
             Console.WriteLine("직업을 선택하세요");
             Console.WriteLine("1.팔랑크스 중보병 -  긴 창과 방패, 중갑으로 무장한 선봉. 무너지지 않는 전장의 벽.");
-            Console.WriteLine("2.아레스의 예언자 -  아레스 신의 계시를 받아, 신비한 힘으로 전장을 꿰뚫는 마술사.");
+            Console.WriteLine("2.올림포스의 사도 -  아레스 신의 계시를 받아, 신비한 힘으로 전장을 꿰뚫는 마술사.");
             Console.WriteLine("3.라코니아 순찰자 -  그림자 속에서 움직이며, 치명적인 화살로 적을 사냥하는 궁수.");
             player.Job = Console.ReadLine() ?? "1";
 
@@ -19,7 +19,7 @@ namespace Sparta_RPG2_
                 case "1":
                     player.Attack = 10; player.Defense = 10; player.HP = 80; player.MaxHP = 80; player.MP = 50; player.MaxMP = 50; player.JobName = "팔랑크스 중보병"; break;
                 case "2":
-                    player.Attack = 5; player.Defense = 3; player.HP = 50; player.MaxHP = 50; player.MP = 120; player.MaxMP = 120; player.JobName = "아레스의 예언자"; break;
+                    player.Attack = 5; player.Defense = 3; player.HP = 50; player.MaxHP = 50; player.MP = 120; player.MaxMP = 120; player.JobName = "올림포스의 사도"; break;
                 case "3":
                     player.Attack = 15; player.Defense = 6; player.HP = 65; player.MaxHP = 65; player.MP = 80; player.MaxMP = 80;  player.JobName = "라코니아 순찰자"; break;
                 case "21":
