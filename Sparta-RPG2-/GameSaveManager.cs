@@ -117,8 +117,8 @@ namespace Sparta_RPG2_
                 }
             }
 
-            // 🎯 레벨/경험치 동기화
-            player.AddExp(0); // MaxExp 계산 + 레벨 보정 포함
+            // 🎯 레벨/경험치 동기화 (레벨 재계산만 수행)
+            player.MaxExp = Character.CalculateMaxExp(player.Level);
 
             Console.WriteLine("📂 저장된 데이터가 게임에 적용되었습니다.");
         }
