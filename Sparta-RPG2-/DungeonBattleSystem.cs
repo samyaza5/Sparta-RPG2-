@@ -66,7 +66,7 @@ namespace Sparta_RPG2_
                     }
                     break;
 
-                case "아레스의 예언자":
+                case "올림포스의 사도":
                     if (player.MP >= 1)
                     {
                         foreach (var m in monsters.Where(m => !m.IsDead))
