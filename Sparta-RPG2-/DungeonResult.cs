@@ -4,7 +4,6 @@ namespace Sparta_RPG2_
 {
     public class DungeonResult
     {
-        //test
 
         Inventory inventory;
         List<Item> itemList;
@@ -93,7 +92,7 @@ namespace Sparta_RPG2_
             Console.ResetColor();
         }
 
-        //배틀골드 보상
+        //전투하기골드 보상
         public void BattleGold(List<Monster> deadMonsterList, Character player)
         {
             int addGold = 0;
@@ -148,6 +147,8 @@ namespace Sparta_RPG2_
             Console.WriteLine(" Gold");
         }
 
+
+        //전투하기아이템드랍
         public void DungeonItemReward(List<Monster> deadMonsterList)
         {
 
@@ -220,9 +221,12 @@ namespace Sparta_RPG2_
             }
             //아이템 출력
             PrintItemReward(getItem);
-
         }
 
+
+
+
+        //아이템 출력
         private static void PrintItemReward(List<string> getItem)
         {
             if (getItem.Count > 0)
@@ -251,7 +255,7 @@ namespace Sparta_RPG2_
         }
 
 
-        //아이템보상
+        //던전아이템보상
         public void BattleItemReward(List<Monster> deadMonsterList)
         {
             //드랍아이템확률
@@ -290,6 +294,81 @@ namespace Sparta_RPG2_
             }
             //Console.WriteLine($"-{getItem[j]}");
             //Console.WriteLine(getItem.Count);
+            //아이템 출력
+            PrintItemReward(getItem);
+        }
+
+        //보병보상
+        public void ArmyReward(List<Monster> deadMonsterList)
+        {
+
+            
+            //inventory = new Inventory(itemEquipped, player, program); // 임시
+            //itemDb.Add(new Item(Item.BeginnerArmor())); //임시데이터
+            //itemDb.Add(new Item(Item.IronArmor())); // 임시데이터
+
+            //드랍아이템확률
+            Random rand = new Random();
+
+            //랜덤아이템추가 
+            List<string> getItem = new List<string>();
+
+
+            for (int i = 0; i < deadMonsterList.Count; i++)
+            {
+                int dropNormalItemRate = 0;
+                int dropRareItemRate = 0;
+                int monsterLevel = deadMonsterList[i].Level;
+                dropNormalItemRate += 10 + (monsterLevel * 1);
+
+                if (monsterLevel > 4)
+                {
+                    dropRareItemRate = 10;
+                }
+                int randItemRate = rand.Next(0, 100);
+                string deadMonsterName = deadMonsterList[i].Name;
+
+                //int rareItemIndex = itemList.Count - 1;
+
+                if (randItemRate < dropRareItemRate)  //레어드롭아이템추가   
+                {
+                    int randRareItem = rand.Next(0, 2);
+                    int rareItemIdx = randRareItem == 0 ? randRareItem = 4 : randRareItem = 9;
+
+                    inventory.AllItems.Add(itemList[rareItemIdx]);
+                    getItem.Add(itemList[rareItemIdx].itemPro.ItemName);
+                    //Console.WriteLine(itemList[rareItemIndex].itemPro.ItemName);
+                    ////테스트출력
+                    //Console.WriteLine("테스트출력");
+                    //Console.WriteLine($"rare:{dropRareItemRate} normal:{dropNormalItemRate}");
+                    //for (int i = 0; i < inventory.AllItems.Count; i++)
+                    //{
+                    //    Console.WriteLine($": {inventory.AllItems[i].itemPro.ItemName}");
+                    //}
+                }
+                else  //기본드롭아이템추가
+                {
+                    if (deadMonsterName == monsterName[0])
+                    {
+                        int randItem = rand.Next(0, expendableList.Count);
+                        inventory.expendables.Add(expendableList[randItem]);
+                        getItem.Add(expendableList[randItem].expendablesPro.ItemName);
+
+                    }
+                    else if (deadMonsterName == monsterName[1])
+                    {
+                        int randItem = rand.Next(0, 4);
+                        inventory.AllItems.Add(itemList[randItem]);
+                        getItem.Add(itemList[randItem].itemPro.ItemName);
+                    }
+                    else if (deadMonsterName == monsterName[2])
+                    {
+                        int randItem = rand.Next(5, 9);
+                        inventory.AllItems.Add(itemList[randItem]);
+                        getItem.Add(itemList[randItem].itemPro.ItemName);
+                    }
+                }
+            }
             //아이템 출력
             PrintItemReward(getItem);
         }
