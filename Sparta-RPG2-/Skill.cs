@@ -16,6 +16,8 @@ namespace Sparta_RPG2_
 
         public static List<PassiveSkill> mySkill = new List<PassiveSkill>();
 
+        public static int healAmount = 0;
+
         public static void SkillShop(Character player, PassiveSkill passiveSkill)
         {
             Console.Clear();
@@ -55,7 +57,9 @@ namespace Sparta_RPG2_
                 Console.Clear();
                 foreach (PassiveSkill skill in passiveSkill.SkillList)
                 {
-                    Console.WriteLine($"{idx}. {skill.Name} - {skill.Description} ({skill.SkillLv}/{skill.MaxSkillLv})"); idx++;
+                    int lv = skill.SkillLv;
+                    int max = skill.MaxSkillLv;
+                    Console.WriteLine($"{idx}. {(lv == max ? "[M]" : "")}{skill.Name} - {skill.Description} ({skill.SkillLv}/{skill.MaxSkillLv})"); idx++;
                 }
                 Console.WriteLine("\n\n강화할 스킬을 선택해주세요.");
                 Console.Write("0. 나가기\n>>");
@@ -68,7 +72,7 @@ namespace Sparta_RPG2_
                         SkillShop(player, passiveSkill);
                         return;
                     case 1: // 1번스킬 강화
-                        if (passiveSkill.SkillList[0].GetSkill == true)
+                        if (passiveSkill.SkillList[0].MasterSkill == true)
                         {
                             Console.WriteLine("이미 습득한 스킬입니다.");
                             Thread.Sleep(1000);
@@ -78,12 +82,13 @@ namespace Sparta_RPG2_
                         {
                             Console.WriteLine($"{passiveSkill.SkillList[input-1].Name}을 습득했습니다.");
                             Console.WriteLine($"최대HP {player.MaxHP} -> {player.MaxHP * passiveSkill.SkillList[input - 1].Stat} ");
-                            passiveSkill.SkillList[0].GetSkill = true;
+                            passiveSkill.SkillList[0].MasterSkill = true;
                             player.MaxHP = (int)Math.Round(player.MaxHP * passiveSkill.SkillList[input-1].Stat);
                             player.HP = player.MaxHP;
                             player.SP--;
                             passiveSkill.SkillList[input - 1].SkillLv ++;
                             mySkill.Add(passiveSkill.SkillList[input-1]);
+
                         }
                         else
                         {
@@ -91,7 +96,7 @@ namespace Sparta_RPG2_
                         }
                         break;
                     case 2: // 2번스킬 강화
-                        if (passiveSkill.SkillList[1].GetSkill == true)
+                        if (passiveSkill.SkillList[1].MasterSkill == true)
                         {
                             Console.WriteLine("이미 습득한 스킬입니다.");
                             Thread.Sleep(1000);
@@ -106,9 +111,39 @@ namespace Sparta_RPG2_
                             player.SP--;
                             passiveSkill.SkillList[input - 1].SkillLv ++;
                             mySkill.Add(passiveSkill.SkillList[input - 1]);
-                            if(passiveSkill.SkillList[input - 1].SkillLv == passiveSkill.SkillList[input - 1].MaxSkillLv)
+                            passiveSkill.SkillList[input - 1].GetSkill = true;
+                            if (passiveSkill.SkillList[input - 1].SkillLv == passiveSkill.SkillList[input - 1].MaxSkillLv)
                             {
-                                passiveSkill.SkillList[1].GetSkill = true;
+                                passiveSkill.SkillList[input - 1].MasterSkill = true;
+                            }
+
+
+                        }
+                        else
+                        {
+                            Console.WriteLine("스킬포인트가 부족합니다.");
+                        }
+                        break;
+                    case 3: // 2번스킬 강화
+                        if (passiveSkill.SkillList[input - 1].MasterSkill == true)
+                        {
+                            Console.WriteLine("이미 습득한 스킬입니다.");
+                            Thread.Sleep(1000);
+                            break;
+                        }
+                        if (player.SP > 0)
+                        {
+                            Console.WriteLine($"{passiveSkill.SkillList[input - 1].Name}을 습득했습니다.");
+                            Console.WriteLine($"방어력 {player.Defense} -> {player.Defense + passiveSkill.SkillList[input - 1].Stat} ");
+
+                            healAmount += (int)Math.Round(passiveSkill.SkillList[input - 1].Stat);
+                            player.SP--;
+                            passiveSkill.SkillList[input - 1].SkillLv++;
+                            mySkill.Add(passiveSkill.SkillList[input - 1]);
+                            passiveSkill.SkillList[input - 1].GetSkill = true;
+                            if (passiveSkill.SkillList[input - 1].SkillLv == passiveSkill.SkillList[input - 1].MaxSkillLv)
+                            {
+                                passiveSkill.SkillList[input - 1].MasterSkill = true;
                             }
 
 
@@ -140,8 +175,9 @@ namespace Sparta_RPG2_
             int idx = 1;
             foreach (PassiveSkill skill in uniqueSkills)
             {
-                
-                Console.WriteLine($"{idx}. {skill.Name} - {skill.Description} ({skill.SkillLv}/{skill.MaxSkillLv})"); idx++;
+                int lv = skill.SkillLv;
+                int max = skill.MaxSkillLv;
+                Console.WriteLine($"{idx}. {(lv == max ? "[M]" : "")}{skill.Name} - {skill.Description} ({skill.SkillLv}/{skill.MaxSkillLv})"); idx++;
             }
 
             Console.Write("\n0. 나가기\n>>");

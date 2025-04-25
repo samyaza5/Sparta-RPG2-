@@ -6,6 +6,7 @@ namespace Sparta_RPG2_
     public class BattleContext
     {
         public Character Player { get; set; }
+
         public BattleExpendables BattleExpendables { get; set; }
         public QuestManager QuestManager { get; set; }
         public Inventory Inventory { get; set; }
@@ -21,6 +22,7 @@ namespace Sparta_RPG2_
             Inventory = inventory;
             AllItems = allItems;
             Expendables = expendables;
+            
         }
     }
 
@@ -1027,6 +1029,7 @@ namespace Sparta_RPG2_
 
         static void EnemyPhase(Character player, List<Monster> monsters)
         {
+            Skill skill;
             Console.Clear();
             Console.WriteLine("\nEnemy Phase 시작");
             Console.WriteLine("Battle!!\n");
@@ -1069,6 +1072,27 @@ namespace Sparta_RPG2_
                 Console.WriteLine("\n💀 당신은 쓰러졌습니다... 게임 오버");
                 Console.ResetColor();
                 Environment.Exit(0);
+            }
+            else
+            {
+                foreach (PassiveSkill skill1 in Skill.mySkill)
+                {
+                    if (skill1.Name == "재생력" && skill1.GetSkill)
+                    {
+                        int prevHP = player.HP;
+                        player.HP += Skill.healAmount;
+                        player.HP = Math.Min(player.HP, player.MaxHP); // 최대 HP 초과 방지
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.WriteLine($"\n✨ 재생력 발동! {player.Name}의 체력이 {prevHP} -> {player.HP} 로 회복되었습니다.\n\n");
+                        Console.ResetColor();
+                        Console.Write("0. 다음\n>>");
+                        while (Console.ReadLine() != "0")
+                        {
+                            Console.Write("\n>> ");
+                        }
+                        break; // 재생력은 한 번만 발동
+                    }
+                }
             }
 
             Console.WriteLine("\n📣 당신의 차례입니다!");

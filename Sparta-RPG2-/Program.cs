@@ -108,7 +108,7 @@ namespace Sparta_RPG2_
             pub = new Pub(player, soldiers, buySoldier);
             buySoldier.SetShop(pub);
 
-            PassiveSkill = new PassiveSkill("", "", 0, 0, 0f, false);
+            PassiveSkill = new PassiveSkill("", "", 0, 0, 0f,false, false);
             PassiveSkill.AddSkill();
         }
 
