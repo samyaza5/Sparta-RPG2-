@@ -54,7 +54,7 @@ namespace Sparta_RPG2_
             dungeonManager = new DungeonManager(Dungeon.AresTower);
 
             var loadedData = GameSaveManager.LoadGame();
-            GameSaveManager.Apply(loadedData, player, inventory, questManager, dungeonManager);
+            GameSaveManager.ApplySaveData(loadedData, player, inventory, questManager, dungeonManager);
 
 
             // 아이템 초기화
