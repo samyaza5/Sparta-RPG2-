@@ -69,7 +69,7 @@ namespace Sparta_RPG2_
         }
     }
 
-    class Dungeon
+    public class Dungeon
     {
         public string Name { get; set; }
         public int RequiredLevel { get; set; } = 1;
@@ -91,41 +91,7 @@ namespace Sparta_RPG2_
             };
         }
 
-        public class DungeonManager
-        {
-            private Dungeon currentDungeon;
-            private int currentStageIndex = 0;
-
-            public DungeonManager(Dungeon dungeon)
-            {
-                currentDungeon = dungeon;
-            }
-
-            public List<Monster> GetCurrentStageMonsters()
-            {
-                return currentDungeon.Stages[currentStageIndex].Monsters;
-            }
-
-            public string GetCurrentStageName()
-            {
-                return currentDungeon.Stages[currentStageIndex].Name;
-            }
-
-            public bool MoveToNextStage()
-            {
-                if (currentStageIndex < currentDungeon.Stages.Count - 1)
-                {
-                    currentStageIndex++;
-                    return true;
-                }
-                return false; // 마지막 스테이지 도달
-            }
-
-            public bool IsBossStage()
-            {
-                return currentDungeon.Stages[currentStageIndex].Type == Monstertype.B;
-            }
-        }
+        
 
         public void Enter(Character player, Inventory inventory)
         {

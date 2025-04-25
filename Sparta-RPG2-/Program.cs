@@ -114,7 +114,7 @@ namespace Sparta_RPG2_
                 Console.WriteLine("6. 🏰 [던전] ⚔️ 타락한 아레스의 탑 ⚔️");
                 Console.WriteLine("7. 🍺 선술집");
                 Console.WriteLine("8. 🛡  병영");
-                Console.WriteLine("9. ⚕️  치유소");
+                Console.WriteLine("9. ⚕️ 치유소");
                 Console.WriteLine("0. ❌ 게임 종료\n");
 
                 Console.Write("원하시는 행동을 입력해주세요.\n>> ");

@@ -22,12 +22,17 @@ public class Recovery
                 player.Gold -= 100;
                 player.HP = player.MaxHP;
                 player.MP = player.MaxMP;
+               
                 Console.WriteLine("체력과 마나가 회복되었습니다.");
+                Console.WriteLine("아무 키나 누르면 돌아갑니다.");
+                Console.ReadKey();
             }
             else
             {
                 Console.WriteLine("골드가 부족합니다.");
+
             }
+            
         }
     }
 }
