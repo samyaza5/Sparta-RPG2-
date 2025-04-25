@@ -289,10 +289,12 @@ namespace Sparta_RPG2_
 
         private string GenerateHpBar(int current, int max, int barLength = 20, bool showPercent = false)
         {
-            int filledLength = (int)((double)current / max * barLength);
-            string bar = new string('█', filledLength) + new string('─', barLength - filledLength);
-            int percent = (int)((double)current / max * 100);
+            if (max <= 0) max = 1;
 
+            int filledLength = Math.Clamp((int)((double)current / max * barLength), 0, barLength);
+            string bar = new string('█', filledLength) + new string('─', barLength - filledLength);
+            int percent = Math.Clamp((int)((double)current / max * 100), 0, 100);
+       
             return showPercent
                 ? $"[{bar}] {percent}%"
                 : $"[{bar}]";
