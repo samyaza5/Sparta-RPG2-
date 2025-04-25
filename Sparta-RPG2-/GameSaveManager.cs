@@ -49,6 +49,11 @@ namespace Sparta_RPG2_
             Console.WriteLine("💾 자동 저장 완료!");
         }
 
+        public static int CalculateMaxExp(int level)
+        {
+            return (int)(100 * Math.Pow(1.1, level % 10) * Math.Pow(2, level / 10));
+        }
+
         public static void Apply(GameSaveData data, Character player, Inventory inventory, QuestManager questManager, DungeonManager dungeonManager)
         {
             if (data == null) return;
@@ -85,6 +90,17 @@ namespace Sparta_RPG2_
                 {
                     dungeon.IsCleared = true;
                 }
+            }
+
+            if (player.Exp >= player.MaxExp)
+            {
+                while (player.Exp >= player.MaxExp)
+                {
+                    player.Exp -= player.MaxExp;
+                    player.Level++;
+                    player.MaxExp = CalculateMaxExp(player.Level);
+                }
+                Console.WriteLine("🎉 저장된 데이터로 인해 레벨업이 반영되었습니다!");
             }
 
             Console.WriteLine("📂 저장된 데이터가 게임에 적용되었습니다.");
