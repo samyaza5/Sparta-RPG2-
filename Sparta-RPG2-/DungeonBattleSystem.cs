@@ -54,9 +54,9 @@ namespace Sparta_RPG2_
                     {
                         foreach (var m in monsters.Where(m => !m.IsDead))
                         {
-                            int damage = Math.Max(1, (int)(player.Attack * 100));
+                            int damage = Math.Max(1, (int)(player.Attack * 2));
                             m.HP -= damage;
-                            Console.WriteLine($"💥 방패 폭풍! {m.Name}에게 {damage} 피해!");
+                            Console.WriteLine($"💥 파괴의 창격! {m.Name}에게 {damage} 피해!");
                         }
                         player.MP -= 11;
                     }
@@ -67,15 +67,15 @@ namespace Sparta_RPG2_
                     break;
 
                 case "올림포스의 사도":
-                    if (player.MP >= 1)
+                    if (player.MP >= 0)
                     {
                         foreach (var m in monsters.Where(m => !m.IsDead))
                         {
-                            int damage = Math.Max(1, (int)(player.Attack * 100));
+                            int damage = Math.Max(1, (int)(player.Attack * 2));
                             m.HP -= damage;
                             Console.WriteLine($"⚡ 제우스의 천벌! {m.Name}에게 {damage}의 신의 번개가 내리쳤다!");
                         }
-                        player.MP -= 1;
+                        player.MP -= 0;
                     }
                     else
                     {
@@ -84,22 +84,39 @@ namespace Sparta_RPG2_
                     break;
 
                 case "라코니아 순찰자":
-                    if (player.MP >= 1)
+                    if (player.MP >= 0)
                     {
                         foreach (var m in monsters.Where(m => !m.IsDead))
                         {
-                            int damage = Math.Max(1, (int)(player.Attack * 100));
+                            int damage = Math.Max(1, (int)(player.Attack * 2));
                             m.HP -= damage;
-                            Console.WriteLine($"🏹 일제 사격! {m.Name}에게 {damage} 피해!");
+                            Console.WriteLine($"🏹 그림자 일격! {m.Name}에게 {damage} 피해!");
                         }
-                        player.MP -= 1;
+                        player.MP -= 0;
                     }
                     else
                     {
                         Console.WriteLine("❌ MP가 부족합니다!");
                     }
                     break;
-
+                case "스파르타의 왕":
+                    if (player.MP >= 0)
+                    {
+                        foreach (var m in monsters.Where(m => !m.IsDead))
+                        {
+                            int damage = Math.Max(1, (int)(player.Attack * 2.5));
+                            m.HP -= damage;
+                            Console.ForegroundColor = ConsoleColor.DarkRed;
+                            Console.WriteLine($"🔱 레오니다스의 일격! {m.Name}에게 {damage}의 피해를 입혔습니다!");
+                            Console.ResetColor();
+                        }
+                        player.MP -= 0;
+                    }
+                    else
+                    {
+                        Console.WriteLine("❌ MP가 부족합니다!");
+                    }
+                    break;
                 default:
                     Console.WriteLine("⚠️ 알 수 없는 직업입니다.");
                     break;
@@ -108,9 +125,92 @@ namespace Sparta_RPG2_
             Thread.Sleep(1000);
         }
 
-        /// <summary>
-        /// 던전 전체를 순회하며 각 스테이지를 실행하고, 전투를 시작합니다.
-        /// </summary>
+        public void UseAwakeningSkill(Character player, List<Monster> monsters)
+        {
+            Console.Clear();
+            Console.ForegroundColor = ConsoleColor.Magenta;
+
+            Random rand = new Random();
+
+            switch (player.JobName.Trim())
+            {
+                case "팔랑크스 중보병":
+                    Console.WriteLine("💥 [궁극기: 철의 진군] 100타 돌진 공격 발동!");
+                    for (int i = 0; i < 100; i++)
+                    {
+                        var alive = monsters.Where(m => !m.IsDead).ToList();
+                        if (alive.Count == 0) break;
+
+                        var target = alive[rand.Next(alive.Count)];
+                        int damage = (int)(player.Attack * rand.NextDouble() * 0.1 + 1); // 1 ~ 10% 사이
+                        target.HP -= damage;
+                        if (target.HP <= 0) target.IsDead = true;
+
+                        Console.WriteLine($"🔱 돌격 {i + 1} - {target.Name}에게 {damage} 피해");
+                        Thread.Sleep(10);
+                    }
+                    break;
+
+                case "올림포스의 사도":
+                    Console.WriteLine("⚡ [궁극기: 신벌의 낙뢰] 80타 마법 낙뢰 발동!");
+                    for (int i = 0; i < 80; i++)
+                    {
+                        var alive = monsters.Where(m => !m.IsDead).ToList();
+                        if (alive.Count == 0) break;
+
+                        var target = alive[rand.Next(alive.Count)];
+                        int damage = (int)(player.Attack * rand.NextDouble() * 0.12 + 1); // 약간 더 센 편
+                        target.HP -= damage;
+                        if (target.HP <= 0) target.IsDead = true;
+
+                        Console.WriteLine($"⚡ 낙뢰 {i + 1} - {target.Name}에게 {damage} 피해");
+                        Thread.Sleep(15);
+                    }
+                    break;
+
+                case "라코니아 순찰자":
+                    Console.WriteLine("🏹 [궁극기: 암영의 일제사격] 120타 음영 화살 발동!");
+                    for (int i = 0; i < 120; i++)
+                    {
+                        var alive = monsters.Where(m => !m.IsDead).ToList();
+                        if (alive.Count == 0) break;
+
+                        var target = alive[rand.Next(alive.Count)];
+                        int damage = (int)(player.Attack * rand.NextDouble() * 0.08 + 1); // 빠르고 약하게
+                        target.HP -= damage;
+                        if (target.HP <= 0) target.IsDead = true;
+
+                        Console.WriteLine($"🏹 화살 {i + 1} - {target.Name}에게 {damage} 피해");
+                        Thread.Sleep(7);
+                    }
+                    break;
+
+                case "스파르타의 왕":
+                    Console.WriteLine("🔱 [궁극기: 스파르타 최후의 명령] 150타 창돌풍 발동!");
+                    for (int i = 0; i < 150; i++)
+                    {
+                        var alive = monsters.Where(m => !m.IsDead).ToList();
+                        if (alive.Count == 0) break;
+
+                        var target = alive[rand.Next(alive.Count)];
+                        int damage = (int)(player.Attack * rand.NextDouble() * 0.09 + 1); // 무난한 세기
+                        target.HP -= damage;
+                        if (target.HP <= 0) target.IsDead = true;
+
+                        Console.WriteLine($"💢 진혼격 {i + 1} - {target.Name}에게 {damage} 피해");
+                        Thread.Sleep(5);
+                    }
+                    break;
+
+                default:
+                    Console.WriteLine("⚠️ 각성기를 사용할 수 없는 직업입니다.");
+                    break;
+            }
+
+            player.MP -= 0;
+            Console.ResetColor();
+        }
+
         public void Start()
         {
             var expendables = new BattleExpendables(player, inventory);
@@ -119,37 +219,42 @@ namespace Sparta_RPG2_
             foreach (var stage in dungeon.Stages)
             {
                 EnterStage(stage);
+
                 var result = HandleStageBattle(stage, context);
 
-                switch (result)
-                {
-                    case BattleResult.Victory:
-                        player.HP = player.MaxHP;
-                        WriteColoredLine($"✔ {stage.Name} 클리어!", ConsoleColor.Cyan);
-                        break;
-
-                    case BattleResult.Escape:
-                        player.HP = player.MaxHP;
-                        WriteColoredLine($"⚠️ {stage.Name}에서 도망쳤습니다. 던전 진행이 중단됩니다.", ConsoleColor.Yellow);
-                        return;
-
-                    case BattleResult.Defeat:
-                        player.HP = player.MaxHP;
-                        WriteColoredLine($"💀 {stage.Name}에서 전투에 패배했습니다.", ConsoleColor.Red);
-                        return;
-                }
-
-                if (player.HP <= 0)
-                {
-                    return;
-                }
-                    
+                if (!HandleStageResult(result, stage)) return; // 리턴되면 루프 종료
             }
 
             if (player.HP > 0)
             {
                 WriteColoredLine("🎉 던전 전체 클리어!", ConsoleColor.Green);
                 dungeon.IsCleared = true;
+            }
+        }
+
+        private bool HandleStageResult(BattleResult result, Stage stage)
+        {
+            player.HP = player.MaxHP;
+
+            switch (result)
+            {
+                case BattleResult.Victory:
+                    WriteColoredLine($"✔ {stage.Name} 클리어!", ConsoleColor.Cyan);
+                    return true;
+
+                case BattleResult.Escape:
+                    WriteColoredLine($"⚠️ {stage.Name}에서 도망쳤습니다. 던전 진행이 중단됩니다.", ConsoleColor.Yellow);
+                    Thread.Sleep(2000); // 연출용 약간의 대기
+                    Program.ShowStartMenu(); // 🔁 메인 메뉴로 복귀
+                    return false;
+
+                case BattleResult.Defeat:
+                    WriteColoredLine($"💀 {stage.Name}에서 전투에 패배했습니다.", ConsoleColor.Red);
+                    return false;
+
+                default:
+                    WriteColoredLine("❓ 알 수 없는 전투 결과입니다.", ConsoleColor.DarkGray);
+                    return false;
             }
         }
 
@@ -193,9 +298,10 @@ namespace Sparta_RPG2_
         {
             Console.Clear();
             Console.WriteLine("⚔️ 전투 중 - 당신의 선택은?");
-            Console.WriteLine("1. 스킬");
+            Console.WriteLine("1. 일반 스킬");
             Console.WriteLine("2. 소모품 사용");
             Console.WriteLine("3. 도망친다");
+            Console.WriteLine("4. 🔱 스파르타의 각성");
             Console.Write(">> ");
         }
 
@@ -237,6 +343,20 @@ namespace Sparta_RPG2_
                     Thread.Sleep(1000);
                     return BattleResult.Escape;
 
+                case "4":
+                    if (context.Player.MP >= 50) // 조건은 상황에 맞게 조정 가능
+                    {
+                        UseAwakeningSkill(context.Player, monsters);
+                        return BattleResult.Victory;
+                    }
+                    else
+                    {
+                        Console.ForegroundColor = ConsoleColor.DarkRed;
+                        Console.WriteLine("❌ 각성기를 발동하기 위한 MP가 부족합니다!");
+                        Console.ResetColor();
+                        Thread.Sleep(1000);
+                        return BattleResult.Victory;
+                    }
                 default:
                     Console.WriteLine("❌ 잘못된 입력입니다. 다시 선택해주세요.");
                     Thread.Sleep(1000);

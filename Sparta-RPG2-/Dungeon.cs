@@ -136,10 +136,10 @@ namespace Sparta_RPG2_
             Console.WriteLine("💬 \"이곳이... 페르시아 병사들이 남긴 마지막 흔적이군.\" 당신은 검을 높이 듭니다.");
             Thread.Sleep(1500);
             Console.WriteLine($"\n[Enter] 키를 눌러 '{dungeonName}'에 진입하세요.");
-            while (Console.ReadKey(true).Key != ConsoleKey.Enter) ;
+            while (Console.ReadKey(true).Key != ConsoleKey.Enter);
         }
 
-        private void StartDungeon(Character player, Inventory inventory)
+        private void StartDungeon(Character player, Inventory inventory)// 17 13 20 18 19 21 14 11 15 12 16
         {
             // 던전 전투 시스템 사용으로 교체
             DungeonBattleSystem dungeonBattle = new DungeonBattleSystem(this, player, inventory);
