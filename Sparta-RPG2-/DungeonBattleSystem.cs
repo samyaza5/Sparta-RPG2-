@@ -54,7 +54,7 @@ namespace Sparta_RPG2_
                     {
                         foreach (var m in monsters.Where(m => !m.IsDead))
                         {
-                            int damage = Math.Max(1, (int)(player.Attack * 1.5));
+                            int damage = Math.Max(1, (int)(player.Attack * 100));
                             m.HP -= damage;
                             Console.WriteLine($"💥 방패 폭풍! {m.Name}에게 {damage} 피해!");
                         }
@@ -66,14 +66,14 @@ namespace Sparta_RPG2_
                     }
                     break;
 
-                case "아레스의 예언자":
+                case "올림포스의 사도":
                     if (player.MP >= 1)
                     {
                         foreach (var m in monsters.Where(m => !m.IsDead))
                         {
-                            int damage = Math.Max(1, (int)(player.Attack * 1.8));
+                            int damage = Math.Max(1, (int)(player.Attack * 100));
                             m.HP -= damage;
-                            Console.WriteLine($"🔥 신성 불꽃진혼! {m.Name}에게 {damage} 마법 피해!");
+                            Console.WriteLine($"⚡ 제우스의 천벌! {m.Name}에게 {damage}의 신의 번개가 내리쳤다!");
                         }
                         player.MP -= 1;
                     }
@@ -88,7 +88,7 @@ namespace Sparta_RPG2_
                     {
                         foreach (var m in monsters.Where(m => !m.IsDead))
                         {
-                            int damage = Math.Max(1, (int)(player.Attack * 1.4));
+                            int damage = Math.Max(1, (int)(player.Attack * 100));
                             m.HP -= damage;
                             Console.WriteLine($"🏹 일제 사격! {m.Name}에게 {damage} 피해!");
                         }
