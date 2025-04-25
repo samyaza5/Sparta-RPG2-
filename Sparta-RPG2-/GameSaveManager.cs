@@ -61,7 +61,19 @@ namespace Sparta_RPG2_
         {
             if (data == null) return;
 
-            // 🧍 플레이어 정보 복원
+            RestorePlayerStats(data, player);
+            RestoreInventory(data, inventory);
+            RestoreQuests(data, questManager);
+            RestoreDungeons(data, dungeonManager);
+            RestoreSoldiers(data, soldierInven, player);
+
+            player.MaxExp = Character.CalculateMaxExp(player.Level);
+
+            Console.WriteLine("📂 저장된 데이터가 게임에 적용되었습니다.");
+        }
+
+        private static void RestorePlayerStats(GameSaveData data, Character player)
+        {
             player.Name = data.Player.Name;
             player.Level = data.Player.Level;
             player.HP = data.Player.HP;
@@ -74,7 +86,10 @@ namespace Sparta_RPG2_
             player.Gold = data.Player.Gold;
             player.Job = data.Player.Job;
             player.JobName = data.Player.JobName;
+        }
 
+        private static void RestoreInventory(GameSaveData data, Inventory inventory)
+        {
             inventory.AllItems.Clear();
             if (data.Inventory != null)
             {
@@ -82,7 +97,16 @@ namespace Sparta_RPG2_
                     inventory.AllItems.Add(item);
             }
 
-            // 📋 퀘스트 진행 복원
+            inventory.expendables.Clear();
+            if (data.Expendables != null)
+            {
+                foreach (var item in data.Expendables)
+                    inventory.expendables.Add(item);
+            }
+        }
+
+        private static void RestoreQuests(GameSaveData data, QuestManager questManager)
+        {
             foreach (var quest in questManager.AllQuests)
             {
                 if (data.CompletedQuests.Contains(quest.Title ?? string.Empty))
@@ -92,8 +116,10 @@ namespace Sparta_RPG2_
                     quest.CurrentProgress = quest.Goal;
                 }
             }
+        }
 
-            // 🗺 던전 클리어 여부 복원
+        private static void RestoreDungeons(GameSaveData data, DungeonManager dungeonManager)
+        {
             foreach (var dungeon in dungeonManager.Dungeons)
             {
                 if (data.ClearedDungeons.Contains(dungeon.Name))
@@ -101,8 +127,10 @@ namespace Sparta_RPG2_
                     dungeon.IsCleared = true;
                 }
             }
+        }
 
-            // 🎖 병사 복원
+        private static void RestoreSoldiers(GameSaveData data, SoldierInven soldierInven, Character player)
+        {
             if (data.Soldiers != null)
             {
                 var soldierList = data.Soldiers.Select(p => new Soldier(p)).ToList();
@@ -117,10 +145,8 @@ namespace Sparta_RPG2_
                 }
             }
 
-            // 🎯 레벨/경험치 동기화
-            player.AddExp(0); // MaxExp 계산 + 레벨 보정 포함
-
-            Console.WriteLine("📂 저장된 데이터가 게임에 적용되었습니다.");
+            SoldierEquipped soldierEquipped = new SoldierEquipped(soldierInven, player);
+            soldierEquipped.UpdateStatsFromSoldierInven();
         }
     }
 }

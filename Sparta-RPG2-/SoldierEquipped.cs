@@ -14,7 +14,7 @@ public class SoldierEquipped
     public void AddToEquipped(Soldier soldier)
     {
         soldier.soldierPro.IsEquipped = true;
-        UpdateStatsFromSoldierInven();
+        UpdateStatsFromSoldierInven();  // 스탯 업데이트
     }
 
     public void UpdateStatsFromSoldierInven()
