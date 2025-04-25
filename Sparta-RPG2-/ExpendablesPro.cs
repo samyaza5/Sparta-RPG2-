@@ -14,17 +14,20 @@ namespace Sparta_RPG2_
         public int ItemValue { get; set; }
         public bool IsSold { get; set; } = false;
 
+        public string ItemType { get; set; } = string.Empty ;
+
         // 🔹 기본 생성자 (역직렬화 필수)
         public ExpendablesPro() { }
 
         // 🔹 JsonConstructor - 매핑 이름 일치 필수
         [JsonConstructor]
-        public ExpendablesPro(string itemName, int itemStat, string itemInfo, int itemValue)
+        public ExpendablesPro(string itemName, int itemStat, string itemInfo, int itemValue, string itemType)
         {
             ItemName = itemName;
             ItemStat = itemStat;
             ItemInfo = itemInfo;
             ItemValue = itemValue;
+            ItemType = itemType;
             IsSold = false;
         }
 
