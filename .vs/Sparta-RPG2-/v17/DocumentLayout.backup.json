@@ -7,6 +7,18 @@
       "RelativeMoniker": "D:0:0:{68E71864-37C0-434F-B2DC-774AE797B7DB}|Sparta-RPG2-\\Sparta-RPG2-.csproj|solutionrelative:sparta-rpg2-\\rpg2_intro.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{68E71864-37C0-434F-B2DC-774AE797B7DB}|Sparta-RPG2-\\Sparta-RPG2-.csproj|c:\\users\\\uC190\uD638\uC6A9\\onedrive\\\uB178\uD2B8\uBD81\\git\\git_test\\sparta-rpg2-\\sparta-rpg2-\\character.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{68E71864-37C0-434F-B2DC-774AE797B7DB}|Sparta-RPG2-\\Sparta-RPG2-.csproj|solutionrelative:sparta-rpg2-\\character.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{68E71864-37C0-434F-B2DC-774AE797B7DB}|Sparta-RPG2-\\Sparta-RPG2-.csproj|c:\\users\\\uC190\uD638\uC6A9\\onedrive\\\uB178\uD2B8\uBD81\\git\\git_test\\sparta-rpg2-\\sparta-rpg2-\\battlesystem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{68E71864-37C0-434F-B2DC-774AE797B7DB}|Sparta-RPG2-\\Sparta-RPG2-.csproj|solutionrelative:sparta-rpg2-\\battlesystem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{68E71864-37C0-434F-B2DC-774AE797B7DB}|Sparta-RPG2-\\Sparta-RPG2-.csproj|c:\\users\\\uC190\uD638\uC6A9\\onedrive\\\uB178\uD2B8\uBD81\\git\\git_test\\sparta-rpg2-\\sparta-rpg2-\\gameui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{68E71864-37C0-434F-B2DC-774AE797B7DB}|Sparta-RPG2-\\Sparta-RPG2-.csproj|solutionrelative:sparta-rpg2-\\gameui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{68E71864-37C0-434F-B2DC-774AE797B7DB}|Sparta-RPG2-\\Sparta-RPG2-.csproj|c:\\users\\\uC190\uD638\uC6A9\\onedrive\\\uB178\uD2B8\uBD81\\git\\git_test\\sparta-rpg2-\\sparta-rpg2-\\monster.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{68E71864-37C0-434F-B2DC-774AE797B7DB}|Sparta-RPG2-\\Sparta-RPG2-.csproj|solutionrelative:sparta-rpg2-\\monster.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -31,20 +43,8 @@
       "RelativeMoniker": "D:0:0:{68E71864-37C0-434F-B2DC-774AE797B7DB}|Sparta-RPG2-\\Sparta-RPG2-.csproj|solutionrelative:sparta-rpg2-\\buy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{68E71864-37C0-434F-B2DC-774AE797B7DB}|Sparta-RPG2-\\Sparta-RPG2-.csproj|c:\\users\\\uC190\uD638\uC6A9\\onedrive\\\uB178\uD2B8\uBD81\\git\\git_test\\sparta-rpg2-\\sparta-rpg2-\\battlesystem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{68E71864-37C0-434F-B2DC-774AE797B7DB}|Sparta-RPG2-\\Sparta-RPG2-.csproj|solutionrelative:sparta-rpg2-\\battlesystem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{68E71864-37C0-434F-B2DC-774AE797B7DB}|Sparta-RPG2-\\Sparta-RPG2-.csproj|c:\\users\\\uC190\uD638\uC6A9\\onedrive\\\uB178\uD2B8\uBD81\\git\\git_test\\sparta-rpg2-\\sparta-rpg2-\\character.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{68E71864-37C0-434F-B2DC-774AE797B7DB}|Sparta-RPG2-\\Sparta-RPG2-.csproj|solutionrelative:sparta-rpg2-\\character.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{68E71864-37C0-434F-B2DC-774AE797B7DB}|Sparta-RPG2-\\Sparta-RPG2-.csproj|c:\\users\\\uC190\uD638\uC6A9\\onedrive\\\uB178\uD2B8\uBD81\\git\\git_test\\sparta-rpg2-\\sparta-rpg2-\\expendables.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{68E71864-37C0-434F-B2DC-774AE797B7DB}|Sparta-RPG2-\\Sparta-RPG2-.csproj|solutionrelative:sparta-rpg2-\\expendables.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{68E71864-37C0-434F-B2DC-774AE797B7DB}|Sparta-RPG2-\\Sparta-RPG2-.csproj|c:\\users\\\uC190\uD638\uC6A9\\onedrive\\\uB178\uD2B8\uBD81\\git\\git_test\\sparta-rpg2-\\sparta-rpg2-\\gameui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{68E71864-37C0-434F-B2DC-774AE797B7DB}|Sparta-RPG2-\\Sparta-RPG2-.csproj|solutionrelative:sparta-rpg2-\\gameui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{68E71864-37C0-434F-B2DC-774AE797B7DB}|Sparta-RPG2-\\Sparta-RPG2-.csproj|c:\\users\\\uC190\uD638\uC6A9\\onedrive\\\uB178\uD2B8\uBD81\\git\\git_test\\sparta-rpg2-\\sparta-rpg2-\\item.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -86,28 +86,16 @@
               "Title": "RPG2_Intro.cs",
               "DocumentMoniker": "C:\\Users\\\uC190\uD638\uC6A9\\OneDrive\\\uB178\uD2B8\uBD81\\Git\\Git_Test\\Sparta-RPG2-\\Sparta-RPG2-\\RPG2_Intro.cs",
               "RelativeDocumentMoniker": "Sparta-RPG2-\\RPG2_Intro.cs",
-              "ToolTip": "C:\\Users\\\uC190\uD638\uC6A9\\OneDrive\\\uB178\uD2B8\uBD81\\Git\\Git_Test\\Sparta-RPG2-\\Sparta-RPG2-\\RPG2_Intro.cs*",
-              "RelativeToolTip": "Sparta-RPG2-\\RPG2_Intro.cs*",
-              "ViewState": "AgIAABEAAAAAAAAAAAAAwCsAAAAAAAAAAAAAAA==",
+              "ToolTip": "C:\\Users\\\uC190\uD638\uC6A9\\OneDrive\\\uB178\uD2B8\uBD81\\Git\\Git_Test\\Sparta-RPG2-\\Sparta-RPG2-\\RPG2_Intro.cs",
+              "RelativeToolTip": "Sparta-RPG2-\\RPG2_Intro.cs",
+              "ViewState": "AgIAAB0AAAAAAAAAAAAAwCsAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-04-25T00:42:46.283Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "Inventory.cs",
-              "DocumentMoniker": "C:\\Users\\\uC190\uD638\uC6A9\\OneDrive\\\uB178\uD2B8\uBD81\\Git\\Git_Test\\Sparta-RPG2-\\Sparta-RPG2-\\Inventory.cs",
-              "RelativeDocumentMoniker": "Sparta-RPG2-\\Inventory.cs",
-              "ToolTip": "C:\\Users\\\uC190\uD638\uC6A9\\OneDrive\\\uB178\uD2B8\uBD81\\Git\\Git_Test\\Sparta-RPG2-\\Sparta-RPG2-\\Inventory.cs",
-              "RelativeToolTip": "Sparta-RPG2-\\Inventory.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAACwAAAARAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-22T11:47:42.977Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 6,
               "Title": "ItemEquipped.cs",
               "DocumentMoniker": "C:\\Users\\\uC190\uD638\uC6A9\\OneDrive\\\uB178\uD2B8\uBD81\\Git\\Git_Test\\Sparta-RPG2-\\Sparta-RPG2-\\ItemEquipped.cs",
               "RelativeDocumentMoniker": "Sparta-RPG2-\\ItemEquipped.cs",
@@ -119,7 +107,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 5,
               "Title": "JabtemPro.cs",
               "DocumentMoniker": "C:\\Users\\\uC190\uD638\uC6A9\\OneDrive\\\uB178\uD2B8\uBD81\\Git\\Git_Test\\Sparta-RPG2-\\Sparta-RPG2-\\JabtemPro.cs",
               "RelativeDocumentMoniker": "Sparta-RPG2-\\JabtemPro.cs",
@@ -131,7 +119,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 4,
               "Title": "Monster.cs",
               "DocumentMoniker": "C:\\Users\\\uC190\uD638\uC6A9\\OneDrive\\\uB178\uD2B8\uBD81\\Git\\Git_Test\\Sparta-RPG2-\\Sparta-RPG2-\\Monster.cs",
               "RelativeDocumentMoniker": "Sparta-RPG2-\\Monster.cs",
@@ -139,12 +127,11 @@
               "RelativeToolTip": "Sparta-RPG2-\\Monster.cs",
               "ViewState": "AgIAAAUAAAAAAAAAAADwvxsAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-22T11:47:38.875Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-22T11:47:38.875Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 8,
               "Title": "ExpendablesPro.cs",
               "DocumentMoniker": "C:\\Users\\\uC190\uD638\uC6A9\\OneDrive\\\uB178\uD2B8\uBD81\\Git\\Git_Test\\Sparta-RPG2-\\Sparta-RPG2-\\ExpendablesPro.cs",
               "RelativeDocumentMoniker": "Sparta-RPG2-\\ExpendablesPro.cs",
@@ -180,15 +167,16 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 3,
               "Title": "GameUI.cs",
               "DocumentMoniker": "C:\\Users\\\uC190\uD638\uC6A9\\OneDrive\\\uB178\uD2B8\uBD81\\Git\\Git_Test\\Sparta-RPG2-\\Sparta-RPG2-\\GameUI.cs",
               "RelativeDocumentMoniker": "Sparta-RPG2-\\GameUI.cs",
               "ToolTip": "C:\\Users\\\uC190\uD638\uC6A9\\OneDrive\\\uB178\uD2B8\uBD81\\Git\\Git_Test\\Sparta-RPG2-\\Sparta-RPG2-\\GameUI.cs",
               "RelativeToolTip": "Sparta-RPG2-\\GameUI.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAoAAAAAAAAAAAAAwA8AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-22T11:47:21.079Z"
+              "WhenOpened": "2025-04-22T11:47:21.079Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -204,7 +192,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 10,
               "Title": "Expendables.cs",
               "DocumentMoniker": "C:\\Users\\\uC190\uD638\uC6A9\\OneDrive\\\uB178\uD2B8\uBD81\\Git\\Git_Test\\Sparta-RPG2-\\Sparta-RPG2-\\Expendables.cs",
               "RelativeDocumentMoniker": "Sparta-RPG2-\\Expendables.cs",
@@ -216,7 +204,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 1,
               "Title": "Character.cs",
               "DocumentMoniker": "C:\\Users\\\uC190\uD638\uC6A9\\OneDrive\\\uB178\uD2B8\uBD81\\Git\\Git_Test\\Sparta-RPG2-\\Sparta-RPG2-\\Character.cs",
               "RelativeDocumentMoniker": "Sparta-RPG2-\\Character.cs",
@@ -224,11 +212,12 @@
               "RelativeToolTip": "Sparta-RPG2-\\Character.cs",
               "ViewState": "AgIAAAcAAAAAAAAAAAAQwAsAAAAtAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-22T11:47:45.584Z"
+              "WhenOpened": "2025-04-22T11:47:45.584Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 9,
               "Title": "Buy.cs",
               "DocumentMoniker": "C:\\Users\\\uC190\uD638\uC6A9\\OneDrive\\\uB178\uD2B8\uBD81\\Git\\Git_Test\\Sparta-RPG2-\\Sparta-RPG2-\\Buy.cs",
               "RelativeDocumentMoniker": "Sparta-RPG2-\\Buy.cs",
@@ -240,15 +229,28 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 2,
               "Title": "BattleSystem.cs",
               "DocumentMoniker": "C:\\Users\\\uC190\uD638\uC6A9\\OneDrive\\\uB178\uD2B8\uBD81\\Git\\Git_Test\\Sparta-RPG2-\\Sparta-RPG2-\\BattleSystem.cs",
               "RelativeDocumentMoniker": "Sparta-RPG2-\\BattleSystem.cs",
               "ToolTip": "C:\\Users\\\uC190\uD638\uC6A9\\OneDrive\\\uB178\uD2B8\uBD81\\Git\\Git_Test\\Sparta-RPG2-\\Sparta-RPG2-\\BattleSystem.cs",
               "RelativeToolTip": "Sparta-RPG2-\\BattleSystem.cs",
-              "ViewState": "AgIAADYAAAAAAAAAAAAqwEEAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAADYAAAAAAAAAAAA8wEEAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-22T11:47:47.295Z"
+              "WhenOpened": "2025-04-22T11:47:47.295Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Inventory.cs",
+              "DocumentMoniker": "C:\\Users\\\uC190\uD638\uC6A9\\OneDrive\\\uB178\uD2B8\uBD81\\Git\\Git_Test\\Sparta-RPG2-\\Sparta-RPG2-\\Inventory.cs",
+              "RelativeDocumentMoniker": "Sparta-RPG2-\\Inventory.cs",
+              "ToolTip": "C:\\Users\\\uC190\uD638\uC6A9\\OneDrive\\\uB178\uD2B8\uBD81\\Git\\Git_Test\\Sparta-RPG2-\\Sparta-RPG2-\\Inventory.cs",
+              "RelativeToolTip": "Sparta-RPG2-\\Inventory.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACwAAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-22T11:47:42.977Z"
             },
             {
               "$type": "Document",
