@@ -1,14 +1,15 @@
-﻿namespace Sparta_RPG2_
+﻿using System.Numerics;
+
+namespace Sparta_RPG2_
 {
     public class DungeonResult
     {
-        
+        //test
 
         Inventory inventory;
         List<Item> itemList;
         List<Expendables> expendableList;
         string[] monsterName = { "공허충", "미니언", "대포미니언" };
-        //string[] rareItemName = { "스파르타쿠스의 의지", "스파르타쿠스의 분노" };
 
         public DungeonResult(Inventory inventory, List<Item> itemList, List<Expendables> expendables)
         {
@@ -33,13 +34,12 @@
                 200,
             };
 
-
-            int needExp = levelUpExp[player.Level - 1];
-
             for (int i = 3; i < 100; i++)
             {
                 levelUpExp.Add(levelUpExp[i] * 2);
             }
+ 
+            int needExp = levelUpExp[player.Level - 1];
 
             for (int i = 0; i < deadMonsterList.Count; i++)
             {
@@ -181,10 +181,11 @@
 
                 if (randItemRate < dropRareItemRate)  //레어드롭아이템추가   
                 {
-                    int rareItemIndex = rand.Next(0, 2);
-                    rareItemIndex += 5;
-                    inventory.AllItems.Add(itemList[rareItemIndex]);
-                    getItem.Add(itemList[rareItemIndex].itemPro.ItemName);
+                    int randRareItem = rand.Next(0, 2);
+                    int rareItemIdx = randRareItem == 0 ? randRareItem = 4 : randRareItem = 9;
+
+                    inventory.AllItems.Add(itemList[rareItemIdx]);
+                    getItem.Add(itemList[rareItemIdx].itemPro.ItemName);
                     //Console.WriteLine(itemList[rareItemIndex].itemPro.ItemName);
                     ////테스트출력
                     //Console.WriteLine("테스트출력");
