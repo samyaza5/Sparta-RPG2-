@@ -331,8 +331,8 @@ namespace Sparta_RPG2_
         public void Reward(Stage stage)
         {
             LevelUp(stage);
-            BattleItemReward(stage);
             BattleGold(stage);
+            BattleItemReward(stage);
         }
 
 
