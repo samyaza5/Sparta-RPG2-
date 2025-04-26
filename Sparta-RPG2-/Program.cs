@@ -131,7 +131,7 @@ namespace Sparta_RPG2_
                 Console.WriteLine("6. 🩸 [던전] 🪦 무너진 스파르타의 심장 🪦");
                 Console.WriteLine("7. 🍺 선술집");
                 Console.WriteLine("8. 🛡  병영");
-                Console.WriteLine("9. ⚕️ 치유소");
+                Console.WriteLine("9. ⛪ 구원의 성소");
                 Console.WriteLine("10. ⚔️ 스킬");
                 Console.WriteLine("0. ❌ 게임 종료\n");
 
@@ -157,7 +157,7 @@ namespace Sparta_RPG2_
                         questManager?.ShowQuestMenu();
                         break;   
                     case "6":
-                        Console.WriteLine("⚔ [던전] 타락한 아레스의 탑에 진입합니다...");
+                        Console.WriteLine("🩸 [던전] 🪦 무너진 스파르타의 심장 🪦에 진입합니다...");
                         Dungeon.AresTower.Enter(player, inventory);
                         Console.ReadLine();
                         break;
