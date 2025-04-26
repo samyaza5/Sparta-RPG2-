@@ -161,7 +161,7 @@ namespace Sparta_RPG2_
     {
         new Stage("1층 - 황야의 사냥개 '쿠라쉬'", FloorType.F1, Monstertype.B, new List<Monster>
         {
-            new Monster("쿠라쉬", 4, 85, 85, 14),
+            new Monster("쿠라쉬", 20, 850, 850, 70),
         })
         {
             IntroDialogue = "🐺 메마른 대지의 분노가 이빨이 되어 너를 물어뜯는다.",
@@ -175,7 +175,7 @@ namespace Sparta_RPG2_
 
         new Stage("2층 - 저주의 투창병 '나자르'", FloorType.F2, Monstertype.B, new List<Monster>
     {
-        new Monster("나자르", 6, 90, 90, 14),
+        new Monster("나자르", 30, 900, 900, 70),
     })
     {
         IntroDialogue = "🏹 이 창은 죽은 자의 복수를 품고 있다. 넌 그 끝을 보게 될 것이다.",
@@ -188,7 +188,7 @@ namespace Sparta_RPG2_
 
         new Stage("3층 - 그림자의 첩자 '자이르'", FloorType.F3, Monstertype.B, new List<Monster>
     {
-        new Monster("자이르", 7, 95, 95, 15),
+        new Monster("자이르", 35, 950, 950, 75),
     })
     {
         IntroDialogue = "🌑 달 없는 밤, 내 단검은 침묵 속에 내리꽂힌다.",
@@ -201,7 +201,7 @@ namespace Sparta_RPG2_
 
        new Stage("4층 - 오염된 제사장 '아트란'", FloorType.F4, Monstertype.B, new List<Monster>
     {
-        new Monster("아트란", 8, 120, 120, 16),
+        new Monster("아트란", 40, 1200, 1200, 80),
     })
     {
         IntroDialogue = "📿 신의 이름으로 피를 바친다. 나의 신은 죽지 않았다.",
@@ -214,7 +214,7 @@ namespace Sparta_RPG2_
 
         new Stage("5층 - 전쟁의 망령 '사피로스'", FloorType.F5, Monstertype.B, new List<Monster>
     {
-        new Monster("사피로스", 12, 180, 180, 30),
+        new Monster("사피로스", 60, 1800, 1800, 150),
     })
     {
         IntroDialogue = "🔥 내가 죽은 건 전쟁 때문이 아니었다. 난 전쟁 그 자체였지.",

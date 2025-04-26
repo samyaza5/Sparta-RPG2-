@@ -5,6 +5,8 @@
         // 📊 상태 보기
         public void ShowStatus(Character player)
         {
+            player.TryLevelUp(); // ✅ 상태 보기 전에 자동 레벨업 처리
+
             Console.Clear();
             Console.WriteLine($"\n📛 Lv. {player.Level}");
             Console.WriteLine($"🧝‍ {player.Name} ({player.JobName})");

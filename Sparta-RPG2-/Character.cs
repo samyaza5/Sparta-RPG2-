@@ -64,7 +64,22 @@
             }
         }
 
-        
-        
+        public void TryLevelUp()
+        {
+            while (Exp >= MaxExp)
+            {
+                Exp -= MaxExp;
+                Level++;
+
+                Attack += 2;
+                Defense += 2;
+
+                MaxExp = CalculateMaxExp(Level);
+
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine($"\n🎉 레벨업! Lv.{Level}");
+                Console.ResetColor();
+            }
+        }
     }
 }
