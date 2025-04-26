@@ -4,6 +4,13 @@ class Intro
     {
         Console.ReadKey();
         Console.Clear();
+
+        Console.ForegroundColor = ConsoleColor.Yellow;
+        Console.WriteLine("▶ 인트로 스토리를 보시려면 잠시 기다려주세요...");
+        Console.WriteLine("⏩ [S] 키를 누르면 인트로를 스킵할 수 있습니다.\n");
+        Console.ResetColor();
+        Thread.Sleep(2000);
+
         Console.ForegroundColor = ConsoleColor.Red;       
 
         string[] introLines = {
@@ -24,9 +31,7 @@ class Intro
 
         };
 
-        Console.WriteLine("▶ 인트로 스토리를 보시려면 잠시 기다려주세요...");
-        Console.WriteLine("⏩ [S] 키를 누르면 인트로를 스킵할 수 있습니다.\n");
-        Thread.Sleep(2000);
+      
 
         bool isSkipped = false;
 
@@ -47,6 +52,7 @@ class Intro
         if (isSkipped)
         {
             Console.Clear();
+            Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine("[⏩ 인트로가 스킵되었습니다.]\n");
             Thread.Sleep(1000);
             Console.ResetColor();

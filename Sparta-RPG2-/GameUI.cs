@@ -5,21 +5,43 @@
         // 📊 상태 보기
         public void ShowStatus(Character player)
         {
-            player.TryLevelUp(); // ✅ 상태 보기 전에 자동 레벨업 처리
+            bool inMenu = true;
 
-            Console.Clear();
-            Console.WriteLine($"\n📛 Lv. {player.Level}");
-            Console.WriteLine($"🧝‍ {player.Name} ({player.JobName})");
-            Console.WriteLine($"⚔️ 공격력 : {player.Attack} {(player.WeaponPower == 0 ? "" : " + " + player.WeaponPower)}");
-            Console.WriteLine($"🛡️ 방어력 : {player.Defense} {(player.ArmorPower == 0 ? "" : " + " + player.ArmorPower)}");
-            Console.WriteLine($"🏰 군대 : 전투력 : {player.SoldierAttack} | 결집력 : {player.SoldierDefense}");
-            Console.WriteLine($"❤️ 체 력 : {player.HP} / {player.MaxHP}");
-            Console.WriteLine($"💰 Gold : {player.Gold:N0} G");
-            ShowExpBar(player); // 🎯 경험치 게이지 출력
+            while (inMenu)
+            {
+                Console.Clear(); // ✅ 여기에서 Clear
+                player.TryLevelUp(); // ✅ 상태 보기 전에 레벨업 시도
 
-            Console.WriteLine("\n0. 나가기");
-            Console.Write(">> ");
+                Console.WriteLine($"\n📛 Lv. {player.Level}");
+                Console.WriteLine($"🧝‍ {player.Name} ({player.JobName})");
+                Console.WriteLine($"⚔️ 공격력 : {player.Attack} {(player.WeaponPower == 0 ? "" : " + " + player.WeaponPower)}");
+                Console.WriteLine($"🛡️ 방어력 : {player.Defense} {(player.ArmorPower == 0 ? "" : " + " + player.ArmorPower)}");
+                Console.WriteLine($"🏰 군대 : 전투력 : {player.SoldierAttack} | 결집력 : {player.SoldierDefense}");
+                Console.WriteLine($"❤️ 체 력 : {player.HP} / {player.MaxHP}");
+                Console.WriteLine($"💰 Gold : {player.Gold:N0} G");
+                ShowExpBar(player); // 🎯 경험치 게이지 출력
+
+                Console.WriteLine("\n0. 나가기");
+                Console.WriteLine("9. 닉네임 변경");
+                Console.Write(">> ");
+                string? input = Console.ReadLine();
+
+                switch (input)
+                {
+                    case "0":
+                        inMenu = false;
+                        return;
+                    case "9":
+                        ChangePlayerName.ChangeName(player);
+                        break;
+                    default:
+                        Console.WriteLine("❌ 잘못된 입력입니다!");
+                        Thread.Sleep(1000);
+                        break;
+                }
+            }
         }
+       
 
         public void ShowExpBar(Character player)
         {
