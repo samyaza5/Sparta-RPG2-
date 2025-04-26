@@ -245,7 +245,7 @@ namespace Sparta_RPG2_
                     return true;
 
                 case BattleResult.Escape:
-                    WriteColoredLine($"⚠️ {stage.Name}에서 도망쳤습니다. 던전 진행이 중단됩니다.", ConsoleColor.Yellow);
+                    WriteColoredLine($"⚠️ {stage.Name}에게서 도망쳤습니다. 던전 진행이 중단됩니다.", ConsoleColor.Yellow);
                     Thread.Sleep(2000); // 연출용 약간의 대기
                     Program.ShowStartMenu(); // 🔁 메인 메뉴로 복귀
                     return false;
