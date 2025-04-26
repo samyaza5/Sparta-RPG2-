@@ -133,7 +133,7 @@ namespace Sparta_RPG2_
             Thread.Sleep(1000);
             Console.WriteLine("🩸 무너진 벽 틈 사이로 피비린내와 전사들의 신음이 흘러나옵니다...");
             Thread.Sleep(1500);
-            Console.WriteLine("💬 \"이곳이... 페르시아 병사들이 남긴 마지막 흔적이군.\" 당신은 검을 높이 듭니다.");
+            Console.WriteLine("💬 \"이곳이... 스파르타 전사들이 남긴 마지막 흔적이군.\" 당신은 검을 높이 듭니다.");
             Thread.Sleep(1500);
             Console.WriteLine($"\n[Enter] 키를 눌러 '{dungeonName}'에 진입하세요.");
             while (Console.ReadKey(true).Key != ConsoleKey.Enter);
@@ -152,59 +152,58 @@ namespace Sparta_RPG2_
             IsCleared = true;
         }
 
-        // ✅ 여기! 타락한 아레스의 탑을 미리 정의해둡니다.
+        // ✅ 여기! 던전을 미리 정의해둡니다.
         public static Dungeon AresTower => new Dungeon
         {
-            Name = "페르시아의 잔재 - 저주받은 오아시스",
+            Name = "🪦 무너진 스파르타의 심장 🪦",
             RequiredLevel = 1,
             Stages = new List<Stage>
     {
-        new Stage("1층 - 황야의 사냥개 '쿠라쉬'", FloorType.F1, Monstertype.B, new List<Monster>
-        {
-            new Monster("쿠라쉬", 20, 850, 850, 70),
-        })
-        {
-            IntroDialogue = "🐺 메마른 대지의 분노가 이빨이 되어 너를 물어뜯는다.",
-            BossArt = @"
-═══════════════════════════
-   🐺  K U R A S H  🌵
- 『페르시아 황야의 맹수』
-═══════════════════════════"
-
-        },
-
-        new Stage("2층 - 저주의 투창병 '나자르'", FloorType.F2, Monstertype.B, new List<Monster>
-    {
-        new Monster("나자르", 30, 900, 900, 70),
-    })
-    {
-        IntroDialogue = "🏹 이 창은 죽은 자의 복수를 품고 있다. 넌 그 끝을 보게 될 것이다.",
-        BossArt = @"
+        new Stage("1층 - 붉은 폐허의 유령 '카이론'", FloorType.F1, Monstertype.B, new List<Monster>
+{
+    new Monster("카이론", 25, 850, 850, 65),
+})
+{
+    IntroDialogue = "🪦 무너진 대지 위에, 잊혀진 자들의 혼이 떠돈다..",
+    BossArt = @"
 ════════════════════════════
-  🏹   N A Z A R   ⚔️
-『복수의 혼을 담은 창병』
+    🪦  C H A I R O N  ⚔️
+ 『붉은 폐허를 배회하는 전사의 유령』
 ════════════════════════════"
-    },
+},
 
-        new Stage("3층 - 그림자의 첩자 '자이르'", FloorType.F3, Monstertype.B, new List<Monster>
-    {
-        new Monster("자이르", 35, 950, 950, 75),
-    })
-    {
-        IntroDialogue = "🌑 달 없는 밤, 내 단검은 침묵 속에 내리꽂힌다.",
-        BossArt = @"
-═════════════════════════
-    🌑  Z A I R   🗡️
- 『어둠 속 페르시아 첩자』
-═════════════════════════"
-    },
+        new Stage("2층 - 타락한 수호자 '모라드'", FloorType.F2, Monstertype.B, new List<Monster>
+{
+    new Monster("모라드", 32, 950, 950, 75), // ✅ 기존보다 약간 강화된 능력치 (보스 무게감 반영)
+})
+{
+    IntroDialogue = "🛡️ 내가 지키던 것은 스파르타였다.. 이젠 그 폐허만을 지킬 뿐이다..",
+    BossArt = @"
+════════════════════════════
+    🛡️  M O R A D  ⚔️
+『타락한 심장의 수호자』
+════════════════════════════"
+},
+
+        new Stage("3층 - 스파르타의 배신자 '칼리크'", FloorType.F3, Monstertype.B, new List<Monster>
+{
+    new Monster("칼리크", 38, 1000, 1000, 80),
+})
+{
+    IntroDialogue = "🩸 그날.., 심장을 꿰뚫은 것은 적이 아니라 동지였다..",
+    BossArt = @"
+══════════════════════════
+    🩸  K A L I Q  🗡️
+ 『스파르타를 무너뜨린 배신자』
+══════════════════════════"
+},
 
        new Stage("4층 - 오염된 제사장 '아트란'", FloorType.F4, Monstertype.B, new List<Monster>
     {
         new Monster("아트란", 40, 1200, 1200, 80),
     })
     {
-        IntroDialogue = "📿 신의 이름으로 피를 바친다. 나의 신은 죽지 않았다.",
+        IntroDialogue = "📿 신의 이름으로 피를 바친다! 나의 신은 아직 죽지 않았다!",
         BossArt = @"
 ════════════════════════════
    🕯️   A T R A N   📿
@@ -217,7 +216,7 @@ namespace Sparta_RPG2_
         new Monster("사피로스", 60, 1800, 1800, 150),
     })
     {
-        IntroDialogue = "🔥 내가 죽은 건 전쟁 때문이 아니었다. 난 전쟁 그 자체였지.",
+        IntroDialogue = "🔥 나는 전쟁 속에서 죽지 않았다.. 내가 곧 전쟁이었다!!",
         BossArt = @"
 ══════════════════════════
    🔥  S A P H I R O S  🪓

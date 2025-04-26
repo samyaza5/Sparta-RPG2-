@@ -280,13 +280,17 @@ namespace Sparta_RPG2_
                 if (context.Player.HP <= 0)
                 {
                     WriteColoredLine("☠️ 당신은 쓰러졌습니다...", ConsoleColor.Red);
-                    return BattleResult.Defeat;
+                    return BattleResult.Defeat; // 🛑 여기서 바로 함수 종료
                 }
 
                 WaitForNextTurn();
             }
 
-            return BattleResult.Victory;
+            // while문을 정상적으로 탈출했다면
+            if (context.Player.HP > 0)
+                return BattleResult.Victory;
+            else
+                return BattleResult.Defeat;
         }
 
         private void EnterStage(Stage stage)

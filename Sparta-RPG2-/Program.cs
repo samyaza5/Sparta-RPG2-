@@ -128,7 +128,7 @@ namespace Sparta_RPG2_
                 Console.WriteLine("3. 🏺 인벤토리");
                 Console.WriteLine("4. 💰 상점");
                 Console.WriteLine("5. 📜 의뢰 목록");
-                Console.WriteLine("6. 🏰 [던전] ⚔️ 타락한 아레스의 탑 ⚔️");
+                Console.WriteLine("6. 🩸 [던전] 🪦 무너진 스파르타의 심장 🪦");
                 Console.WriteLine("7. 🍺 선술집");
                 Console.WriteLine("8. 🛡  병영");
                 Console.WriteLine("9. ⚕️ 치유소");
