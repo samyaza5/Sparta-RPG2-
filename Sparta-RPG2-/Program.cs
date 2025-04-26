@@ -58,7 +58,7 @@ namespace Sparta_RPG2_
             
 
             var loadedData = GameSaveManager.LoadGame();
-            GameSaveManager.ApplySaveData(loadedData, player, inventory, questManager, dungeonManager, soldierInven);
+            GameSaveManager.ApplySaveData(loadedData, player, inventory, questManager, dungeonManager, soldierInven, itemEquipped);
 
 
             // 아이템 초기화

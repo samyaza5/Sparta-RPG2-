@@ -57,7 +57,7 @@ namespace Sparta_RPG2_
             return (int)(100 * Math.Pow(1.1, level % 10) * Math.Pow(2, level / 10));
         }
 
-        public static void ApplySaveData(GameSaveData data, Character player, Inventory inventory, QuestManager questManager, DungeonManager dungeonManager, SoldierInven soldierInven)
+        public static void ApplySaveData(GameSaveData data, Character player, Inventory inventory, QuestManager questManager, DungeonManager dungeonManager, SoldierInven soldierInven, ItemEquipped itemEquipped)
         {
             if (data == null) return;
 
@@ -68,6 +68,8 @@ namespace Sparta_RPG2_
             RestoreSoldiers(data, soldierInven, player);
 
             player.MaxExp = Character.CalculateMaxExp(player.Level);
+
+            itemEquipped.UpdateStatsFromInventory(inventory.AllItems);
 
             Console.WriteLine("📂 저장된 데이터가 게임에 적용되었습니다.");
         }
