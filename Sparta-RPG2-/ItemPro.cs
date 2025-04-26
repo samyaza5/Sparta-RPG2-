@@ -12,6 +12,7 @@ namespace Sparta_RPG2_
         public bool IsArmor { get; set; }
         public bool IsWeapon { get; set; }
         public bool IsEquipped { get; set; }
+        public int SellPrice => ItemValue * 85 / 100;
 
         // 🔹 기본 생성자 (필수 - 역직렬화 시 사용됨)
         public ItemPro() { }

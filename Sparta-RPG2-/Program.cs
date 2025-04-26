@@ -101,7 +101,7 @@ namespace Sparta_RPG2_
             });
 
             buy = new Buy(allItems, expendables, player, inventory, itemEquipped);
-            shop = new Shop(player, allItems, expendables, buy);
+            shop = new Shop(player, inventory, expendables, buy);
             buy.SetShop(shop);
 
             buySoldier = new BuySoldier(soldiers,player, soldierInven, soldierEquipped);

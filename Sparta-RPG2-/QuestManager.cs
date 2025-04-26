@@ -53,7 +53,7 @@ namespace Sparta_RPG2_
             {
                 Title = "강함을 증명하라!",
                 Description = "스파르타의 피는 쉽게 식지 않는다. 레벨을 3까지 올려 전사로서의 자격을 증명하십시오.",
-                Goal = 3,
+                Goal = 50,
                 CurrentProgress = 1,
                 Type = QuestType.LevelUp,
                 RewardEXP = 5000,
