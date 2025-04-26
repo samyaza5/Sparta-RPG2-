@@ -1,6 +1,7 @@
 ﻿using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Numerics;
+using System.Threading;
 
 namespace Sparta_RPG2_
 {
@@ -128,7 +129,8 @@ namespace Sparta_RPG2_
             Random rand = new Random();
 
             //랜덤아이템추가 
-            List<string> gainedItem = new List<string>();
+            //List<string> gainedItem = new List<string>();
+            Dictionary<string, int> gainItem = new Dictionary<string, int>();
 
 
             for (int i = 0; i < deadMonsterList.Count; i++)
@@ -153,12 +155,19 @@ namespace Sparta_RPG2_
                     int rareItemIdx = randRareItem == 0 ? randRareItem = 4 : randRareItem = 9;
 
                     inventory.AllItems.Add(itemList[rareItemIdx]);
-                    gainedItem.Add(itemList[rareItemIdx].itemPro.ItemName);
+                    //gainedItem.Add(itemList[rareItemIdx].itemPro.ItemName);
+                    if (gainItem.ContainsKey($"{itemList[rareItemIdx].itemPro.ItemName}"))
+                    {
+                        gainItem[itemList[rareItemIdx].itemPro.ItemName]++;
+                    }
+                    else gainItem[itemList[rareItemIdx].itemPro.ItemName] = 1;
+
 
                     //병사추가
                     soldierList.Add(soldierDb[9]);
-                    gainedItem.Add(soldierDb[9].soldierPro.ItemName);
+                    //gainedItem.Add(soldierDb[9].soldierPro.ItemName);
 
+                    
                     //Console.WriteLine(itemList[rareItemIndex].itemPro.ItemName);
                     ////테스트출력
                     //Console.WriteLine("테스트출력");
@@ -174,32 +183,69 @@ namespace Sparta_RPG2_
                     {
                         int randItem = rand.Next(0, expendableList.Count);
                         inventory.expendables.Add(expendableList[randItem]);
-                        gainedItem.Add(expendableList[randItem].expendablesPro.ItemName);
+                        //gainedItem.Add(expendableList[randItem].expendablesPro.ItemName);
+
+                        if (gainItem.ContainsKey($"{expendableList[randItem].expendablesPro.ItemName}"))
+                        {
+                            gainItem[expendableList[randItem].expendablesPro.ItemName]++;
+                        }
+                        else gainItem[expendableList[randItem].expendablesPro.ItemName] = 1;
 
                     }
                     else if (deadMonsterName == monsterName[1])
                     {
                         int randItem = rand.Next(0, 4);
                         inventory.AllItems.Add(itemList[randItem]);
-                        gainedItem.Add(itemList[randItem].itemPro.ItemName);
+                        //gainedItem.Add(itemList[randItem].itemPro.ItemName);
+                        if (gainItem.ContainsKey($"{itemList[randItem].itemPro.ItemName}"))
+                        {
+                            gainItem[itemList[randItem].itemPro.ItemName]++;
+                        }
+                        else gainItem[itemList[randItem].itemPro.ItemName] = 1;
 
                         //병사추가
                         soldierList.Add(soldierDb[randItem]);
-                        gainedItem.Add(soldierDb[randItem].soldierPro.ItemName);
+                        //gainedItem.Add(soldierDb[randItem].soldierPro.ItemName);
+                        if (gainItem.ContainsKey($"{soldierDb[randItem].soldierPro.ItemName}"))
+                        {
+                            gainItem[soldierDb[randItem].soldierPro.ItemName]++;
+                        }
+                        else gainItem[soldierDb[randItem].soldierPro.ItemName] = 1;
+
 
                     }
                     else if (deadMonsterName == monsterName[2])
                     {
                         int randItem = rand.Next(5, 9);
                         inventory.AllItems.Add(itemList[randItem]);
-                        gainedItem.Add(itemList[randItem].itemPro.ItemName);
-
+                        //gainedItem.Add(itemList[randItem].itemPro.ItemName);
+                        if (gainItem.ContainsKey($"{itemList[randItem].itemPro.ItemName}"))
+                        {
+                            gainItem[itemList[randItem].itemPro.ItemName]++;
+                        }
+                        else gainItem[itemList[randItem].itemPro.ItemName] = 1;
 
                     }
                 }
             }
             //아이템 출력
-            PrintItemReward(gainedItem);
+            PrintRewardItem(gainItem);
+
+        }
+
+        private static void PrintRewardItem(Dictionary<string, int> gainItem)
+        {
+            foreach (var item in gainItem)
+            {
+
+                Console.Write($"{item.Key}");
+
+                Console.ForegroundColor = ConsoleColor.DarkYellow;
+                Console.Write(" - ");
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine($"{item.Value} ");
+                Console.ResetColor();
+            }
         }
 
 
