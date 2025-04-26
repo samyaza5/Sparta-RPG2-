@@ -56,34 +56,34 @@ namespace Sparta_RPG2_
 
         private List<Monster> GenerateMonsters()
         {
-            string[] names = { "미니언", "대포미니언", "공허충" };
+            string[] names = { "버려진 창병", "부패한 검투사", "망각의 방랑자", "타락한 궁수", "오염된 근위병" };
             Random rand = new();
-            int count = rand.Next(1, 5);
+            int count = rand.Next(1, 5); 
             var list = new List<Monster>();
 
             for (int i = 0; i < count; i++)
             {
                 string name = names[rand.Next(names.Length)];
                 int level = rand.Next(1, 6);
+
                 int hp = name switch
                 {
-                    "미니언" => 15,
-                    "대포미니언" => 25,
-                    "공허충" => 10,
-                    _ => 10
+                    "버려진 창병" => 20,
+                    "부패한 검투사" => 25,
+                    "망각의 방랑자" => 18,
+                    "타락한 궁수" => 17,
+                    "오염된 근위병" => 30,
+                    _ => 15
                 };
-                int maxHP = name switch
-                {
-                    "미니언" => 15,
-                    "대포미니언" => 25,
-                    "공허충" => 10,
-                    _ => 10
-                };
+
+                int maxHP = hp;
                 int attack = name switch
                 {
-                    "미니언" => 5,
-                    "대포미니언" => 8,
-                    "공허충" => 9,
+                    "버려진 창병" => 6,
+                    "부패한 검투사" => 7,
+                    "망각의 방랑자" => 5,
+                    "타락한 궁수" => 6,
+                    "오염된 근위병" => 9,
                     _ => 5
                 };
 
@@ -97,10 +97,18 @@ namespace Sparta_RPG2_
         {
 
             Console.Clear();
-            Console.WriteLine("Battle!!\n");
 
-            // 플레이어가 랜덤 몬스터를 공격
-            Random rand = new Random();
+            string[] battleStartQuotes =
+ {
+    "⚔️ 검을 쥐고 전장으로 뛰어든다!",
+    "🩸 폐허 위로 다시 피가 흐르기 시작한다...",
+    "🛡️ 무너진 벽 뒤에서 적들이 모습을 드러낸다!",
+    "🔥 모래바람을 가르며 전투가 시작된다!",
+    "🗡️ 죽음과 생존이 교차하는 곳에 내가 섰다!"
+};
+            Random rand = new();
+            Console.WriteLine(battleStartQuotes[rand.Next(battleStartQuotes.Length)]);
+            Console.WriteLine(); // 띄어쓰기
 
             int evasionRate = rand.Next(1, 101);
             int criRate = rand.Next(1, 101);
@@ -1124,7 +1132,7 @@ namespace Sparta_RPG2_
                 Console.ResetColor();
 
                 int defeatedCount = monsters.Count(m => m.IsDead);
-                Console.WriteLine($"던전에서 몬스터 {monsters.Count}마리를 잡았습니다.\n");
+                Console.WriteLine($"전투에서 적군을 {monsters.Count}명을 잡았습니다.\n");
 
 
                 context.QuestManager.OngoingQuests(QuestType.MonsterKill, defeatedCount);
