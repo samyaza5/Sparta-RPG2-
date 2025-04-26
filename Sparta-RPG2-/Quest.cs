@@ -26,7 +26,8 @@
         public int RewardEXP { get; set; }
         public int RewardGold { get; set; }
         public Character? player { get; private set; }
-       
+        public bool IsRewarded { get; set; } = false;
+
     }
 }
     

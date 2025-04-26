@@ -29,6 +29,9 @@ namespace Sparta_RPG2_
         /// </summary>
         public void InitQuests()
         {
+            if (AllQuests.Count > 0)
+                return; // 이미 불러온 퀘스트가 있으면 초기화 금지
+
             AllQuests.Add(new Quest
             {
                 Title = "스파르타의 저주받은 전사 척결",
@@ -52,8 +55,8 @@ namespace Sparta_RPG2_
             AllQuests.Add(new Quest
             {
                 Title = "강함을 증명하라!",
-                Description = "스파르타의 피는 쉽게 식지 않는다. 레벨을 3까지 올려 전사로서의 자격을 증명하십시오.",
-                Goal = 50,
+                Description = "스파르타의 피는 쉽게 식지 않는다. 레벨을 더 올려 전사로서의 강인함을 증명하십시오.",
+                Goal = 5,
                 CurrentProgress = 1,
                 Type = QuestType.LevelUp,
                 RewardEXP = 5000,
@@ -167,7 +170,7 @@ namespace Sparta_RPG2_
         public void ShowCompletableQuests()
         {
             var completable = AllQuests.Where(q => q.IsAccepted && q.CurrentProgress >= q.Goal && !q.IsCompleted).ToList();
-            var completed = AllQuests.Where(q => q.IsCompleted).ToList();
+            var completed = AllQuests.Where(q => q.IsCompleted && !q.IsRewarded).ToList();
 
             if (completable.Count == 0 && completed.Count == 0)
             {
@@ -251,6 +254,8 @@ namespace Sparta_RPG2_
 
             player.AddExp(quest.RewardEXP);
             player.Gold += quest.RewardGold;
+
+            quest.IsRewarded = true; // ✅ 보상 수령 완료 처리
 
             GameSaveManager.AutoSave(
                 player,

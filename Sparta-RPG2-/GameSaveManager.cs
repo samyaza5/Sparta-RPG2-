@@ -42,7 +42,7 @@ namespace Sparta_RPG2_
                 Player = player,
                 Inventory = inventory.AllItems,
                 Expendables = inventory.expendables,
-                CompletedQuests = questManager.GetCompletedQuestTitles(),
+                Quests = questManager.AllQuests,
                 ClearedDungeons = dungeonManager.GetClearedDungeons(),
                 Soldiers = soldierInven.AllSoldiers.Select(s => s.soldierPro).ToList(),
                 EquippedSoldierName = soldierInven.AllSoldiers.FirstOrDefault(s => s.soldierPro.IsEquipped)?.soldierPro.ItemName
@@ -107,13 +107,12 @@ namespace Sparta_RPG2_
 
         private static void RestoreQuests(GameSaveData data, QuestManager questManager)
         {
-            foreach (var quest in questManager.AllQuests)
+            if (data.Quests != null)
             {
-                if (data.CompletedQuests.Contains(quest.Title ?? string.Empty))
+                questManager.AllQuests.Clear();
+                foreach (var quest in data.Quests)
                 {
-                    quest.IsAccepted = true;
-                    quest.IsCompleted = true;
-                    quest.CurrentProgress = quest.Goal;
+                    questManager.AllQuests.Add(quest);
                 }
             }
         }

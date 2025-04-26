@@ -20,5 +20,6 @@ namespace Sparta_RPG2_
         public string? EquippedArmorName { get; set; }
         public List<SoldierPro> Soldiers { get; set; } = new();
         public string? EquippedSoldierName { get; set; }
+        public List<Quest>? Quests { get; set; }
     }
 }
