@@ -10,7 +10,6 @@ namespace Sparta_RPG2_
         Inventory inventory;
         List<Item> itemList;
         List<Expendables> expendableList;
-        string[] monsterName = { "공허충", "미니언", "대포미니언" };
 
         //병사DB 
         List<Soldier> soldierDb = Program.soldiers;
@@ -131,6 +130,7 @@ namespace Sparta_RPG2_
             //랜덤아이템추가 
             //List<string> gainedItem = new List<string>();
             Dictionary<string, int> gainItem = new Dictionary<string, int>();
+            Dictionary<string, int> gainSoldier = new Dictionary<string, int>();
 
 
             for (int i = 0; i < deadMonsterList.Count; i++)
@@ -179,7 +179,7 @@ namespace Sparta_RPG2_
                 }
                 else  //기본드롭아이템추가
                 {
-                    if (deadMonsterName == monsterName[0])
+                    if (deadMonsterList[i].Attack < 6)
                     {
                         int randItem = rand.Next(0, expendableList.Count);
                         inventory.expendables.Add(expendableList[randItem]);
@@ -192,7 +192,7 @@ namespace Sparta_RPG2_
                         else gainItem[expendableList[randItem].expendablesPro.ItemName] = 1;
 
                     }
-                    else if (deadMonsterName == monsterName[1])
+                    else if (deadMonsterList[i].Attack < 7)
                     {
                         int randItem = rand.Next(0, 4);
                         inventory.AllItems.Add(itemList[randItem]);
@@ -203,18 +203,8 @@ namespace Sparta_RPG2_
                         }
                         else gainItem[itemList[randItem].itemPro.ItemName] = 1;
 
-                        //병사추가
-                        soldierList.Add(soldierDb[randItem]);
-                        //gainedItem.Add(soldierDb[randItem].soldierPro.ItemName);
-                        if (gainItem.ContainsKey($"{soldierDb[randItem].soldierPro.ItemName}"))
-                        {
-                            gainItem[soldierDb[randItem].soldierPro.ItemName]++;
-                        }
-                        else gainItem[soldierDb[randItem].soldierPro.ItemName] = 1;
-
-
                     }
-                    else if (deadMonsterName == monsterName[2])
+                    else if (deadMonsterList[i].Attack < 8)
                     {
                         int randItem = rand.Next(5, 9);
                         inventory.AllItems.Add(itemList[randItem]);
@@ -226,11 +216,38 @@ namespace Sparta_RPG2_
                         else gainItem[itemList[randItem].itemPro.ItemName] = 1;
 
                     }
+                    else if (deadMonsterList[i].Attack < 10)
+                    {
+                        int randItem = rand.Next(0, 5);
+                        //병사추가
+                        soldierList.Add(soldierDb[randItem]);
+                        //gainedItem.Add(soldierDb[randItem].soldierPro.ItemName);
+                        if (gainSoldier.ContainsKey($"{soldierDb[randItem].soldierPro.ItemName}"))
+                        {
+                            gainSoldier[soldierDb[randItem].soldierPro.ItemName]++;
+                        }
+                        else gainSoldier[soldierDb[randItem].soldierPro.ItemName] = 1;
+                    }
                 }
             }
             //아이템 출력
             PrintRewardItem(gainItem);
+            Console.WriteLine(); 
+            if (gainSoldier.Count > 0)
+            {
+                Console.WriteLine("[사로잡은 포로]");
+                foreach (var item in gainSoldier)
+                {
+                    Console.Write($"{item.Key}");
 
+                    Console.ForegroundColor = ConsoleColor.DarkYellow;
+                    Console.Write(" - ");
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine($"{item.Value} ");
+                    Console.ResetColor();
+                }
+            }
+            
         }
 
         private static void PrintRewardItem(Dictionary<string, int> gainItem)
