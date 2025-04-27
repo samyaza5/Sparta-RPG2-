@@ -10,6 +10,7 @@ namespace Sparta_RPG2_
         Inventory inventory;
         List<Item> itemList;
         List<Expendables> expendableList;
+        string[] monsterName = { "버려진 창병", "부패한 검투사", "망각의 방랑자", "타락한 궁수", "오염된 근위병" };
 
         //병사DB 
         List<Soldier> soldierDb = Program.soldiers;
