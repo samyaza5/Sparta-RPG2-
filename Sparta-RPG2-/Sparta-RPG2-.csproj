@@ -8,24 +8,4 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <ItemGroup>
-    <None Remove="background.wav" />
-    <None Remove="Sounds\SpartaSound.mp3" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="Sounds\background.wav">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <Generator> Content</Generator>
-    </Content>
-    <Content Include="Sounds\SpartaSound.mp3">
-      <Generator>Content</Generator>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="NAudio" Version="2.2.1" />
-  </ItemGroup>
-
 </Project>
