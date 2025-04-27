@@ -207,18 +207,6 @@ namespace Sparta_RPG2_
                     }
                     else if (deadMonsterList[i].Attack < 8)
                     {
-                        int randItem = rand.Next(5, 9);
-                        inventory.AllItems.Add(itemList[randItem]);
-                        //gainedItem.Add(itemList[randItem].itemPro.ItemName);
-                        if (gainItem.ContainsKey($"{itemList[randItem].itemPro.ItemName}"))
-                        {
-                            gainItem[itemList[randItem].itemPro.ItemName]++;
-                        }
-                        else gainItem[itemList[randItem].itemPro.ItemName] = 1;
-
-                    }
-                    else if (deadMonsterList[i].Attack < 10)
-                    {
                         int randItem = rand.Next(0, 5);
                         //병사추가
                         soldierList.Add(soldierDb[randItem]);
@@ -228,6 +216,18 @@ namespace Sparta_RPG2_
                             gainSoldier[soldierDb[randItem].soldierPro.ItemName]++;
                         }
                         else gainSoldier[soldierDb[randItem].soldierPro.ItemName] = 1;
+
+                    }
+                    else if (deadMonsterList[i].Attack < 10)
+                    {
+                        int randItem = rand.Next(5, 9);
+                        inventory.AllItems.Add(itemList[randItem]);
+                        //gainedItem.Add(itemList[randItem].itemPro.ItemName);
+                        if (gainItem.ContainsKey($"{itemList[randItem].itemPro.ItemName}"))
+                        {
+                            gainItem[itemList[randItem].itemPro.ItemName]++;
+                        }
+                        else gainItem[itemList[randItem].itemPro.ItemName] = 1;
                     }
                 }
             }
