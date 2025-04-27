@@ -43,30 +43,68 @@ namespace Sparta_RPG2_
 
         public bool Execute(Character player)
         {
-            Console.WriteLine($"▶ {Name} ({Type})에 진입합니다.");
+            ShowStageIntro(); // 1. ▶ 이름 (타입) 출력 + [Enter] 대기
 
             if (Type == Monstertype.B)
             {
-                Console.ForegroundColor = ConsoleColor.DarkRed;
-
-                if (!string.IsNullOrEmpty(BossArt))
-                    Console.WriteLine(BossArt);
-
-                if (!string.IsNullOrEmpty(IntroDialogue))
-                    Console.WriteLine(IntroDialogue);
-
-                Console.ResetColor();
-
-                Console.WriteLine(); // 줄 띄움
-                Console.ForegroundColor = ConsoleColor.Gray;
-                Console.Write("[Enter] 키를 눌러 전투를 시작하세요...");
-                Console.ResetColor();
-
-                while (Console.ReadKey(true).Key != ConsoleKey.Enter) ; // Enter 대기
+                ShowBossEntrance(); // 2. 보스 등장 연출
             }
 
             return true;
         }
+
+        /// <summary>
+        /// 던전 스테이지 진입 인트로 출력
+        /// </summary>
+        private void ShowStageIntro()
+        {
+            Console.Clear();
+            Console.ForegroundColor = ConsoleColor.Gray;
+            Console.WriteLine($"▶ {Name} ({Type})에 진입합니다.");
+
+            Console.WriteLine();
+            Console.Write("[Enter] 키를 눌러 던전 입장을 시작하세요...");
+            Console.ResetColor();
+
+            while (Console.ReadKey(true).Key != ConsoleKey.Enter) ; // 🔥 대기
+        }
+
+        /// <summary>
+        /// 보스 등장 연출 출력
+        /// </summary>
+        private void ShowBossEntrance()
+        {
+            Console.Clear(); // 🔥 진짜 보스 연출은 여기서 새로 Clear
+
+            Console.ForegroundColor = ConsoleColor.DarkRed;
+            if (!string.IsNullOrEmpty(BossArt))
+            {
+                string[] lines = BossArt.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+                foreach (var line in lines)
+                {
+                    Console.WriteLine(line);
+                    Thread.Sleep(100);
+                }
+            }
+
+            if (!string.IsNullOrEmpty(IntroDialogue))
+            {
+                Console.WriteLine();
+                Console.ForegroundColor = ConsoleColor.Gray;
+                Console.WriteLine($"『{IntroDialogue}』");
+            }
+
+            Console.ResetColor();
+
+            Console.WriteLine();
+            Console.ForegroundColor = ConsoleColor.Gray;
+            Console.Write("[Enter] 키를 눌러 전투를 시작하세요...");
+            Console.ResetColor();
+
+            while (Console.ReadKey(true).Key != ConsoleKey.Enter) ; // 전투 시작 대기
+        }
+
+
     }
 
     public class Dungeon
@@ -111,19 +149,20 @@ namespace Sparta_RPG2_
         {
             Console.Clear();
             string[] entranceArt = {
-        " ####                 #                 ####        #        ",
-        " #  #                                   #  #                  ",
-        " # ##  ### ####  ### ##   ### ## ##     ###  ## ## ## ## ##  ",
-        " ###  #  #  ##   # # ##  #  #  ## #     # #  ## ## ##  ## #  ",
-        " #    #### ##   # #  #  #  #  ## ##     # #  #  #  #  ## ##  ",
-        "##    ###  #    ###  ## ##### #  ###   ## ## ##### ## #  ### ",
-        "                                                              "
+        "███████╗██████╗  █████╗ ██████╗ ████████╗ █████╗ ",
+        "██╔════╝██╔══██╗██╔══██╗██╔══██╗╚══██╔══╝██╔══██╗",
+        "███████╗██████╔╝███████║██████╔╝   ██║   ███████║",
+        "╚════██║██╔═══╝ ██╔══██║██╔═██╝╗   ██║   ██╔══██║",
+        "███████║██║     ██║  ██║██║  ██║   ██║   ██║  ██║",
+        "╚══════╝╚═╝     ╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═╝",
+        "",
+        "             ⚔️  무너진 스파르타의 심장 앞에 서 있다...  🛡️"
     };
 
 
             foreach (string line in entranceArt)
             {
-                Console.ForegroundColor = ConsoleColor.Red;
+                Console.ForegroundColor = ConsoleColor.DarkRed;
                 Console.WriteLine(line);
                 Thread.Sleep(100);
             }
@@ -133,7 +172,7 @@ namespace Sparta_RPG2_
             Thread.Sleep(1000);
             Console.WriteLine("🩸 무너진 벽 틈 사이로 피비린내와 전사들의 신음이 흘러나옵니다...");
             Thread.Sleep(1500);
-            Console.WriteLine("💬 \"이곳이... 스파르타 전사들이 남긴 마지막 흔적이군.\" 당신은 검을 높이 듭니다.");
+            Console.WriteLine("💬 \"이곳이 스파르타 전사들이 남긴 마지막 흔적이군..\" 당신은 무기를 높이 듭니다.");
             Thread.Sleep(1500);
             Console.WriteLine($"\n[Enter] 키를 눌러 '{dungeonName}'에 진입하세요.");
             while (Console.ReadKey(true).Key != ConsoleKey.Enter);
@@ -190,7 +229,7 @@ namespace Sparta_RPG2_
     new Monster("칼리크", 38, 1000, 1000, 80),
 })
 {
-    IntroDialogue = "🩸 그날.., 심장을 꿰뚫은 것은 적이 아니라 동지였다..",
+    IntroDialogue = "🩸 그날.., 심장을 꿰뚫은 것은 적이 아니라 동료였다..",
     BossArt = @"
 ══════════════════════════
     🩸  K A L I Q  🗡️
