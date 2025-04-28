@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace Sparta_RPG2_
@@ -9,10 +10,12 @@ namespace Sparta_RPG2_
 
     /// <summary>
     /// 전체 퀘스트 데이터 및 로직을 통합 관리하는 클래스입니다.
-    /// </summary>
+    /// </summary> 
     public class QuestManager
     {
         public List<Quest> AllQuests = new List<Quest>();
+
+        [JsonIgnore] // 🔥 저장/로드 제외
         private Character player { get;  set; }
 
         /// <summary>
