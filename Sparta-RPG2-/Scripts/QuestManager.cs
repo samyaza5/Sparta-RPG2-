@@ -12,8 +12,8 @@ namespace Sparta_RPG2_
     /// </summary>
     public class QuestManager
     {
-        public List<Quest> AllQuests = new List<Quest>();
-        public Character player { get; private set; }
+        private List<Quest> AllQuests = new List<Quest>();
+        private Character player { get;  set; }
 
         /// <summary>
         /// 퀘스트 매니저를 초기화합니다.
@@ -59,7 +59,7 @@ namespace Sparta_RPG2_
                 Goal = 5,
                 CurrentProgress = 1,
                 Type = QuestType.LevelUp,
-                RewardEXP = 5000,
+                RewardEXP = 5000, 
                 RewardGold = 999999
             });
         }
@@ -107,7 +107,7 @@ namespace Sparta_RPG2_
         /// <summary>
         /// 수락하지 않은 퀘스트 목록을 출력하고, 유저가 퀘스트를 수락할 수 있게 합니다.
         /// </summary>
-        public void ShowAvailableQuests()
+        private void ShowAvailableQuests()
         {
             var available = AllQuests.Where(q => !q.IsAccepted).ToList();
             if (available.Count == 0)
@@ -145,7 +145,7 @@ namespace Sparta_RPG2_
         /// <summary>
         /// 현재 진행 중인 퀘스트들을 간략히 출력합니다.
         /// </summary>
-        public void ShowActiveQuests()
+        private void ShowActiveQuests()
         {
             var active = AllQuests.Where(q => q.IsAccepted && !q.IsCompleted && q.CurrentProgress < q.Goal).ToList();
             Console.ForegroundColor = ConsoleColor.Yellow;
@@ -167,7 +167,7 @@ namespace Sparta_RPG2_
         /// <summary>
         /// 완료 가능한 퀘스트와 이미 완료된 퀘스트를 출력하고, 보상을 수령합니다.
         /// </summary>
-        public void ShowCompletableQuests()
+        private void ShowCompletableQuests()
         {
             var completable = AllQuests.Where(q => q.IsAccepted && q.CurrentProgress >= q.Goal && !q.IsCompleted).ToList();
             var completed = AllQuests.Where(q => q.IsCompleted && !q.IsRewarded).ToList();
@@ -240,7 +240,7 @@ namespace Sparta_RPG2_
         /// 퀘스트 보상을 지급하고 플레이어의 경험치와 골드를 증가시킵니다.
         /// </summary>
         /// <param name="quest">보상을 받을 퀘스트 객체</param>
-        public void GiveQuestReward(Quest quest)
+        private void GiveQuestReward(Quest quest)
         {
             if (player == null)
             {

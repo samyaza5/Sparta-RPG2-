@@ -9,19 +9,19 @@ namespace Sparta_RPG2_
     public class BattleExpendables
     {
         private Character player;
-        Inventory inventory;
+        private Inventory inventory;
 
         public BattleExpendables(Character player, Inventory inventory)
         {
             this.player = player;
             this.inventory = inventory;
         }
-        void UpdateStatsFromExpendables(List<Expendables> expendables)
+        private void UpdateStatsFromExpendables(List<Expendables> expendables)
         {
             foreach (var item in expendables)
             {
 
-                if (item.expendablesPro.ItemType == "Heal")
+                if (item.expendablesPro.ItemType == "Heal") // 문자열 비교대신 enum 타입으로 개선 가능함
                 {
                     player.HP += item.expendablesPro.ItemStat;
                     if (player.HP > player.MaxHP)
@@ -30,7 +30,7 @@ namespace Sparta_RPG2_
                     }
 
                 }
-                else if (item.expendablesPro.ItemType == "Mana")
+                else if (item.expendablesPro.ItemType == "Mana") // 문자열 비교대신 enum 타입으로 개선 가능함
                 {
                     player.MP += item.expendablesPro.ItemStat;
                     if (player.MP > player.MaxMP)
