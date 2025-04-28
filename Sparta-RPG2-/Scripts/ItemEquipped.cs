@@ -43,7 +43,7 @@ namespace Sparta_RPG2_
         {
             while (true)
             {
-                // 콘솔 클리어
+                Console.Clear();
                 Console.WriteLine("인벤토리 - 장비 장착 관리");
                 Console.WriteLine("보유 중인 장비를 관리할 수 있습니다.");
                 Console.WriteLine("[아이템 목록]");
