@@ -13,10 +13,10 @@ namespace Sparta_RPG2_
 
         Character character; // 필드 선언만 남김
 
-        public Shop(Character character, Inventory inventory, List<Expendables> expendables, Buy buy)
+        public Shop(Character character, Inventory inventory, List<Expendables>  expendables, List<Item> AllItems, Buy buy)
         {
             this.character = character;
-            this.allItems = inventory.AllItems;
+            this.allItems = AllItems;
             this.expendables = expendables;
             this.buy = buy;
             this.sell = new Sell(inventory, character);
