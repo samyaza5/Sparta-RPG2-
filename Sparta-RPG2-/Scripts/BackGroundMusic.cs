@@ -20,8 +20,8 @@ namespace Sparta_RPG2_
                 wavePlayer = new WaveOutEvent();
                 // ✨ 실행 파일 기준으로 절대경로 계산
                 string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Sounds\background.wav");
-
                 audioFile = new AudioFileReader(path);
+                audioFile.Volume = 0.3f; // 🔥 볼륨 조절 추가 (예: 30% 음량)
                 wavePlayer.Init(audioFile);
                 wavePlayer.Play();
             }
