@@ -12,7 +12,7 @@ namespace Sparta_RPG2_
     /// </summary>
     public class QuestManager
     {
-        private List<Quest> AllQuests = new List<Quest>();
+        public List<Quest> AllQuests = new List<Quest>();
         private Character player { get;  set; }
 
         /// <summary>
